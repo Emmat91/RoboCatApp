@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <!-- Pololu 16 channel Servo Controller mVendorId=4292,mProductId=32827  -->
+    <usb-device vendor-id="4292" product-id="32827" />
+    
+    <!-- Pololu Maestro Servo Controller vendor 8187 and product 140  -->
+    <usb-device vendor-id="8187" product-id="140" />
+	<!-- Arduino Mega mVendorId=9025,mProductId=66 --> 
+    <usb-device vendor-id="9025" product-id="66" />
+</resources>
