@@ -5,3 +5,6 @@ All commits as of 9/25/2014 are made from the following group members:
 
 Name: Matt Hutton
 Contact: mh250809@ohio.edu
+
+Name: Chong Liu
+Contact: cl422510@ohio.edu
