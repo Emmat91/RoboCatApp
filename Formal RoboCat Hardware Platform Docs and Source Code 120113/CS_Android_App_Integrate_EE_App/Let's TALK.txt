@@ -1,0 +1,103 @@
+Please do some research on how to tackle the face recognition problem based on one of the following types of info.:
+
+i) shape; ii) color;
+
+Also please add a window to plot some data coming from the hardware;
+ 
+Date: 110713 Person: Haiquan Zhang
+
+
+Pull the most recent version to check if that fixes your error of:
+
+Description	Resource	Path	Location	Type
+error: Error: No resource found that matches the given name: attr 'buttonBarButtonStyle'.	styles.xml	/MainAct/res/values-v11	line 17	Android AAPT Problem
+
+Let me know.
+
+Date: 11/07/13 Person: Tim Grannen
+
+
+This Update contains audio recording and playback of those recordings. The recordings can also be deleted within the AudioChooser activity by selecting the audio file, opening the menu, and then select ‘Delete Selected’. Joey, there is also a commented out example of playing audio within other sections of the app in MainAct.java at line 218.
+
+Date: 11/12/13 Person: Tim Grannen
+
+Can you please commit the most recent WORKING apk file so I can test on my phone?
+
+Date: 11/12/13 Person: Haiquan Zhang
+
+
+Changing the name of our app package from com.example.roboappui3 to com.robocat.roboapp. Using this code with old build files will cause errors. My best guess solution to fix this would be to try to rename/refactor your project directories and modules to the updated name and then pull/copy the new code. I’m not sure if there’s an easy way to do it in Eclipse, but it wasn’t terrible in Android Studio; it just wasn’t super intuitive. I have tagged the previous commit with the tag ‘LastOldNameCommit’ to refer back to and branch off of if this name change gives you too much trouble.
+
+Date: 11/12/13 Person: Tim Grannen
+
+
+I checked out the latest RoboCat project source code.I am using 'Android Developer Tools
+
+Build: v22.2.1-833290', which should be the up-to-date ADT environment. 
+
+After I check out the project and import it to the ADT, there is an error 'Description	Resource	Path	Location	Type
+error: No resource identifier found for attribute 'layout_alignParentEnd' in package 'android'	fragment_hw_layout.xml	/MainAct/res/layout	line 24	Android AAPT Problem
+'.
+
+If I delete the file 'fragment_hw_layout.xml', I can run the apps on an Android device, but it is closed immediately showing the error 'unfortuately, the apps has been stopped.'
+Please double check how it can work.
+
+Date: 11/15/13 Person: Haiquan Zhang
+
+
+That's interesting because I am using the ADT plugin for Eclipse and I do not get that error and when I look at the code I do not see any errors.  I have had other occasions though where ADT will tell me that there is an error in an XML file when there actually is none. I have found that I can get rid of the error in this situation by right clicking on the error message in the 'Problems' panel and selecting delete.  Then when I try to run the project again it compiles successfully without any errors.  So this may be a similar situation where there isn't really an error in our code but just a bug in ADT's compiler.
+
+Date: 11/17/13 Person: Joey Phelps
+
+
+Haiquan, I have added a releases folder containing our latest working apk.
+
+Date: 11/19/13 Person: Tim Grannen
+
+Tim, thanks. Briefly, it works on my cell phone. Meanwhile, the video recording is still not working. 
+
+Can you please try the android ADT to see whether you can make your code work in ADT? Simply i) download and unpack the adt-bundle from http://developer.android.com/sdk/index.html, ii) add the jdk to the path (under windows OS), and iii) import your project.
+
+Now please focus on the following work with the priority from high to low:
+
+i) integrate my apps to yours apps;
+ii) get your code work under ADT;
+iii) get the video work;
+iv) do some research on what was mentioned on 110713 in this file.
+
+Date: 11/19/13 Person: Haiquan Zhang
+
+i) I have integrated the two apps so that our app can send commands through the USB, so
+  would you be able to come to our Thursday meeting so that we can test the USB communication?
+  I am having some trouble though trying to figure out how to use your code to receive data from the USB.
+
+Note: to run our app with the new code for usb communication you need to add the library
+      'usb-serial-for-android-v010.jar' to the libs folder in your project.  This library can be found
+      in the RoboCatProject folder
+
+ii) I have been using ADT on my mac and every version of the source code has worked for me.  
+    If you are still not able to get it to work by Thursday I can help you to get it to work after
+    we test the USB communication.
+
+Date: 11/20/13 Person: Joey Phelps
+
+
+I have added the About page to the menus, as well as added a camera viewer. It doesn’t record video yet, but it does display video. I have also changed audio chooser activity to be a little more user friendly by having it highlight the selected item instead of print it at the bottom.
+
+Date: 11/21/13 Person: Tim Grannen
+
+Per our discussion today, please get your code work in ADT for Windows OS and integrate ALL the code in my apps to yours.
+
+Date: 11/26/13 Person: Haiquan Zhang
+
+
+Haiquan, I’m adding a new folder titled RoboApp(Latest ADT working version). This folder contains my working code on a Windows machine using ADT. This code also includes Joeys most recent updates this morning. How I got it to work:
+
+	Created a new project titled RoboApp with package name com.robocat.roboappui
+	Copied all of the files to their corresponding locations
+	Added lines to suppress warnings *Probably not necessary, but I did anyway*
+	Cleaned and rebuilt the project
+
+These steps should work with the regular code, but just in case, I put my revised ADT code in the repository as well. I’m still not sure where the problem was but we can try to figure it out together today if there are still issues.
+
+Date: 12/3/13 Person: Tim Grannen
