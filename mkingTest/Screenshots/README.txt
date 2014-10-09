@@ -1,3 +1,7 @@
+Author: Matthew King
+Date: 10/9/2014
+Purpose: Provide text explanations of images in the Screenshots folder.
+
 Camera - A screenshot taken on device having used the Main Menu implemented by author
 to access the video function of End User.
 
