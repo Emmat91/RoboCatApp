@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/about"
+        android:title="@string/about"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>
+<!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/menu/camera.xml -->
