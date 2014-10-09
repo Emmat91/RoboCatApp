@@ -2,6 +2,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+
+<!-- Seekbar-->
+
     <SeekBar
         android:id="@+id/channel1PositionBar"
         android:layout_width="match_parent"
@@ -234,15 +237,6 @@
         android:gravity="right"
         android:text="@string/stringArduinoTorqueValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-<!--     <TextView -->
-<!--         android:id="@+id/errorsTextView" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_alignBaseline="@+id/homeButton" -->
-<!--         android:layout_alignBottom="@+id/homeButton" -->
-<!--         android:layout_alignRight="@+id/channel6PositionBar" -->
-<!-- 				/> -->
 
     <TextView
         android:id="@+id/channel7positionlabel"
