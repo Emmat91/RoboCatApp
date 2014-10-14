@@ -4,18 +4,46 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
-public class MainTouch extends Activity {
+public class MainTouch extends Activity implements View.OnClickListener {
+
+    //declare two buttons for 2 types of movements
+    private Button re_move_btn, fin_move_btn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_touch);
+
+        //set two buttons' variables with xml files
+        re_move_btn = (Button)findViewById(R.id.button1);
+        re_move_btn.setOnClickListener(this);
+        fin_move_btn = (Button)findViewById(R.id.button2);
+        fin_move_btn.setOnClickListener(this);
+
+
+    }
+
+    public void onClick(View v) {
+        if(v == re_move_btn) {
+            //go to activity_record_touch.xml
+            setContentView(R.layout.activity_record_touch);
+        }
+        else if(v == fin_move_btn) {
+            //go activity_finger_touch.xml
+            setContentView(R.layout.activity_finger_touch);
+        }
+
     }
 
 
-    @Override
+
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_touch, menu);
@@ -33,4 +61,6 @@ public class MainTouch extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

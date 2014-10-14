@@ -7,5 +7,7 @@
     <string name="multi_touch">Multi-Touch</string>
     <string name="record_move">Record Movement</string>
     <string name="finger_move">Finger Try</string>
+    <string name="back">Back</string>
+    <string name="restore">Restore</string>
 
 </resources>

@@ -17,7 +17,8 @@
         android:id="@+id/button1"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp" />
+        android:layout_marginTop="82dp"
+        android:onClick="redirect"/>
 
     <Button
         android:layout_width="200dp"
@@ -25,7 +26,8 @@
         android:text="@string/finger_move"
         android:id="@+id/button2"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="redirect"/>
 
 
 </RelativeLayout>
