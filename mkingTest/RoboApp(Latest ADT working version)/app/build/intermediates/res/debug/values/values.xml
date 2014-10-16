@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/audio_files.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/audio_files.xml -->
     <eat-comment />
 
     <string-array name="audio_files">
@@ -9,7 +9,7 @@
         <item>Scream</item>
         <item>Roar</item>
     </string-array>
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/commands.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/commands.xml -->
     <eat-comment />
 
     <string-array name="command_select_options">
@@ -22,7 +22,7 @@
         <item>(0x55)</item>
         <item>Manual</item>
     </string-array>
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/colors.xml -->
     <eat-comment />
 
     <color name="black">#000000</color>
@@ -32,13 +32,13 @@
     <color name="light_blue">#00DDFF</color>
     <color name="red">#FF0000</color>
     <color name="white">#ffffff</color>
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="Video_Screen_dim">200dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="AboutData">RoboApp \n\n Team RoboApp:\nJoey Phelps\nTim Grannen\n\nVersion: 0.9</string>
@@ -99,7 +99,7 @@
     <string name="title_section1">HW Dev</string>
     <string name="title_section2">End User</string>
     <string name="title_section3">Multi-Touch</string>
-    <!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppBaseTheme" parent="android:Theme.Light">

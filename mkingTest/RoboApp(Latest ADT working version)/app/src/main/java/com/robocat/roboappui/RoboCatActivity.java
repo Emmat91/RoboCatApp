@@ -209,7 +209,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
 		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) {//|action.equals("android.intent.action.MAIN")) {
 			UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+			if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
 				maestroSSC.setDevice(device);
               Toast.makeText(getApplicationContext(), 
@@ -378,6 +378,7 @@ h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
 	{
 		if (deviceConnected)
 			maestroSSC.setServoPosition(channelNoMapped, progressActual);
+
 		// modify the offset for the progress of the seek bar
 		int progressSeekBar = progressActual - progressOffset;
 		channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);

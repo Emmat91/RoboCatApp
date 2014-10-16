@@ -2,142 +2,142 @@
 <merger version="2" >
 
     <dataSet config="20.0.0" >
-        <source path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\res" />
+        <source path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\res" />
     </dataSet>
     <dataSet config="main" >
-        <source path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res" >
+        <source path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res" >
             <file
                 name="ic_launcher"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\drawable-mdpi\ic_launcher.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\drawable-xhdpi\ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
                 name="activity_camera"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_camera.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_camera.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_main"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_main.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_main.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_multi"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_multi.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_multi.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_start"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_start.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\activity_start.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="audio_activity"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\audio_activity.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\audio_activity.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="command_parameter_submit"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\command_parameter_submit.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\command_parameter_submit.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_end_layout"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_end_layout.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_end_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_hw_layout"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_hw_layout.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_hw_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_main_dummy"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_main_dummy.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_main_dummy.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="fragment_multi_layout"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_multi_layout.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\fragment_multi_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="load_file_activity"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\load_file_activity.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\load_file_activity.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="main_screen"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\main_screen.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\main_screen.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="robocat_layout"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\robocat_layout.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\robocat_layout.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="save_file_activity"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\save_file_activity.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\save_file_activity.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="simplerow"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\layout\simplerow.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\layout\simplerow.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="audio_chooser"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\menu\audio_chooser.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\menu\audio_chooser.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="camera"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\menu\camera.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\menu\camera.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="main"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\menu\main.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\menu\main.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="robo_cat"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\menu\robo_cat.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\menu\robo_cat.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="cat_meow_2_cat_stevens_2034822903"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\raw\cat_meow_2_cat_stevens_2034822903.wav"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\raw\cat_meow_2_cat_stevens_2034822903.wav"
                 qualifiers=""
                 type="raw" />
             <file
                 name="cat_scream_soundbible"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\raw\cat_scream_soundbible.com_871191563.wav"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\raw\cat_scream_soundbible.com_871191563.wav"
                 qualifiers=""
                 type="raw" />
             <file
                 name="roaring_lion_soundbible"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\raw\roaring_lion_soundbible.com_527774719.wav"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\raw\roaring_lion_soundbible.com_527774719.wav"
                 qualifiers=""
                 type="raw" />
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\audio_files.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\audio_files.xml"
                 qualifiers="" >
                 <string-array name="audio_files" >
                     <item>
@@ -152,7 +152,7 @@ Roar
                 </string-array>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\colors.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\colors.xml"
                 qualifiers="" >
                 <color name="light_blue" >#00DDFF
                 </color>
@@ -170,7 +170,7 @@ Roar
                 </color>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\commands.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\commands.xml"
                 qualifiers="" >
                 <string-array name="command_select_options" >
                     <item>
@@ -200,7 +200,7 @@ Manual
                 </string-array>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\dimens.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_vertical_margin" >16dp
                 </dimen>
@@ -210,7 +210,7 @@ Manual
                 </dimen>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\strings.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\strings.xml"
                 qualifiers="" >
                 <string name="AduinoTorque" >Torque
                 </string>
@@ -329,7 +329,7 @@ Manual
                 </string>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values\styles.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values\styles.xml"
                 qualifiers="" >
 
                 <style
@@ -386,13 +386,13 @@ Manual
                 </style>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values-sw720dp-land\dimens.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values-sw720dp-land\dimens.xml"
                 qualifiers="sw720dp-land-v13" >
                 <dimen name="activity_horizontal_margin" >128dp
                 </dimen>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values-v11\styles.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values-v11\styles.xml"
                 qualifiers="v11" >
 
                 <style
@@ -429,7 +429,7 @@ true
                 </style>
             </file>
             <file
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\values-v14\styles.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\values-v14\styles.xml"
                 qualifiers="v14" >
 
                 <style
@@ -441,15 +441,15 @@ true
             </file>
             <file
                 name="device_filter"
-                path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\main\res\xml\device_filter.xml"
+                path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\main\res\xml\device_filter.xml"
                 qualifiers=""
                 type="xml" />
         </source>
-        <source path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\generated\res\rs\debug" />
-        <source path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\generated\res\generated\debug" />
+        <source path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\generated\res\generated\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\src\debug\res" />
+        <source path="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\src\debug\res" />
     </dataSet>
 
 </merger>

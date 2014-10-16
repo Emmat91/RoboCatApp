@@ -573,4 +573,4 @@
         android:layout_below="@+id/channel12PositionBar"
         android:layout_toRightOf="@+id/buttonpololurecordid" />
 
-</RelativeLayout><!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/layout/robocat_layout.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/layout/robocat_layout.xml -->

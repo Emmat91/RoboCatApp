@@ -9,4 +9,4 @@
 	<!-- Arduino Mega mVendorId=9025,mProductId=66 --> 
     <usb-device vendor-id="9025" product-id="66" />
 </resources>
-<!-- From: file:/C:/Users/MattKing/AndroidStudioProjects/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/xml/device_filter.xml -->
+<!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/mkingTest/RoboApp(Latest%20ADT%20working%20version)/app/src/main/res/xml/device_filter.xml -->

@@ -8,11 +8,23 @@
         revision="20.0.0"
         sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
     <item
+        dex="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\classes-df77ce49407da19635a0ce8288f4474ef8c09490.jar"
+        jar="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
         dex="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\classes-1fd28b39ca54d10235e478477de1f264ae52ccd4.jar"
         jar="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-e0575e30f20a37be5a9c0ef86047d2064871369b.jar"
+        jar="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
     <item
         dex="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-53c6ae9645055d70681d5fff98a6b629305fbbd6.jar"
         jar="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
