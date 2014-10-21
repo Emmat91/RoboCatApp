@@ -16,6 +16,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".RecordTouch"
+            android:label="@string/record_touch" >
+            <intent-filter>
+                <action android:name="com.example.ding.RECORDTOUCH" />
+
+                <category android:name="android.intent.category.DEFAULT"   />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".FingerTouch"
+            android:label="@string/finger_touch"    >
+            <intent-filter>
+                <action android:name="com.example.ding.FINGERTOUCH" />
+
+                <category android:name="android.intent.category.DEFAULT"    />
+            </intent-filter>
+
+        </activity>
+
+
+
     </application>
 
 </manifest>

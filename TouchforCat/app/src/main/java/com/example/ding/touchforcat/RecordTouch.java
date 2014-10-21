@@ -8,42 +8,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 
-public class MainTouch extends Activity implements View.OnClickListener {
+public class RecordTouch extends Activity implements View.OnClickListener {
 
     //declare two buttons for 2 types of movements
-    private Button re_move_btn, fin_move_btn, back_btn, restore_btn;
+    private Button back_btn, restore_btn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_touch);
+        setContentView(R.layout.activity_record_touch);
 
 
         //set two buttons' variables with xml files
-        re_move_btn = (Button)findViewById(R.id.button1);
-        re_move_btn.setOnClickListener(this);
-        fin_move_btn = (Button)findViewById(R.id.button2);
-        fin_move_btn.setOnClickListener(this);
+
+        back_btn = (Button)findViewById(R.id.btn_back);
+        back_btn.setOnClickListener(this);
+
+
+
+        restore_btn = (Button)findViewById(R.id.btn_restore);
+        restore_btn.setOnClickListener(this);
 
     }
 
+    @Override
     public void onClick(View v) {
-        if(v == re_move_btn) {
-            //go to activity_record_touch.xml
-            //setContentView(R.layout.activity_record_touch);
-            startActivity(new Intent("com.example.ding.RECORDTOUCH"));
-        }
-        else if(v == fin_move_btn) {
-            //go activity_finger_touch.xml
-            //setContentView(R.layout.activity_finger_touch);
-            startActivity(new Intent("com.example.ding.FINGERTOUCH"));
+        if(v == back_btn) {
+            finish();
+        //    setContentView(R.layout.activity_main_touch);
+        //    startActivity(new Intent("android.intent.action.MAIN"));
         }
 
     }
-
 
 
     @Override
