@@ -14,6 +14,12 @@
         revision="20.0.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
+        dex="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\usb-serial-for-android-v010-25b4d07e01745c1b7b69b8432df61d3a8b6f82d4.jar"
+        jar="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboApp(Latest ADT working version)\app\libs\usb-serial-for-android-v010.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c49e65ea5d8d4c1311d0c1189adb07b2c01be29a"/>
+    <item
         dex="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\classes-1fd28b39ca54d10235e478477de1f264ae52ccd4.jar"
         jar="C:\Users\MattKing\AndroidStudioProjects\RoboApp(Latest ADT working version)\app\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
         jumboMode="false"
