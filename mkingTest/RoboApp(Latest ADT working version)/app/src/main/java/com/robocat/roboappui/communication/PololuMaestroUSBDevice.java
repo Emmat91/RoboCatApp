@@ -1,4 +1,4 @@
-/*package com.robocat.roboappui.communication;
+package com.robocat.roboappui.communication;
 
 import java.io.IOException;
 
@@ -115,4 +115,4 @@ public class PololuMaestroUSBDevice implements PololuMaestroDevice {
 			Log.d(TAG, "onNewData(" + data + ")");
 		}
 	};
-}*/
+}
