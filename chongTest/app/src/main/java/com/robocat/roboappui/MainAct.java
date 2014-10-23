@@ -132,7 +132,8 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         
         launchAboutActivity();
     }
-    
+
+    /*
     @Override
 	public void onResume() {
 		super.onResume();
@@ -152,6 +153,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 			if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
 				RoboCatActivity.device = device;
+                RoboCatActivity.maestroSSC.setDevice(device);
               Toast.makeText(getApplicationContext(), 
                           "USB device connected.", Toast.LENGTH_LONG).show();
               RoboCatActivity.deviceConnected = true;
@@ -159,6 +161,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 			} else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE DETACHED=" + device.toString());
 				RoboCatActivity.device = device;
+                RoboCatActivity.maestroSSC.setDevice(device);
               Toast.makeText(getApplicationContext(), 
                           "USB device disconnected.", Toast.LENGTH_LONG).show();
                 RoboCatActivity.deviceConnected = false;
@@ -173,7 +176,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
                     "Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
 			
 		}
-	}
+	}*/
 
 
     protected void onRestart() {

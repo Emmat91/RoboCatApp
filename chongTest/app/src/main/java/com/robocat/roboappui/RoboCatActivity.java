@@ -60,7 +60,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	private static final String TAG = "MaestroSSCActivity";
 	private Button homeButton, recordButton, clearGaitButton, runGaitButton;
 	//private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
-	private PololuMaestroUSBCommandProcess maestroSSC;
+	public static PololuMaestroUSBCommandProcess maestroSSC;
 	public static UsbDevice device;
 	public static boolean deviceConnected = false;
    // private Handler mHandler = new Handler();
@@ -196,17 +196,16 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (deviceConnected)
-			maestroSSC.setDevice(device);
-        else
-            finish();
-		/*
+		//if (deviceConnected)
+			//maestroSSC.setDevice(device);
+        //else
+            //finish();
+
         Intent intent = getIntent();
 		Log.d(TAG, "onResume(" + intent + ")");
 		String action = intent.getAction();
-        Toast.makeText(getApplicationContext(),
-                action, Toast.LENGTH_LONG).show();
-		if (action.equals("android.intent.action.MAIN")) {
+        deviceConnected=false;
+        if (action.equals("android.intent.action.MAIN")) {
             Toast.makeText(getApplicationContext(), 
                     "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
             finish();
@@ -217,6 +216,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
 				maestroSSC.setDevice(device);
+                    deviceConnected=true;
               Toast.makeText(getApplicationContext(), 
                           "USB device connected.", Toast.LENGTH_LONG).show();
 
@@ -235,7 +235,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             Toast.makeText(getApplicationContext(), 
                     "Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
 			
-		}*/
+		}
 	}
 
 	/**
