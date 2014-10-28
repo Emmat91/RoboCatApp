@@ -2,6 +2,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+
+    <TextView
+        android:id="@+id/servolabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="right"
+        android:layout_marginLeft="5dp"
+        android:text="@string/servo"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/positionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/position"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/channel1positionlabel"
+        android:layout_alignLeft="@+id/homeButtonid" />
+
+
     <SeekBar
         android:id="@+id/channel1PositionBar"
         android:layout_width="match_parent"
@@ -11,6 +33,16 @@
         android:progress="600"
         android:layout_alignTop="@+id/channel1positionvalue"
         android:layout_toRightOf="@+id/channel1positionvalue" />
+
+    <TextView
+        android:id="@+id/channel1positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/channel2positionlabel"
+        android:layout_alignLeft="@+id/channel11positionvalue"
+        android:gravity="right"
+        android:text="@string/channelPositionResetValue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <SeekBar
         android:id="@+id/channel2PositionBar"
@@ -44,25 +76,6 @@
         android:text="@string/channel2"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/servolabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="right"
-        android:layout_marginLeft="5dp"
-        android:text="@string/servo"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/positionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/position"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_above="@+id/channel1positionlabel"
-        android:layout_alignLeft="@+id/homeButtonid" />
 
     <TextView
         android:id="@+id/channel3positionlabel"
@@ -146,6 +159,16 @@
         android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <SeekBar
+        android:id="@+id/channel5PositionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/channel4PositionBar"
+        android:layout_alignTop="@+id/channel5positionvalue"
+        android:gravity="left"
+        android:max="1200"
+        android:progress="600" />
+
     <TextView
         android:id="@+id/channel6positionlabel"
         android:layout_width="wrap_content"
@@ -156,15 +179,6 @@
         android:text="@string/channel6"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <SeekBar
-        android:id="@+id/channel5PositionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel4PositionBar"
-        android:layout_alignTop="@+id/channel5positionvalue"
-        android:gravity="left"
-        android:max="1200"
-        android:progress="600" />
 
     <TextView
         android:id="@+id/channel6positionvalue"
@@ -186,15 +200,6 @@
         android:gravity="left"
         android:max="1200"
         android:progress="600" />
-
-    <!--     <TextView -->
-<!--         android:id="@+id/errorsTextView" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_alignBaseline="@+id/homeButton" -->
-<!--         android:layout_alignBottom="@+id/homeButton" -->
-<!--         android:layout_alignRight="@+id/channel6PositionBar" -->
-<!-- 				/> -->
 
     <TextView
         android:id="@+id/channel7positionlabel"
@@ -218,6 +223,16 @@
         android:progress="600" />
 
     <TextView
+        android:id="@+id/channel7positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/channel7positionlabel"
+        android:layout_alignBottom="@+id/channel7positionlabel"
+        android:layout_alignLeft="@+id/channel6positionvalue"
+        android:text="@string/channelPositionResetValue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
         android:id="@+id/channel8positionlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -238,6 +253,16 @@
         android:max="1200"
         android:progress="600" />
 
+    <TextView
+        android:id="@+id/channel8positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/channel8positionlabel"
+        android:layout_alignBottom="@+id/channel8positionlabel"
+        android:layout_alignLeft="@+id/channel7positionvalue"
+        android:text="@string/channelPositionResetValue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <SeekBar
         android:id="@+id/channel9PositionBar"
         android:layout_width="match_parent"
@@ -257,6 +282,16 @@
         android:layout_below="@+id/channel8PositionBar"
         android:layout_marginTop="8dp"
         android:text="@string/channel9"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/channel9positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/channel9positionlabel"
+        android:layout_alignBottom="@+id/channel9positionlabel"
+        android:layout_alignLeft="@+id/channel10positionvalue"
+        android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -290,15 +325,15 @@
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel1positionlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel2positionlabel"
-        android:layout_below="@+id/servolabel"
-        android:layout_marginTop="15dp"
-        android:gravity="right"
-        android:text="@string/channel1"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:id="@+id/channel1positionlabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/channel2positionlabel"
+    android:layout_below="@+id/servolabel"
+    android:layout_marginTop="15dp"
+    android:gravity="right"
+    android:text="@string/channel1"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/channel11positionlabel"
@@ -320,6 +355,16 @@
         android:gravity="left"
         android:max="1200"
         android:progress="600" />
+
+    <TextView
+        android:id="@+id/channel11positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/channel11positionlabel"
+        android:layout_alignBottom="@+id/channel11positionlabel"
+        android:layout_alignLeft="@+id/channel12positionvalue"
+        android:text="@string/channelPositionResetValue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/channel12positionlabel"
@@ -360,55 +405,6 @@
         android:layout_below="@+id/channel12PositionBar"
         android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/channel11positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel11positionlabel"
-        android:layout_alignBottom="@+id/channel11positionlabel"
-        android:layout_alignLeft="@+id/channel12positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel9positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel9positionlabel"
-        android:layout_alignBottom="@+id/channel9positionlabel"
-        android:layout_alignLeft="@+id/channel10positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel8positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel8positionlabel"
-        android:layout_alignBottom="@+id/channel8positionlabel"
-        android:layout_alignLeft="@+id/channel7positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel7positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel7positionlabel"
-        android:layout_alignBottom="@+id/channel7positionlabel"
-        android:layout_alignLeft="@+id/channel6positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel1positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/channel2positionlabel"
-        android:layout_alignLeft="@+id/channel11positionvalue"
-        android:gravity="right"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/runGaitButtonid"
