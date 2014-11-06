@@ -74,8 +74,7 @@ import java.util.Locale;
 /**
  * Class MainAct is the root activity that handles switching between fragments
  */
-public class MainAct extends FragmentActivity implements ActionBar.TabListener, 
-RoboAppDialogFragment.RoboAppDialogListener  {
+public class MainAct extends FragmentActivity implements ActionBar.TabListener  {
 
 	private static final String TAG = "MaestroSSCActivity";
     private static boolean deviceConnected;
@@ -171,7 +170,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 		if (action.equals("android.intent.action.MAIN")) {
             Toast.makeText(getApplicationContext(), 
                     "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
-            //finish();
+            finish();
 		}
 
 		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) {//|action.equals("android.intent.action.MAIN")) {
@@ -185,6 +184,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 
 			} else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE DETACHED=" + device.toString());
+                maestroSSC.setDevice(device);
               Toast.makeText(getApplicationContext(), 
                           "USB device disconnected.", Toast.LENGTH_LONG).show();
 			} else {
@@ -206,7 +206,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     
     protected void onRestart() {
     	super.onRestart();
-    	HWSectionFragment.updateOutput();
+    	//HWSectionFragment.updateOutput();
     }
     
     @Override
@@ -281,7 +281,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * 
      * @param dialog - the DialogFragment the user interacted with.
      */
-    public void onCommandSubmitClick(DialogFragment dialog) {
+    /*public void onCommandSubmitClick(DialogFragment dialog) {
     	boolean success = true;
     	RoboAppDialogFragment d = (RoboAppDialogFragment) dialog;
     	try {
@@ -291,7 +291,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     	}
     	if (success)
     		HWSectionFragment.updateOutput();
-    }
+    }*/
     
     /**
      * This function is called when the user clicks cancel on a RoboAppDialogFragment.
@@ -334,13 +334,13 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * by the slider
      * @param v - the view of the widget calling this function
      */
-    public void sliderSubmit(View v) {
+    /*public void sliderSubmit(View v) {
     	SeekBar s = (SeekBar) findViewById(R.id.command_slider);
     	//Command c = new Command();
     	//c.setData(s.getProgress());
     	control.sendManualCommand("0x" + Integer.toHexString(s.getProgress()));
     	HWSectionFragment.updateOutput();
-    }
+    }*/
     
     /**
      * This function clears the Command Display and the command history.
@@ -349,7 +349,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      */
     public void resetDisplay(View v) {
     	control.clearCommandDisplay();
-    	HWSectionFragment.updateOutput();
+    	//HWSectionFragment.updateOutput();
 //      Examples of audio playback in different section of the app
 
 //      -----From a static context----
@@ -553,8 +553,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * @author Joey Phelps
      *
      */
-    public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener,
-        View.OnClickListener,
+    public static class HWSectionFragment extends Fragment implements View.OnClickListener,
     	SeekBar.OnSeekBarChangeListener{
 
         private Button homeButton, recordButton, clearGaitButton, runGaitButton;
@@ -587,9 +586,34 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          * @param fromUser - is true if the change was made by the user
          */
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        	TextView t = (TextView) rootView.findViewById(R.id.slider_display);
-        	t.setText("0x" + Integer.toHexString(progress));
+            int progressActual = progress + progressOffset;
+            Log.d(TAG,"onProgressChanged(" + seekBar.getId() + ", " + progressActual + ")");
+            for (int channelNoSeekBar = 0; channelNoSeekBar < channelCount; channelNoSeekBar++)
+            {
+                if (seekBar.equals(channelPositionBarArray[channelNoSeekBar])) {
+                    // save position
+                    int channelNoMapped;
+                    channelNoMapped = channelNoMapArray[channelNoSeekBar];
+                    arrayGaitChannelProgress[channelNoSeekBar*2]=channelNoMapped;
+                    arrayGaitChannelProgress[channelNoSeekBar*2+1]=progressActual;
+                    // pololu operation
+
+                    progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);
+                    break;
+                }
+
+            }
         }
+
+        /**
+         * This function updates the command display.
+         */
+        /*public static void updateOutput() {
+            if (rootView != null) {
+                TextView t = (TextView) rootView.findViewById(R.id.Commands);
+                t.setText(control.getDisplayableText());
+            }
+        }*/
         
         public void onStartTrackingTouch(SeekBar seekBar) {
         	
@@ -618,7 +642,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          * @param pos - the position in the array of selectable items that was accepted.
          * @param id - the id of the command dropdown
          */
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        /*public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         	String command = parent.getItemAtPosition(pos).toString();
         	
         	
@@ -631,24 +655,17 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         		
         	parent.setSelection(0);
         	
-        }
-        
-        /**
-         * This function updates the command display.
-         */
-        public static void updateOutput() {
-        	TextView t = (TextView) rootView.findViewById(R.id.Commands);
-        	t.setText(control.getDisplayableText());
-        }
+        }*/
+
         
         /**
          * This function launches a dialog so that the user can enter values which will
          * then be sent to the RoboCat
          */
-        public void enterManualCommand() {
+        /*public void enterManualCommand() {
         	DialogFragment popup = new RoboAppDialogFragment();
             popup.show(this.getActivity().getSupportFragmentManager(),"RoboAppDialogFragment");
-        }
+        }*/
         
 
         /**
@@ -674,10 +691,10 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 
 
             // Initialize the textView and seekBar
-            /*for(int i = 0; i < channelCount; i++) {
-                textViewChannelPositionArray[i] = new TextView(this);
-                channelPositionBarArray[i] = new SeekBar(this);
-            }*/
+            for(int i = 0; i < channelCount; i++) {
+                textViewChannelPositionArray[i] = new TextView(rootView.getContext());
+                channelPositionBarArray[i] = new SeekBar(rootView.getContext());
+            }
 
 
             channelPositionBarArray[0] = (SeekBar) rootView.findViewById(R.id.channel1PositionBar);
@@ -722,7 +739,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
             maestroSSC = new PololuMaestroUSBCommandProcess(manager);
 
 
-            updateOutput();
+            //updateOutput();
             
             return rootView;
         }
