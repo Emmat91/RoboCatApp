@@ -15,6 +15,20 @@ public class MainTouch extends Activity implements View.OnClickListener {
     //declare two buttons for 2 types of movements
     private Button re_move_btn, fin_move_btn, back_btn, restore_btn;
 
+    private String message;
+
+    //Constructor
+    //@param message to be printed
+    public MessageUtil(String message){
+        this.message = message;
+    }
+
+    // prints the message
+    public String printMessage(){
+        System.out.println(message);
+        return message;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
