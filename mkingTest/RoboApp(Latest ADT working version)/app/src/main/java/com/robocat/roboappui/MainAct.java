@@ -143,7 +143,7 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        
+
         //initializes the control object which serves as the interface between the gui and
         //the usb communication
         control = (Control) getLastCustomNonConfigurationInstance();
@@ -155,6 +155,7 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
         	UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
         	control = new Control();
         	control.initialize(commands, manager, device);
+            maestroSSC = new PololuMaestroUSBCommandProcess(manager);
         }
         
 //        launchAboutActivity();
@@ -170,10 +171,10 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
 		if (action.equals("android.intent.action.MAIN")) {
             Toast.makeText(getApplicationContext(), 
                     "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
-            finish();
+            //finish();
 		}
 
-		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) {//|action.equals("android.intent.action.MAIN")) {
+		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) { //| action.equals("android.intent.action.MAIN")) {
             UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				    Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
@@ -299,9 +300,9 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
      * 
      * @param dialog - the DialogFragment
      */
-    public void onCancelClick(DialogFragment dialog) {
+    /*public void onCancelClick(DialogFragment dialog) {
     	
-    }
+    }*/
     
     /**
      * This function saves the command history to internal storage.
@@ -734,11 +735,6 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
 
 
 
-            UsbManager manager = (UsbManager) rootView.getContext().getSystemService(Context.USB_SERVICE);
-            HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
-            maestroSSC = new PololuMaestroUSBCommandProcess(manager);
-
-
             //updateOutput();
             
             return rootView;
@@ -886,7 +882,7 @@ public class MainAct extends FragmentActivity implements ActionBar.TabListener  
 
         private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
         {
-            if (deviceConnected)
+            if (maestroSSC != null)
                 maestroSSC.setServoPosition(channelNoMapped, progressActual);
 
             // modify the offset for the progress of the seek bar
