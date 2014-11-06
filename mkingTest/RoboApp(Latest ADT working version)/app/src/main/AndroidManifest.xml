@@ -56,6 +56,12 @@
         <activity
             android:name="com.robocat.roboappui.RoboCatActivity"
             android:label="@string/title_robo_cat_activity" >
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
         </activity>
         <activity
             android:name="com.robocat.roboappui.CameraActivity"

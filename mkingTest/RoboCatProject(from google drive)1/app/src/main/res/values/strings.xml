@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">RoboCat Apps</string>
+    <string name="servo">Servo</string>
+    <string name="home">Home</string>
+    <string name="pwm">Test</string>
+    <string name="pwmOnTime">PWM On Time</string>
+    <string name="pwmperiod">PWM Period</string>
+    <string name="ontime">Test</string>
+    <string name="period">Test</string>
+    <string name="errors"></string>
+    <string name="position">Position</string>
+    <string name="speed">Speed</string>
+    <string name="acceleration">Acceleration</string>
+    <string name="AduinoTorque">Torque</string>
+    <string name="channel1">LB-SD: </string>
+    <string name="channel2">LB-KN: </string>
+    <string name="channel3">LB-LR: </string>
+    <string name="channel4">RB-SD: </string>
+    <string name="channel5">RB-KN: </string>
+    <string name="channel6">RB-LR: </string>
+    <string name="channel7">LF-SD: </string>
+    <string name="channel8">LF-KN: </string>
+    <string name="channel9">LF-LR: </string>
+    <string name="channel10">RF-SD: </string>
+    <string name="channel11">RF-KN: </string>
+    <string name="channel12">RF-LR: </string>
+    <string name="moveAllChannelsToHomePosition">Reset servos</string>
+    <string name="buttonpololurecordstring">Record </string>
+    <string name="channelPositionResetValue">1500 </string>
+    <string name="stringArduinoTorqueValue">Ard</string>
+    <string name="runGaitButtonString">Run Gait</string>
+    <string name="clearGaitButtonString">Clear Gait</string>
+    
+    
+</resources>

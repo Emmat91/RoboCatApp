@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboCatProject(from google drive)1\app\build\intermediates\pre-dexed\debug\usb-serial-for-android-v010-ec57db4b41ce44a5a6c3b93d656efcd95670b9ae.jar"
+        jar="C:\Users\MattKing\Documents\CS4560\capstone.f14.roboapp\mkingTest\RoboCatProject(from google drive)1\app\libs\usb-serial-for-android-v010.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c49e65ea5d8d4c1311d0c1189adb07b2c01be29a"/>
+
+</pre-dex-items>

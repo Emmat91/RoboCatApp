@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\栞ちゃん\Desktop\src\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-e311e493b238b75da4095bd5ee7b69d76d73dc42.jar"
+        jar="C:\Program Files (x86)\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="C:\Users\栞ちゃん\Desktop\src\RoboApp(Latest ADT working version)\app\build\intermediates\pre-dexed\debug\usb-serial-for-android-v010-47eb61ec998a62ab213a0e79ee65f80dcf2a7294.jar"
+        jar="C:\Users\栞ちゃん\Desktop\src\RoboApp(Latest ADT working version)\app\libs\usb-serial-for-android-v010.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c49e65ea5d8d4c1311d0c1189adb07b2c01be29a"/>
+
+</pre-dex-items>
