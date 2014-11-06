@@ -1,14 +1,19 @@
 package com.robocat.roboappui.commands;
 
+import com.robocat.roboappui.AudioChooser;
+import com.robocat.roboappui.MultiTouchActivity;
+import com.robocat.roboappui.R;
+import com.robocat.roboappui.MultiTouchActivity.TypeOfAction;
+import com.robocat.roboappui.RoboCatActivity;
 import com.robocat.roboappui.commands.CommandDisplay;
 import com.robocat.roboappui.commands.CommandHistory;
-import com.robocat.roboappui.communication.RoboCatCommunication;
-
 import android.content.Context;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
+import android.os.Environment;
+import android.util.Pair;
 import android.widget.Toast;
 
+import java.util.EnumMap;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +27,17 @@ import java.util.ArrayList;
 public class Control {
 	public static final String FILENAME = "test.rcc";
 	
+	public static final String NONE_SELECTED = "None Selected";
+	
 	protected static CommandDisplay commandDisplay;
 	
 	protected static ArrayList<Command> knownCommands;
 	
 	protected static ArrayList<CommandHistory> histories;
 	
-	protected static RoboCatCommunication robocat;
+	protected static EnumMap<MultiTouchActivity.TypeOfAction, Pair<String, Pair<Boolean, Boolean>>> touchToFileMap;
+	
+	public static TypeOfAction actionToBeMapped;
 	
 	public Control() {
 		
@@ -39,14 +48,124 @@ public class Control {
 	 * known commands.  This should only be called once in the application.
 	 * @param commands - commands that will appear in the command select drop down
 	 */
-	public static void initialize(String[] commands, UsbManager manager, UsbDevice device) {
+	public static void initialize(String[] commands) {
 		histories = new ArrayList<CommandHistory>();
 		commandDisplay = new CommandDisplay();
 		
 		knownCommands = new ArrayList<Command>();
 		
 		initiateKnownCommands(commands);
-		robocat = new RoboCatCommunication(manager, device);
+		touchToFileMap = new EnumMap<TypeOfAction, Pair<String, Pair<Boolean,Boolean>>>(TypeOfAction.class);
+		for (TypeOfAction t : TypeOfAction.values()) {
+			touchToFileMap.put(t, Pair.create(NONE_SELECTED, Pair.create(false, false)));
+		}
+	}
+	
+	/**
+	 * This finds which operation is mapped to the given touch action and performs that operation
+	 * @param action - the multi-touch operation that was performed
+	 * @param context - the context of the activity that calls this function
+	 * @return the filename of the file that was played if it was an audio file or 
+	 * the filename of the command file sent to the cat
+	 */
+	public static String performTouchOperation(TypeOfAction action, Context context) {
+		Pair<String, Pair<Boolean, Boolean>> p = touchToFileMap.get(action);
+		if (p != null && p.second.second) {
+			if(p.second.first) {  //is audio file
+				try {
+					AudioChooser.Play_audio(context, p.first, context.getResources().getStringArray(R.array.audio_files));
+				} catch (FileNotFoundException e) {
+					return "";
+				}
+				return "Playing: " + p.first;
+			}
+			try {
+				execute(p.first);
+			} catch (IOException e) {
+				return "";
+			}
+			return FileIO.removeExtension(p.first, FileIO.ROBOCATMESSAGE_EXTENSION);
+		}
+		return "";
+	}
+	
+	/**
+	 * Maps a file to a touch operation
+	 * @param action - the multi-touch operation
+	 * @param filename - the file to use when this touch operation is performed
+	 */
+	public static void mapTouchToFile(TypeOfAction action, String filename) {
+		if (action == null) {
+			action = actionToBeMapped;
+		}
+		if (action == null) {
+			return;
+		}
+		
+		boolean audioFile = true;
+		if (filename.endsWith(FileIO.ROBOCATMESSAGE_EXTENSION)) {
+			audioFile = false;
+		}
+		touchToFileMap.put(action, Pair.create(filename, Pair.create(audioFile, true)));
+	}
+	
+	/**
+	 * Finds the file that maps to a touch operation
+	 * @param action - the multi touch operation performed
+	 * @return the name of the file that action maps to
+	 */
+	public static String getFileMappedToTouch(TypeOfAction action) {
+		Pair<String, Pair<Boolean, Boolean>> p = touchToFileMap.get(action);
+		if (p != null && p.second.second) {
+			return p.first;
+		}
+		return null;
+	}
+	
+	/**
+	 * This function copies the file to the RoboCatActivity's GAIT_DEFAULT_FILE_NAME. It then 
+	 * tells the RoboCatActivity to send the data in this file to the cat
+	 * @param filename - the name of the file to read from
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public static void execute(String filename) throws IOException, FileNotFoundException {
+		File path = new File(Environment.getExternalStorageDirectory(), FileIO.EXTERNAL_STORAGE_DIRECTORY);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File source = new File(path, filename);
+        if (!source.exists()) {
+        	throw new FileNotFoundException();
+        }
+        RoboCatActivity.runGaitButtonActionStatic(FileIO.EXTERNAL_STORAGE_DIRECTORY, filename);
+	}
+	
+	/**
+	 * Copies the temporary file used by the RoboCatActivity to a file in external storage with the name
+	 * filename in in the directory FileIO.EXTERNAL_STORAGE_DIRECTORY
+	 * @param filename - the name of the file to save to.
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	public static void saveGaitFile(String filename) throws IOException, FileNotFoundException {
+		File path = new File(Environment.getExternalStorageDirectory(), FileIO.EXTERNAL_STORAGE_DIRECTORY);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File dest = new File(path, filename);
+        if (!dest.exists()) {
+        	dest.createNewFile();
+        }
+        path = new File(Environment.getExternalStorageDirectory(), RoboCatActivity.EXTERNAL_STORAGE_DIRECTORY);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+        File source = new File(path, RoboCatActivity.GAIT_DEFAULT_FILE_NAME);
+        if (!dest.exists()) {
+        	throw new FileNotFoundException();
+        }
+        RoboCatActivity.copyFileUsingFileChannels(source, dest);
 	}
 	
 	/**
@@ -157,7 +276,7 @@ public class Control {
 		if (filename == "" || commandHistory < 0 || commandHistory >= histories.size())
 			return;
 		Toast toast = Toast.makeText(context, "In saveCommandDisplay()", Toast.LENGTH_SHORT);
-    	toast.show();
+    	//toast.show();
     	try {
     		histories.get(commandHistory).save(filename, context);
     	} catch (FileNotFoundException e) {
@@ -176,8 +295,8 @@ public class Control {
 	public static void saveCommandDisplay(String filename, Context context) {
 		if (filename == "")
 			return;
-		Toast toast = Toast.makeText(context, "In saveCommandDisplay()", Toast.LENGTH_SHORT);
-    	toast.show();
+		//  = Toast.makeText(context, "In saveCommandDisplay()", Toast.LENGTH_SHORT);
+    	//toast.show();
     	try {
     		commandDisplay.save(filename, context);
     	} catch (FileNotFoundException e) {

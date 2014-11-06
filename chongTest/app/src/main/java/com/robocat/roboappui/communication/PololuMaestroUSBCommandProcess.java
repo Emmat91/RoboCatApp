@@ -10,11 +10,11 @@
  */
 package com.robocat.roboappui.communication;
 
+import java.util.Arrays;
+
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
-
-import java.util.Arrays;
 public class PololuMaestroUSBCommandProcess {
 	private static final String TAG = "PololuMaestro";
 	
@@ -55,7 +55,7 @@ public class PololuMaestroUSBCommandProcess {
 		switch (type) {
 			default:
 			case DEVICE_TYPE_SERIAL:
-				//maestroDevice = new PololuMaestroUSBDevice(usbManager);
+				maestroDevice = new PololuMaestroUSBDevice(usbManager);
 				break;
 		}
 		

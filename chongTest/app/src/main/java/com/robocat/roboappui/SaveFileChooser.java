@@ -59,7 +59,10 @@ public class SaveFileChooser extends Activity {
         save.setOnClickListener(SaveButton);
 
         try{
-            Audio_files = FileIO.getFilesNamesInDirectory();
+            Audio_files = FileIO.getFileNamesInDirectoryByExtension(FileIO.ROBOCATMESSAGE_EXTENSION);
+            for (int i = 0; i < Audio_files.length; i++) {
+            	Audio_files[i] = FileIO.removeExtension(Audio_files[i], FileIO.ROBOCATMESSAGE_EXTENSION);
+            }
             AudioList.addAll(Arrays.asList(Audio_files));
 
             listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, AudioList);
@@ -100,17 +103,6 @@ public class SaveFileChooser extends Activity {
 
     }
 
-    /**
-     *  Creates a menu for Audio Chooser
-     * @param menu
-     * @return true if menu was created
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.audio_chooser, menu);
-        return true;
-    }
 
 
     /**
@@ -128,11 +120,15 @@ public class SaveFileChooser extends Activity {
      * Makes a toast of the selected audio file
      */
     View.OnClickListener SaveButton = new View.OnClickListener() {
-        @SuppressWarnings("static-access")
-		public void onClick(View v) {
+        public void onClick(View v) {
             String sel = filename.getText().toString();
+            try {
+            	Control.saveGaitFile(FileIO.addExtension(sel, FileIO.ROBOCATMESSAGE_EXTENSION));
+            } catch (Exception e) {
+            	makeToast("File Copy Failed");
+            	return;
+            }
             makeToast("Selected: "+sel);
-            (new Control()).saveCommandDisplay(sel, getApplicationContext());
             finish();
         }
     };

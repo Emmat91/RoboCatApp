@@ -20,7 +20,6 @@ public class CommandHistory {
 	/**
 	 * Creates a new history.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CommandHistory() {
 		commands = new ArrayList();
 		fio = new FileIO();

@@ -224,7 +224,6 @@ public class Command {
 	 * @param digit - the digit to convert to a hex String
 	 * @return the digit in hex as a String.
 	 */
-	@SuppressWarnings("unused")
 	private static String digitToHexString(int digit) {
 		String str = "";
 		if (digit < 10) {

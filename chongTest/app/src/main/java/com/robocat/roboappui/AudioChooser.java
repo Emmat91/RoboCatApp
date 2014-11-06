@@ -295,7 +295,7 @@ public class AudioChooser extends Activity {
     }
 
 
-    public String [] ConCat(String [] One,String [] Two){
+    public static String [] ConCat(String[] One, String[] Two){
         String [] res = new String[One.length+Two.length];
         System.arraycopy(One,0,res,0,One.length);
         System.arraycopy(Two,0,res,One.length,Two.length);

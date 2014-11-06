@@ -1,9 +1,16 @@
 package com.robocat.roboappui.commands;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.robocat.roboappui.RoboCatActivity;
 
 import android.content.Context;
+import android.os.Environment;
 
 /**
  * This class inherits the command history class and keeps track of commands sent to the
@@ -11,7 +18,6 @@ import android.content.Context;
  * @author Joey Phelps
  *
  */
-@SuppressWarnings("unused")
 public class CommandDisplay extends CommandHistory {
 	protected static final String TEXT_START = "Commands Entered:\n";
 	
@@ -39,7 +45,35 @@ public class CommandDisplay extends CommandHistory {
 	 * @return the String of all the commands.
 	 */
 	public String getDisplayableText() {
-		return TEXT_START + text;
+		text = "Servo Positions:\n";
+		File root = new File(Environment.getExternalStorageDirectory(), RoboCatActivity.EXTERNAL_STORAGE_DIRECTORY);
+		if (!root.exists()) 
+		{
+			root.mkdirs();
+		}
+		File file = new File(root, RoboCatActivity.GAIT_DEFAULT_FILE_NAME);
+		if (!file.exists()) {
+			return "";
+		}
+		BufferedReader br;
+		
+		try {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			String line;
+			while ((line = br.readLine()) != null) 
+			{
+				int[] arr = RoboCatActivity.parseGait(line);
+				for (int i : arr) {
+					if (i >= 0)
+						text += i + ",";
+				}
+				text += "\n";
+			}
+			br.close();
+		} catch (IOException e) {
+			
+		}
+		return text;
 	}
 	
 	/**

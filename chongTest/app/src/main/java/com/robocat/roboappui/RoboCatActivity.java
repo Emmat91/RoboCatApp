@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap; 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.widget.Toast;
 
@@ -60,9 +61,10 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	private static final String TAG = "MaestroSSCActivity";
 	private Button homeButton, recordButton, clearGaitButton, runGaitButton;
 	//private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
-	public static PololuMaestroUSBCommandProcess maestroSSC;
+	private static PololuMaestroUSBCommandProcess maestroSSC;
 	public static UsbDevice device;
 	public static boolean deviceConnected = false;
+	private static boolean maestroInitialized = false;
    // private Handler mHandler = new Handler();
     //TextView textViewChannel1Position, textViewChannel2Position, textViewChannel3Position, textViewChannel4Position, textViewChannel5Position, textViewChannel6Position, textViewChannel7Position, textViewChannel8Position, textViewChannel9Position, textViewChannel10Position, textViewChannel11Position, textViewChannel12Position;
 	int channelCount = 12;
@@ -78,7 +80,12 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	//the map between the seekbar no. and the pololu maestro channel 
 	int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,14,16,17,18};
 	
-	String gaitDefaultFileName = "GaitShared.txt";
+	public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
+	
+	public static final String EXTERNAL_STORAGE_DIRECTORY = "Gait";
+	
+	//This was added to make sure two streams of data are not sent to the cat at the same time
+	public static AtomicBoolean threadRunning = new AtomicBoolean(false);
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -145,13 +152,20 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 		
 		UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
 		HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
-		maestroSSC = new PololuMaestroUSBCommandProcess(manager);
+		initializeMaestro(manager);
 		
 		
 	}
 	
+	public static void initializeMaestro(UsbManager manager) {
+		if (!maestroInitialized) {
+			maestroSSC = new PololuMaestroUSBCommandProcess(manager);
+			maestroInitialized = true;
+		}
+	}
 	
-	private static void copyFileUsingFileChannels(File source, File dest)
+	
+	public static void copyFileUsingFileChannels(File source, File dest)
 
 		      throws IOException {
 
@@ -196,46 +210,8 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	@Override
 	public void onResume() {
 		super.onResume();
-		//if (deviceConnected)
-			//maestroSSC.setDevice(device);
-        //else
-            //finish();
-
-        Intent intent = getIntent();
-		Log.d(TAG, "onResume(" + intent + ")");
-		String action = intent.getAction();
-        deviceConnected=false;
-        if (action.equals("android.intent.action.MAIN")) {
-            Toast.makeText(getApplicationContext(), 
-                    "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
-            finish();
-		}
-
-		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")|action.equals("android.intent.action.MAIN")) {
-			UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
-				maestroSSC.setDevice(device);
-                    deviceConnected=true;
-              Toast.makeText(getApplicationContext(), 
-                          "USB device connected.", Toast.LENGTH_LONG).show();
-
-			} else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
-				Log.d(TAG, "INTENT DEVICE DETACHED=" + device.toString());
-				maestroSSC.setDevice(device);
-              Toast.makeText(getApplicationContext(), 
-                          "USB device disconnected.", Toast.LENGTH_LONG).show();
-			} else {
-				Log.d(TAG, "Unexpected Action=" + action.toString());
-
-			}
-		}
-		else
-		{
-            Toast.makeText(getApplicationContext(), 
-                    "Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
-			
-		}
+		if (deviceConnected)
+			maestroSSC.setDevice(device);
 	}
 
 	/**
@@ -274,7 +250,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	}
 
 	
-	public void clearGaitButton()
+	public static void clearGaitButton()
 	{
 		
 		// test: delete the Gait.txt file
@@ -284,59 +260,161 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             root.mkdirs();
         }
         //File gpxfile = new File(root, "Gait"+currentDateandTime+".txt");
-        File gpxfile = new File(root, gaitDefaultFileName);
+        File gpxfile = new File(root, GAIT_DEFAULT_FILE_NAME);
         
 		boolean deleted = gpxfile.delete();
 
 		
 	}
 	
+	//This static funciton was added in order to use this functionality from
+	//a different activity
+	public static void runGaitButtonActionStatic(final String directory, final String filename) throws IOException {
+		// TODO Auto-generated method stub
+		
+///////////////
+		Runnable r = new Runnable() {
+			@Override
+			public void run()
+			{
+				try 
+				{
+					File root = new File(Environment.getExternalStorageDirectory(), directory);
+					if (!root.exists()) 
+					{
+						root.mkdirs();
+					}
+					File gpxfile = new File(root, filename);
+
+					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
+					String line;
+					while ((line = br.readLine()) != null) 
+					{
+						int[] gaitLineVal=parseGait(line);
+						oneGaitActionStatic(gaitLineVal);
+						for (int iloop =0; iloop<100000000; iloop++){}
+					}
+
+					br.close();
+
+				} 
+				catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} //<-- put your code in here.
+				finally {
+					threadRunning.set(false);
+				}
+			}
+		};
+
+		//This was added to make sure two streams of data are not sent to the cat at the same time
+		if (threadRunning.get()) {
+			return;
+		}
+		threadRunning.set(true);
+
+		Handler h = new Handler();
+		h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds. 
+	//////////////////////
+	
+
+	}
+	
 	public void runGaitButtonAction() throws IOException {
 		// TODO Auto-generated method stub
 		
 ///////////////
-Runnable r = new Runnable() {
-@Override
-public void run()
-{
-	try 
-	{
-	File root = new File(Environment.getExternalStorageDirectory(), "Gait");
-    if (!root.exists()) 
-    	{
-        root.mkdirs();
-    	}
-    File gpxfile = new File(root, gaitDefaultFileName);
-	
-	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
-	String line;
-    while ((line = br.readLine()) != null) 
-    	{
-    	int[] gaitLineVal=parseGait(line);
-    	oneGaitAction(gaitLineVal);
-    	for (int iloop =0; iloop<100000000; iloop++){}
-    	}
-    
-		br.close();
-
-	} 
-		catch (IOException e) 
+		Runnable r = new Runnable() {
+			@Override
+			public void run()
 			{
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-			} //<-- put your code in here.
-	}
-};
+				try 
+				{
+					File root = new File(Environment.getExternalStorageDirectory(), EXTERNAL_STORAGE_DIRECTORY);
+					if (!root.exists()) 
+					{
+						root.mkdirs();
+					}
+					File gpxfile = new File(root, GAIT_DEFAULT_FILE_NAME);
+	
+					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
+					String line;
+					while ((line = br.readLine()) != null) 
+					{
+						int[] gaitLineVal=parseGait(line);
+						oneGaitAction(gaitLineVal);
+						for (int iloop =0; iloop<100000000; iloop++){}
+					}
+    
+					br.close();
 
-Handler h = new Handler();
-h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds. 
-//////////////////////
+				} 
+				catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} //<-- put your code in here.
+				finally {
+					threadRunning.set(false);
+				}
+			}
+		};
+
+		//This was added to make sure two streams of data are not sent to the cat at the same time
+		if (threadRunning.get()) {
+			return;
+		}
+		threadRunning.set(true);
+
+		Handler h = new Handler();
+		h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds. 
+		//////////////////////
 		
 		
 }
 	
+	//This static funciton was added in order to use this functionality from
+	//a different activity
+	private static void oneGaitActionStatic(int[] gaitLineVal) {
+		// TODO Auto-generated method stub
+    	for (int iRunGait=0, lenRunGait = gaitLineVal.length/2; iRunGait <lenRunGait; iRunGait++)
+    	{	
+    		// double iRunGait to point to the right channel
+    		int iRunGaitDouble = iRunGait*2;
+    		if (gaitLineVal[iRunGaitDouble] == -1) continue;
+    		if (gaitLineVal[iRunGaitDouble] <0 ) 
+	    			{
+    			break;
+    			}
+    		else
+    		{
+	    		final int channelNoMapped = gaitLineVal[iRunGaitDouble];
+	    		final int progressActual = gaitLineVal[iRunGaitDouble+1];
+	    		int channelNoSeekBar=iRunGaitDouble/2;
+	    		progressChangeActionStatic(channelNoMapped, progressActual, channelNoSeekBar);
 
-	
+
+/*			    		new Timer().schedule(new TimerTask() {          
+	    		    @Override
+	    		    public void run() {
+	    		        // this code will be executed after 2 seconds       
+			    		progressChangeAction(channelNo, progressActual);
+	    		    }
+	    		}, 2000);
+*/			    		
+/*
+		    	try {
+		    	    Thread.sleep(1000);
+		    	} catch(InterruptedException ex) {
+		    	    Thread.currentThread().interrupt();
+		    	}			    		
+*/		    			
+    		}
+    		
+    	}
+	}
 	
 	private void oneGaitAction(int[] gaitLineVal) {
 		// TODO Auto-generated method stub
@@ -378,6 +456,13 @@ h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
 
 	}
 
+	//This static funciton was added in order to use the functionality of the
+	//non-static version of this function from a different Activity
+	private static void progressChangeActionStatic(int channelNoMapped, int progressActual, int channelNoSeekBar)
+	{
+		if (deviceConnected)
+			maestroSSC.setServoPosition(channelNoMapped, progressActual);
+	}
 
 	private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
 	{
@@ -389,7 +474,7 @@ h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
 		textViewChannelPositionArray[channelNoSeekBar].setText(String.valueOf(progressActual));
 	}
 
-	private int[] parseGait(String line) {
+	public static int[] parseGait(String line) {
 		// TODO Auto-generated method stub
 
 		String[] byteValues = line.substring(0, line.length() -1).split(",");
@@ -418,14 +503,14 @@ h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
 
 	private void recordGaitButtonAction() {
 		// TODO Auto-generated method stub
-		generateGaitOnSD(gaitDefaultFileName, arrayGaitChannelProgress);
+		generateGaitOnSD(GAIT_DEFAULT_FILE_NAME, arrayGaitChannelProgress);
 		
 	}
 	
 	public void generateGaitOnSD(String sFileName, int[] arrayGaitChannelProgress){
 	    try
 	    {
-	        File root = new File(Environment.getExternalStorageDirectory(), "Gait");
+	        File root = new File(Environment.getExternalStorageDirectory(), EXTERNAL_STORAGE_DIRECTORY);
 	        if (!root.exists()) {
 	            root.mkdirs();
 	        }
@@ -434,7 +519,7 @@ h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
 	    //    writer.append(Integer.toString(gaitArray[1]));
 	  //      writer.flush();
 	//        writer.close();
-	        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 	        BufferedWriter outputWriter = null;
 	        if (gpxfile.exists())
 	        {

@@ -33,7 +33,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.robocat.roboappui.MultiTouchActivity.TypeOfAction;
 import com.robocat.roboappui.commands.Control;
+import com.robocat.roboappui.commands.FileIO;
 import com.robocat.roboappui.dialog.RoboAppDialogFragment;
 
 import java.io.IOException;
@@ -123,48 +125,41 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         if(control == null) {
         	Resources res = getResources();
         	String[] commands = res.getStringArray(R.array.command_select_options);
-        	UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
-        	Intent intent = getIntent();
-        	UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
         	control = new Control();
-        	control.initialize(commands, manager, device);
+        	Control.initialize(commands);
         }
         
-        launchAboutActivity();
+//        launchAboutActivity();
     }
-
-    /*
+    
     @Override
+    /**
+     *  This function checks for which intent started the app and checks whether 
+     *  a usb device is attached or not
+     */
 	public void onResume() {
 		super.onResume();
 		Intent intent = getIntent();
 		Log.d(TAG, "onResume(" + intent + ")");
 		String action = intent.getAction();
-		RoboCatActivity.deviceConnected = false;
+		deviceConnected(false);
 		if (action.equals("android.intent.action.MAIN")) {
-            Toast.makeText(getApplicationContext(), 
-                    "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
-            RoboCatActivity.deviceConnected = false;
+            //Toast.makeText(getApplicationContext(), 
+                   // "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
             //finish();
 		}
 
 		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")|action.equals("android.intent.action.MAIN")) {
 			UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
-			if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
+				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
 				RoboCatActivity.device = device;
-                RoboCatActivity.maestroSSC.setDevice(device);
-              Toast.makeText(getApplicationContext(), 
-                          "USB device connected.", Toast.LENGTH_LONG).show();
-              RoboCatActivity.deviceConnected = true;
+              deviceConnected(true);
 
 			} else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE DETACHED=" + device.toString());
 				RoboCatActivity.device = device;
-                RoboCatActivity.maestroSSC.setDevice(device);
-              Toast.makeText(getApplicationContext(), 
-                          "USB device disconnected.", Toast.LENGTH_LONG).show();
-                RoboCatActivity.deviceConnected = false;
+              deviceConnected(false);
 			} else {
 				Log.d(TAG, "Unexpected Action=" + action.toString());
 
@@ -172,19 +167,31 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 		}
 		else
 		{
-            Toast.makeText(getApplicationContext(), 
-                    "Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), 
+                    //"Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
 			
 		}
-	}*/
-
-
-    protected void onRestart() {
-    	super.onRestart();
-    	HWSectionFragment.updateOutput();
+		RoboCatActivity.initializeMaestro((UsbManager) getSystemService(USB_SERVICE));
+	}
+    
+    private void deviceConnected(boolean connected) {
+    	RoboCatActivity.deviceConnected = connected;
+    	TextView v = (TextView) findViewById(R.id.deviceAttached);
+    	if (v == null)
+    		return;
+    	if (connected)
+    		v.setText("USB device connected");
+    	else
+    		v.setText("USB device disconnected");
+    		
     }
     
     @Override
+    /**
+     * This function is used to save the state of the control class
+     * when the user leaves the Main Activity
+     * @return the Control Class
+     */
     public Object onRetainCustomNonConfigurationInstance() {
     	return control;
     }
@@ -260,7 +267,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     	boolean success = true;
     	RoboAppDialogFragment d = (RoboAppDialogFragment) dialog;
     	try {
-    		control.sendManualCommand(d.getData());
+    		Control.sendManualCommand(d.getData());
     	} catch (NumberFormatException e) {
     		success = false;
     	}
@@ -298,24 +305,46 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         startActivity(i);
     }
     
+    /**
+     * This function opens the servo control page
+     * @param v
+     */
     public void launchRoboCatActivity(View v) {
     	Intent i = new Intent(this, RoboCatActivity.class);
     	startActivity(i);
     }
     
     /**
-     * This function is called when the user presses the send but next to the slider in the Hardware
-     * Developer Interface.  This function creates and sends a command with the value specified
-     * by the slider
-     * @param v - the view of the widget calling this function
+     * This function tells the Control class which multi-touch action 
+     * the selected file will be mapped to will be mapped
+     * @param v - the text view of the action to be mapped
      */
-    public void sliderSubmit(View v) {
-    	SeekBar s = (SeekBar) findViewById(R.id.command_slider);
-    	//Command c = new Command();
-    	//c.setData(s.getProgress());
-    	control.sendManualCommand("0x" + Integer.toHexString(s.getProgress()));
-    	HWSectionFragment.updateOutput();
+    public void selectFileToBeMapped(View v) {
+    	TextView t = (TextView) v;
+    	if (t.getId() == R.id.one_down_select) {
+    		Control.actionToBeMapped = TypeOfAction.OneDown;
+    	} else if (t.getId() == R.id.one_left_select) {
+    		Control.actionToBeMapped = TypeOfAction.OneLeft;
+    	} else if (t.getId() == R.id.one_right_select) {
+    		Control.actionToBeMapped = TypeOfAction.OneRight;
+    	} else if (t.getId() == R.id.one_up_select) {
+    		Control.actionToBeMapped = TypeOfAction.OneUp;
+    	} else if (t.getId() == R.id.two_up_select) {
+            Control.actionToBeMapped = TypeOfAction.TwoUp;
+        } else if (t.getId() == R.id.two_down_select) {
+            Control.actionToBeMapped = TypeOfAction.TwoDown;
+        } else if (t.getId() == R.id.pinch_select) {
+            Control.actionToBeMapped = TypeOfAction.TwoPinch;
+        } else if (t.getId() == R.id.expand_select) {
+            Control.actionToBeMapped = TypeOfAction.TwoExpand;
+        } else {
+    		return;
+    	}
+    	Intent i = new Intent(this, FileChooser.class);
+    	startActivity(i);
     }
+    
+    
     
     /**
      * This function clears the Command Display and the command history.
@@ -323,7 +352,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * @param v - the view of the widget calling this function
      */
     public void resetDisplay(View v) {
-    	control.clearCommandDisplay();
+    	RoboCatActivity.clearGaitButton();
     	HWSectionFragment.updateOutput();
 //      Examples of audio playback in different section of the app
 
@@ -503,8 +532,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * @author Joey Phelps
      *
      */
-    public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener,
-    	SeekBar.OnSeekBarChangeListener{
+    public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
         
         private static View rootView;
 
@@ -513,14 +541,12 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         
         /**
          * This function is called when the command select slider is moved
-         * @param seekBar - the seek bar widget
-         * @param progress - the position of the seek bar which is a value between 0 and 255
-         * @param fromUser - is true if the change was made by the user
-         */
+         *
+         
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         	TextView t = (TextView) rootView.findViewById(R.id.slider_display);
         	t.setText("0x" + Integer.toHexString(progress));
-        }
+        }*/
         
         public void onStartTrackingTouch(SeekBar seekBar) {
         	
@@ -556,7 +582,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         	if (command.equals("Manual")) {
         		enterManualCommand();
         	} else if (!command.equals("Select Command")) {
-        		control.sendCommand(command);
+        		Control.sendCommand(command);
         		updateOutput();
         	} 
         		
@@ -568,8 +594,13 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          * This function updates the command display.
          */
         public static void updateOutput() {
-        	TextView t = (TextView) rootView.findViewById(R.id.Commands);
-        	t.setText(control.getDisplayableText());
+            try{
+                TextView t = (TextView) rootView.findViewById(R.id.Commands);
+                t.setText(Control.getDisplayableText());
+            }
+            catch (Exception e){
+                Log.e(TAG,"Exception caught in updateOutput");
+            }
         }
         
         /**
@@ -590,7 +621,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
             rootView = inflater.inflate(R.layout.fragment_hw_layout, container, false); //change
             //mainAct = (MainAct) this.getActivity();
             
-            Spinner commandSelect = (Spinner) rootView.findViewById(R.id.command_select);
+            /*Spinner commandSelect = (Spinner) rootView.findViewById(R.id.command_select);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity().getBaseContext(),
             		R.array.command_select_options, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -600,11 +631,23 @@ RoboAppDialogFragment.RoboAppDialogListener  {
             
             SeekBar commandSlider = (SeekBar) rootView.findViewById(R.id.command_slider);
             commandSlider.setMax(255);
-            commandSlider.setOnSeekBarChangeListener(this);
+            commandSlider.setOnSeekBarChangeListener(this);*/
             
             updateOutput();
             
             return rootView;
+        }
+        
+        public void onResume() {
+        	super.onResume();
+        	updateOutput();
+        	TextView v = (TextView) rootView.findViewById(R.id.deviceAttached);
+        	if (v == null)
+        		return;
+        	if (RoboCatActivity.deviceConnected)
+        		v.setText("USB device connected");
+        	else
+        		v.setText("USB device disconnected");
         }
     }
 
@@ -620,8 +663,6 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_end_layout, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.END_Text);
-            dummyTextView.setText("");//Camera video displayed here");
 
             Switch s = (Switch) rootView.findViewById(R.id.RecordAudioSwitch);
 
@@ -649,6 +690,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      * The fragment that contains functions for the Multi-Touch interface
      */
     public static class MultiSectionFragment extends Fragment {
+    	private static View rootView;
 
         public MultiSectionFragment() {
         }
@@ -656,10 +698,57 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_multi_layout, container, false); //change
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);      //change
-            dummyTextView.setText("Multi touch interface here");     //change
+            rootView = inflater.inflate(R.layout.fragment_multi_layout, container, false);
             return rootView;
+        }
+        
+        public void onResume() {
+        	super.onResume();
+        	updateFileNames();
+        }
+        
+        /**
+         * Updates the text fields that display which file is mapped to each action
+         */
+        public void updateFileNames() {
+        	TextView t = (TextView) rootView.findViewById(R.id.one_down_file);
+        	String str = Control.getFileMappedToTouch(TypeOfAction.OneDown);
+        	updateTextView(t, str);
+        	t = (TextView) rootView.findViewById(R.id.one_left_file);
+        	str = Control.getFileMappedToTouch(TypeOfAction.OneLeft);
+        	updateTextView(t, str);
+        	t = (TextView) rootView.findViewById(R.id.one_right_file);
+        	str = Control.getFileMappedToTouch(TypeOfAction.OneRight);
+        	updateTextView(t, str);
+        	t = (TextView) rootView.findViewById(R.id.one_up_file);
+            str = Control.getFileMappedToTouch(TypeOfAction.OneUp);
+            updateTextView(t, str);
+            t = (TextView) rootView.findViewById(R.id.two_up_file);
+            str = Control.getFileMappedToTouch(TypeOfAction.TwoUp);
+            updateTextView(t, str);
+            t = (TextView) rootView.findViewById(R.id.two_down_file);
+            str = Control.getFileMappedToTouch(TypeOfAction.TwoDown);
+            updateTextView(t, str);
+            t = (TextView) rootView.findViewById(R.id.pinch_file);
+            str = Control.getFileMappedToTouch(TypeOfAction.TwoPinch);
+            updateTextView(t, str);
+            t = (TextView) rootView.findViewById(R.id.expand_file);
+            str = Control.getFileMappedToTouch(TypeOfAction.TwoExpand);
+            updateTextView(t, str);
+        }
+        
+        /**
+         * This function is used by the updateFileNames() function
+         * @param t - the TextView to update
+         * @param str - the String to set the text to
+         * @see updateFileNames()
+         */
+        private static void updateTextView(TextView t, String str) {
+        	if (str == null) {
+        		t.setText(Control.NONE_SELECTED);
+        	} else {
+        		t.setText(FileIO.removeExtension(str, FileIO.ROBOCATMESSAGE_EXTENSION));
+        	}
         }
     }
 

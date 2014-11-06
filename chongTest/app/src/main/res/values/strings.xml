@@ -7,7 +7,7 @@
     <string name="title_section2">End User</string>
     <string name="title_section3">Multi-Touch</string>
     <string name="Commands">Commands Sent Are:</string>
-    <string name="title_activity_multi_touch">MultiTouchActivity</string>
+    <string name="title_activity_multi_touch">Multi-touch Surface</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">Multi-Touch\nActivity</string>
     <string name="enter_command">Enter Parameters</string>
@@ -18,7 +18,8 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="hello">Hello World, FileExplore!</string>
     <string name="title_activity_audio_chooser">Audio Chooser</string>
-    <string name="title_activity_load_file_chooser">Load File Chooser</string>
+    <string name="title_activity_file_chooser">File Chooser</string>
+    <string name="title_activity_load_file_chooser">Run File Chooser</string>
     <string name="title_activity_save_file_chooser">Save File Chooser</string>
     <string name="hello_world">Hello world!</string>
     <string name="Select">Selected File</string>
@@ -27,12 +28,14 @@
     <string name="Cat_Roar">Roaring_Lion_SoundBible.com_527774719</string>
 
     <string name="about">About</string>
+    <string name="multi_touch_file_select">Select</string>
+    <string name="none_selected">None Selected</string>
 
     <string name="MultiMainLabel">Commands - Up, Down, Left, Right\nDiagonal, Pinch, and Expand for audio</string>
 
     <string name="AboutData">RoboApp \n\nPrevious Team RoboApp:\nJoey Phelps\nTim Grannen</string>
     <string name="AboutDataNew">Current Team RoboApp:\nPinfang Ding\nChong Liu\nMatthew King\nMatt Hutton</string>
-    <string name="title_robo_cat_activity">RoboCatActivity</string>
+    <string name="title_robo_cat_activity">RoboCat Servos</string>
     <string name="servo">Servo</string>
     <string name="home">Home</string>
     <string name="pwm">Test</string>
@@ -63,5 +66,8 @@
     <string name="stringArduinoTorqueValue">Ard</string>
     <string name="runGaitButtonString">Run Gait</string>
     <string name="clearGaitButtonString">Clear Gait</string>
+    <string name="ExitString">Exit</string>
+    <string name="PlayAudioFile">Play Audio File</string>
+    <string name="RecordAudio">Record Audio</string>
 
 </resources>

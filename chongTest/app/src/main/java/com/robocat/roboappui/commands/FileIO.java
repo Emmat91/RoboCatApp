@@ -24,6 +24,13 @@ import java.util.ArrayList;
 public class FileIO {
 	public static final String EXTERNAL_STORAGE_DIRECTORY = "Android/data/com.robocat.roboapp/commands";
 	
+	/**
+	 * This is the extension currently used for servo control files
+	 */
+	public static final String ROBOCATMESSAGE_EXTENSION = ".rcm";
+	
+	public static final String ROBOCATCOMMAND_EXTENSION = ".rcc";
+	
 	protected boolean readableExternalStorage;
 	protected boolean writeableExternalStorage;
 	
@@ -66,7 +73,6 @@ public class FileIO {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected String[] load(FileInputStream fis) throws FileNotFoundException, IOException {
 	
 		ArrayList<String> strBuffer = new ArrayList();
@@ -110,7 +116,6 @@ public class FileIO {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	public String[] loadInternal(String filename, Context context) throws FileNotFoundException, IOException {
 	
 		ArrayList<String> strBuffer = new ArrayList();
@@ -161,7 +166,6 @@ public class FileIO {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("unused")
 	public String[] loadExternal(String filename) throws FileNotFoundException, IOException {
 		if (!readableExternalStorage) {
 			return null;
@@ -182,6 +186,43 @@ public class FileIO {
 		return load(fis);
 	}
 	
+	/**
+	 * gets the names of the files in the directory EXTERNAL_STORAGE_DIRECTORY with the extension ext
+	 * @param ext - the file extension to look for
+	 * @return an array of filenames of files with the extension ext.
+	 */
+	public static String[] getFileNamesInDirectoryByExtension(String ext) {
+		File path = Environment.getExternalStorageDirectory();
+		path = new File(path, EXTERNAL_STORAGE_DIRECTORY);
+		path.mkdirs();
+		String[] temp = path.list();
+		boolean[] include = new boolean[temp.length];
+		int count = 0;
+		for (int i = 0; i < temp.length; i++) {
+			if (temp[i].endsWith(ext)) {
+				include[i] = true;
+				count++;
+			} else {
+				include[i] = false;
+			}
+		}
+		String[] result = new String[count];
+		int length = ext.length();
+		for (int i = 0, j = 0; i < count && j < temp.length; j++) {
+			if (include[j]) {
+				result[i] = temp[j];
+				i++;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Gets the names of the files in the directory
+	 * EXTERNAL_STORAGE_DIRECTORY
+	 * @return an array of the files in EXTERNAL_STORAGE_DIRECTORY
+	 * @see	EXTERNAL_STORAGE_DIRECTORY
+	 */
 	public static String[] getFilesNamesInDirectory() {
 		File path = Environment.getExternalStorageDirectory();
 		path = new File(path, EXTERNAL_STORAGE_DIRECTORY);
@@ -190,10 +231,42 @@ public class FileIO {
 	}
 
 
+	/**
+	 * Gets file names in a directory
+	 * @param Dir - the directory to look for files in
+	 * @return an array of the file names in Dir
+	 */
     public static String[] getFilesNamesInDirectory(String Dir) {
         File path = Environment.getExternalStorageDirectory();
         path = new File(path, Dir);
         path.mkdirs();
         return path.list();
     }
+    
+
+	/**
+	 * Removes ext from the end of str if str ends with ext
+	 * @param str - the filename
+	 * @param ext - the extension
+	 * @return - the filename without the extension
+	 */
+	public static String removeExtension(String str, String ext) {
+		if (str.endsWith(ext)) {
+			str = str.substring(0, str.length() - ext.length());
+		}
+		return str;
+	}
+	
+	/**
+	 * Concatenates the two strings if str does not end with ext
+	 * @param str - the filename
+	 * @param ext - the extension
+	 * @return str with ext appended to it
+	 */
+	public static String addExtension(String str, String ext) {
+		if (!str.endsWith(ext)) {
+			str = str + ext;
+		}
+		return str;
+	}
 }

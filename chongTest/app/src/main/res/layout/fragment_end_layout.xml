@@ -15,93 +15,78 @@
         android:layout_height="match_parent"
         android:divider="@color/black">
 
+        <ImageView
+            android:layout_width="265dp"
+            android:layout_height="184dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/ic_launcher"
+            android:layout_gravity="center_horizontal" />
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <FrameLayout
-                    android:id="@+id/camera_preview"
-                    android:layout_width="@dimen/Video_Screen_dim"
-                    android:layout_height="@dimen/Video_Screen_dim"
-                    android:layout_weight="1"
-                    android:background="@color/black" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent">
-
-                    <Button
-                        android:id="@+id/button"
-                        android:text="Display video"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|top"
-                        android:onClick="Start_camera" />
-
-                    <Button
-                        android:id="@+id/button_capture"
-                        android:text="Capture video"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="Start_camera"
-                        android:layout_gravity="center" />
-
-                </FrameLayout>
-            </LinearLayout>
+            <Button
+                android:id="@+id/button"
+                android:text="Access Camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="Start_camera" />
 
         </FrameLayout>
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/END_Text"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/RecordAudioSwitch" />
 
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Record Audio"
                 android:id="@+id/RecordAudioSwitch"
-                android:layout_below="@+id/textView"
                 android:background="#EEEEEE"
                 android:textColor="#000000"
                 android:checked="false"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp" />
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/RecordAudio" />
 
             <Button
                 android:layout_width="172dp"
                 android:layout_height="84dp"
-                android:text="Play Audio File"
+                android:text="@string/PlayAudioFile"
                 android:id="@+id/button2"
                 android:layout_gravity="center"
                 android:onClick="Play_audio_file"
-                android:background="@color/black_overlay" />
+                android:background="@color/black_overlay"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/RecordAudioSwitch"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:singleLine="true" />
 
             <Button
                 android:layout_width="84dp"
                 android:layout_height="50dp"
-                android:text="Exit"
+                android:text="@string/ExitString"
                 android:id="@+id/end_back"
                 android:layout_gravity="bottom|center_horizontal"
                 android:onClick="End_User_Exit"
-                android:background="@color/black_overlay" />
+                android:background="@color/black_overlay"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/button2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
 
-        </FrameLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

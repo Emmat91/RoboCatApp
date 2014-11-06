@@ -1,9 +1,5 @@
 package com.robocat.roboappui;
 
-/**
- * Created by timgrannen on 10/2/13.
- */
-
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
@@ -34,12 +30,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     }
 
+    /**
+     * Tells the camera where to draw the camera preview
+     * @param holder
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
         }
         catch (NullPointerException N) {

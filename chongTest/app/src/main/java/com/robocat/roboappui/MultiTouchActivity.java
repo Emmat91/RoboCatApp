@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.robocat.roboappui.commands.Control;
 import com.robocat.roboappui.util.SystemUiHider;
-import com.robocat.roboappui.R;
 
 import java.io.FileNotFoundException;
 
@@ -42,8 +41,7 @@ public class MultiTouchActivity extends Activity {
      * If set, will toggle the system UI visibility upon interaction. Otherwise,
      * will show the system UI visibility upon interaction.
      */
-    @SuppressWarnings("unused")
-	private static final boolean TOGGLE_ON_CLICK = false;
+    private static final boolean TOGGLE_ON_CLICK = false;
 
     /**
      * The flags to pass to {@link SystemUiHider#getInstance}.
@@ -60,20 +58,18 @@ public class MultiTouchActivity extends Activity {
      */
     private SystemUiHider mSystemUiHider;
 
-    @SuppressWarnings("static-access")
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_multi);
-        View view = findViewById(R.id.fullscreen_content);
-		TextView f = (TextView) view;
+        TextView f = (TextView) findViewById(R.id.fullscreen_content);
         float size = 20;
         f.setTextSize(size);
         f.setText(R.string.MultiMainLabel);
 
         //final View controlsView = findViewById(R.id.fullscreen_content);
-        final View contentView = view;
+        final View contentView = findViewById(R.id.fullscreen_content);
         mActivePointers = new SparseArray<PointF>();
         histPointers = new SparseArray<PointF>();
         ListofTypes = new SparseArray<TypeOfAction>();
@@ -87,8 +83,7 @@ public class MultiTouchActivity extends Activity {
                     int mControlsHeight;
                     int mShortAnimTime;
 
-                    @SuppressWarnings("unused")
-					@Override
+                    @Override
                     public void onVisibilityChange(boolean visible) {
                             // If the ViewPropertyAnimator API is available
                             // (Honeycomb MR2 and later), use it to animate the
@@ -130,10 +125,10 @@ public class MultiTouchActivity extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        view.setOnTouchListener(MultiTouchListener);
+        findViewById(R.id.fullscreen_content).setOnTouchListener(MultiTouchListener);
         //delayedHide(400);
         
-        commandHistory = control.newCommandHistory();
+        commandHistory = Control.newCommandHistory();
     }
 
     @Override
@@ -146,11 +141,10 @@ public class MultiTouchActivity extends Activity {
         //delayedHide(100);
     }
 
-    @SuppressWarnings("static-access")
-	@Override
+    @Override
     protected void onStop(){
-        control.saveCommandHistory(MULTITOUCH_SAVEFILE, this.getApplicationContext(), commandHistory);
-        control.closeCommandHistory(commandHistory);
+        Control.saveCommandHistory(MULTITOUCH_SAVEFILE, this.getApplicationContext(), commandHistory);
+        Control.closeCommandHistory(commandHistory);
         super.onStop();
     }
 
@@ -172,8 +166,7 @@ public class MultiTouchActivity extends Activity {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
 
-            @SuppressWarnings("unused")
-			TextView Label=(TextView) findViewById(R.id.fullscreen_content);
+            TextView Label=(TextView) findViewById(R.id.fullscreen_content);
 
             // get masked (not specific to a pointer) action
             int maskedAction = event.getActionMasked();
@@ -222,7 +215,7 @@ public class MultiTouchActivity extends Activity {
     /**
      * Contains all of the possible actions on the multi-touch surface
      */
-    enum TypeOfAction{None,
+    public enum TypeOfAction{None,
         OneUp,OneDown,OneLeft,OneRight,OneDiagonal,
         TwoUp,TwoDown,TwoLeft,TwoRight,TwoDiagonal,TwoPinch,TwoExpand,
         ThreeUp,ThreeDown,ThreeLeft,ThreeRight};
@@ -324,8 +317,7 @@ public class MultiTouchActivity extends Activity {
      *  evaluating each pointer first and then handling all of the cases
      * @return The generalized TypeOfAction with two pointers
      */
-    @SuppressWarnings("incomplete-switch")
-	private TypeOfAction TwoAnalyze() {
+    private TypeOfAction TwoAnalyze() {
         TypeOfAction oneT=OneAnalyze(0);
         TypeOfAction twoT=OneAnalyze(1);
         if(oneT==twoT){
@@ -438,7 +430,7 @@ public class MultiTouchActivity extends Activity {
      * @param ang2
      * @return True if the angles are relatively the same line of movement, false otherwise.
      */
-    private boolean anglesConverge(double ang1, double ang2) {
+    public static boolean anglesConverge(double ang1, double ang2) {
         double error=(4.0/20.0)*Math.PI;
         double test=ang1-ang2;
 
@@ -498,8 +490,7 @@ public class MultiTouchActivity extends Activity {
      *  Three TypeOfAction if they all match and None otherwise.
      * @return The TypeOfAction related to the three pointer movement
      */
-    @SuppressWarnings("incomplete-switch")
-	private TypeOfAction ThreeAnalze() {
+    private TypeOfAction ThreeAnalze() {
         TypeOfAction oneT=OneAnalyze(0);
         TypeOfAction twoT=OneAnalyze(1);
         TypeOfAction threeT=OneAnalyze(2);
@@ -528,8 +519,7 @@ public class MultiTouchActivity extends Activity {
      * action was of multiple MotionEvents within a single action (i.e. Two finger pinch
      * or three finger swipe down).
      */
-    @SuppressWarnings("unused")
-	private void Final_and_set(){
+    private void Final_and_set(){
         TextView Label=(TextView) findViewById(R.id.fullscreen_content);
         String Moved = "Final and Set ";
         //Label.setText(Moved);
@@ -560,44 +550,44 @@ public class MultiTouchActivity extends Activity {
      * Maps multi-touch events to commands and audio playback.
      * @return String to display in a toast after command is sent.
      */
-    @SuppressWarnings("static-access")
-	private String Send_command(TypeOfAction Final) {
+    private String Send_command(TypeOfAction Final) {
         // map event to command
         String res = "None";
 
-        String [] a = control.getKnownCommands();
+        String [] a = Control.getKnownCommands();
         Context context = getApplicationContext();
         String[] Audio_files;
         Audio_files = getResources().getStringArray(R.array.audio_files);
         try{
             switch (Final){
                 case OneDown:
-                    res=a[0];
-                    control.sendCommand(res, commandHistory);
-                    break;
                 case OneLeft:
-                    res=a[1];
-                    control.sendCommand(res, commandHistory);
-                    break;
                 case OneUp:
-                    res=a[2];
-                    control.sendCommand(res, commandHistory);
-                    break;
                 case OneRight:
-                    res=a[3];
-                    control.sendCommand(res, commandHistory);
+                case TwoDown:
+                case TwoUp:
+                    res = Control.performTouchOperation(Final, context);
                     break;
                 case OneDiagonal:
-                    AudioChooser.Play_audio(context, Audio_files[0], Audio_files);
-                    res="Playing: " +Audio_files[0];
+                    res = Control.performTouchOperation(Final, context);
+                    if(res.equals("")){
+                        //AudioChooser.Play_audio(context, Audio_files[0], Audio_files);
+                        //res="Playing: " +Audio_files[0];
+                    }
                     break;
                 case TwoPinch:
-                    AudioChooser.Play_audio(context,Audio_files[1],Audio_files);
-                    res="Playing: " +Audio_files[1];
+                    res = Control.performTouchOperation(Final, context);
+                    if(res.equals("")){
+                        AudioChooser.Play_audio(context,Audio_files[1],Audio_files);
+                        res="Playing: " +Audio_files[1];
+                    }
                     break;
                 case TwoExpand:
-                    AudioChooser.Play_audio(context,Audio_files[2],Audio_files);
-                    res="Playing: " +Audio_files[2];
+                    res = Control.performTouchOperation(Final, context);
+                    if(res.equals("")){
+                        AudioChooser.Play_audio(context,Audio_files[2],Audio_files);
+                        res="Playing: " +Audio_files[2];
+                    }
                     break;
                 default:
 
@@ -644,7 +634,11 @@ public class MultiTouchActivity extends Activity {
      */
     public void makeToast(String s){
         Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+        Toast toast;
+        if (!s.equals(""))
+        	toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
+        else
+        	toast = Toast.makeText(context, "No Action", Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -681,8 +675,7 @@ public class MultiTouchActivity extends Activity {
      * @param two Point two
      * @return The distance between two {@link android.graphics.PointF}s
      */
-    @SuppressWarnings("unused")
-	private float distance(PointF one, PointF two) {
+    private float distance(PointF one, PointF two) {
         float x = two.x-one.x,result=0;
         float y = two.y-two.y;
         x=x*x;
