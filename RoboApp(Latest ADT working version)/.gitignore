@@ -1,7 +1,0 @@
-import-summary.txt
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build

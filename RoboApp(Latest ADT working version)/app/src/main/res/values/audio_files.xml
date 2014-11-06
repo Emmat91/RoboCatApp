@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="audio_files">
-        <item>Meow</item>
-        <item>Scream</item>
-        <item>Roar</item>
-    </string-array>
-</resources>
