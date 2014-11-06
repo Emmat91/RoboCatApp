@@ -195,9 +195,11 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
 	@Override
 	public void onResume() {
-		super.onResume();
-		//if (deviceConnected)
-			//maestroSSC.setDevice(device);
+        super.onResume();
+        /*if (deviceConnected){
+            maestroSSC.setDevice(MainAct.devices);
+            device = MainAct.devices;
+        }*/
         Intent intent = getIntent();
 		Log.d(TAG, "onResume(" + intent + ")");
 		String action = intent.getAction();
@@ -210,7 +212,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             //finish();
 		}
 
-		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) { //| action.equals("android.intent.action.MAIN")) {
+		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED") | action.equals("android.intent.action.MAIN")) {
 			if (device == null) { device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE); }
 			if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());

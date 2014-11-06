@@ -2,6 +2,7 @@ package com.robocat.roboappui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.hardware.usb.UsbManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -34,11 +38,32 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.robocat.roboappui.R;
+import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 import com.robocat.roboappui.commands.Control;
 import com.robocat.roboappui.dialog.RoboAppDialogFragment;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Locale;
 
 
@@ -51,8 +76,10 @@ import java.util.Locale;
  */
 public class MainAct extends FragmentActivity implements ActionBar.TabListener, 
 RoboAppDialogFragment.RoboAppDialogListener  {
-	
+
 	private static final String TAG = "MaestroSSCActivity";
+    private static boolean deviceConnected;
+    private static PololuMaestroUSBCommandProcess maestroSSC;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -140,25 +167,24 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 		Intent intent = getIntent();
 		Log.d(TAG, "onResume(" + intent + ")");
 		String action = intent.getAction();
-		RoboCatActivity.deviceConnected = false;
+		deviceConnected = false;
 		if (action.equals("android.intent.action.MAIN")) {
             Toast.makeText(getApplicationContext(), 
                     "Reconnect the USB devices.", Toast.LENGTH_LONG).show();
             //finish();
 		}
 
-		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")|action.equals("android.intent.action.MAIN")) {
-			UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+		if (action.equals("android.hardware.usb.action.USB_DEVICE_ATTACHED")) {//|action.equals("android.intent.action.MAIN")) {
+            UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
 				if (UsbManager.ACTION_USB_DEVICE_ATTACHED.equals(action)) {
-				Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
-				RoboCatActivity.device = device;
-              Toast.makeText(getApplicationContext(), 
-                          "USB device connected.", Toast.LENGTH_LONG).show();
-              RoboCatActivity.deviceConnected = true;
+				    Log.d(TAG, "INTENT DEVICE ATTACHED=" + device.toString());
+                    maestroSSC.setDevice(device);
+                    deviceConnected = true;
+                   Toast.makeText(getApplicationContext(),
+                         "USB device connected.", Toast.LENGTH_LONG).show();
 
 			} else if (UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)) {
 				Log.d(TAG, "INTENT DEVICE DETACHED=" + device.toString());
-				RoboCatActivity.device = device;
               Toast.makeText(getApplicationContext(), 
                           "USB device disconnected.", Toast.LENGTH_LONG).show();
 			} else {
@@ -173,6 +199,10 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 			
 		}
 	}
+
+    public Context getContext() {
+        return getApplicationContext();
+    }
     
     protected void onRestart() {
     	super.onRestart();
@@ -524,8 +554,27 @@ RoboAppDialogFragment.RoboAppDialogListener  {
      *
      */
     public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener,
+        View.OnClickListener,
     	SeekBar.OnSeekBarChangeListener{
-        
+
+        private Button homeButton, recordButton, clearGaitButton, runGaitButton;
+        //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
+        // private Handler mHandler = new Handler();
+        //TextView textViewChannel1Position, textViewChannel2Position, textViewChannel3Position, textViewChannel4Position, textViewChannel5Position, textViewChannel6Position, textViewChannel7Position, textViewChannel8Position, textViewChannel9Position, textViewChannel10Position, textViewChannel11Position, textViewChannel12Position;
+        int channelCount = 12;
+        // the seekBar range is [900, 1500], and there is no way to modify the beginning value of the seek bar. therefore, the actual progress value and the
+        // seekbar progress value are recorded separately
+        int progressResetActual =1500;
+        int progressOffset =900;
+        // int array to record the current gait values
+        int[] arrayGaitChannelProgress = new int[2*(channelCount+1)];
+        //ArrayList<Integer> arrayGaitChannelProgress = new ArrayList<Integer>(Collections.nCopies(2*channelCount, -1));
+        TextView[] textViewChannelPositionArray = new TextView[channelCount];
+        private SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
+        //the map between the seekbar no. and the pololu maestro channel
+        int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,14,16,17,18};
+
+        String gaitDefaultFileName = "GaitShared.txt";
         private static View rootView;
 
         public HWSectionFragment() {
@@ -607,26 +656,325 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          */
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            rootView = inflater.inflate(R.layout.fragment_hw_layout, container, false); //change
+            rootView = inflater.inflate(R.layout.robocat_layout, container, false); //change
             //mainAct = (MainAct) this.getActivity();
-            
-            Spinner commandSelect = (Spinner) rootView.findViewById(R.id.command_select);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity().getBaseContext(),
-            		R.array.command_select_options, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            
-            commandSelect.setAdapter(adapter);
-            commandSelect.setOnItemSelectedListener(this);
-            
-            SeekBar commandSlider = (SeekBar) rootView.findViewById(R.id.command_slider);
-            commandSlider.setMax(255);
-            commandSlider.setOnSeekBarChangeListener(this);
-            
+
+
+            // initialize the gait array value to -1. declare in the beginning, but have to initialize here
+            Arrays.fill(arrayGaitChannelProgress,-1);
+
+            homeButton = (Button) rootView.findViewById(R.id.homeButtonid);
+            homeButton.setOnClickListener(this);
+            recordButton = (Button) rootView.findViewById(R.id.buttonpololurecordid);
+            recordButton.setOnClickListener(this);
+            clearGaitButton = (Button) rootView.findViewById(R.id.clearGaitButtonid);
+            clearGaitButton.setOnClickListener(this);
+            runGaitButton = (Button) rootView.findViewById(R.id.runGaitButtonid);
+            runGaitButton.setOnClickListener(this);
+
+
+            // Initialize the textView and seekBar
+            /*for(int i = 0; i < channelCount; i++) {
+                textViewChannelPositionArray[i] = new TextView(this);
+                channelPositionBarArray[i] = new SeekBar(this);
+            }*/
+
+
+            channelPositionBarArray[0] = (SeekBar) rootView.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar = (SeekBar) rootView.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar.setOnSeekBarChangeListener(this);
+            channelPositionBarArray[1] = (SeekBar) rootView.findViewById(R.id.channel2PositionBar);
+            channelPositionBarArray[2] = (SeekBar) rootView.findViewById(R.id.channel3PositionBar);
+            channelPositionBarArray[3] = (SeekBar) rootView.findViewById(R.id.channel4PositionBar);
+            channelPositionBarArray[4] = (SeekBar) rootView.findViewById(R.id.channel5PositionBar);
+            channelPositionBarArray[5] = (SeekBar) rootView.findViewById(R.id.channel6PositionBar);
+            channelPositionBarArray[6] = (SeekBar) rootView.findViewById(R.id.channel7PositionBar);
+            channelPositionBarArray[7] = (SeekBar) rootView.findViewById(R.id.channel8PositionBar);
+            channelPositionBarArray[8] = (SeekBar) rootView.findViewById(R.id.channel9PositionBar);
+            channelPositionBarArray[9] = (SeekBar) rootView.findViewById(R.id.channel10PositionBar);
+            channelPositionBarArray[10] = (SeekBar) rootView.findViewById(R.id.channel11PositionBar);
+            channelPositionBarArray[11] = (SeekBar) rootView.findViewById(R.id.channel12PositionBar);
+            // set listeners for channelPositionBar
+            for(int i = 0; i < channelCount; i++) {
+                channelPositionBarArray[i].setOnSeekBarChangeListener(this);
+            }
+
+            //errorsTextView = (TextView) rootView.findViewById(R.id.errorsTextView);
+
+
+            textViewChannelPositionArray[0] = (TextView) rootView.findViewById (R.id.channel1positionvalue);
+            textViewChannelPositionArray[1] = (TextView) rootView.findViewById (R.id.channel2positionvalue);
+            textViewChannelPositionArray[2] = (TextView) rootView.findViewById (R.id.channel3positionvalue);
+            textViewChannelPositionArray[3] = (TextView) rootView.findViewById (R.id.channel4positionvalue);
+            textViewChannelPositionArray[4] = (TextView) rootView.findViewById (R.id.channel5positionvalue);
+            textViewChannelPositionArray[5] = (TextView) rootView.findViewById (R.id.channel6positionvalue);
+            textViewChannelPositionArray[6] = (TextView) rootView.findViewById (R.id.channel7positionvalue);
+            textViewChannelPositionArray[7] = (TextView) rootView.findViewById (R.id.channel8positionvalue);
+            textViewChannelPositionArray[8] = (TextView) rootView.findViewById (R.id.channel9positionvalue);
+            textViewChannelPositionArray[9] = (TextView) rootView.findViewById (R.id.channel10positionvalue);
+            textViewChannelPositionArray[10] = (TextView) rootView.findViewById (R.id.channel11positionvalue);
+            textViewChannelPositionArray[11] = (TextView) rootView.findViewById (R.id.channel12positionvalue);
+
+
+
+            UsbManager manager = (UsbManager) rootView.getContext().getSystemService(Context.USB_SERVICE);
+            HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+            maestroSSC = new PololuMaestroUSBCommandProcess(manager);
+
+
             updateOutput();
             
             return rootView;
         }
+        /**
+         * Handle button click
+         */
+        @Override
+        public void onClick(View v) {
+            Log.d(TAG,"onClick(" + v.getId() + ")");
+            // Get button id first
+            final Button b = (Button) v;
+            String buttonText = b.getText().toString();
+
+
+            if (v.equals(homeButton))
+            {
+                goHome();
+
+            }
+            else if (v.equals(recordButton))
+            {
+                recordGaitButtonAction();
+            }
+            else if (v.equals(runGaitButton))
+            {
+                try {
+                    runGaitButtonAction();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            else if (v.equals(clearGaitButton))
+            {
+                clearGaitButton();
+            }
+        }
+
+
+        public void clearGaitButton()
+        {
+
+            // test: delete the Gait.txt file
+
+            File root = new File(Environment.getExternalStorageDirectory(), "Gait");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            //File gpxfile = new File(root, "Gait"+currentDateandTime+".txt");
+            File gpxfile = new File(root, gaitDefaultFileName);
+
+            boolean deleted = gpxfile.delete();
+
+
+        }
+
+        public void runGaitButtonAction() throws IOException {
+            // TODO Auto-generated method stub
+
+///////////////
+            Runnable r = new Runnable() {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        File root = new File(Environment.getExternalStorageDirectory(), "Gait");
+                        if (!root.exists())
+                        {
+                            root.mkdirs();
+                        }
+                        File gpxfile = new File(root, gaitDefaultFileName);
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
+                        String line;
+                        while ((line = br.readLine()) != null)
+                        {
+                            int[] gaitLineVal=parseGait(line);
+                            oneGaitAction(gaitLineVal);
+                            for (int iloop =0; iloop<100000000; iloop++){}
+                        }
+
+                        br.close();
+
+                    }
+                    catch (IOException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } //<-- put your code in here.
+                }
+            };
+
+            Handler h = new Handler();
+            h.postDelayed(r, 1000); // <-- the "1000" is the delay time in miliseconds.
+//////////////////////
+
+
+        }
+
+
+
+
+        private void oneGaitAction(int[] gaitLineVal) {
+            // TODO Auto-generated method stub
+            for (int iRunGait=0, lenRunGait = gaitLineVal.length/2; iRunGait <lenRunGait; iRunGait++)
+            {
+                // double iRunGait to point to the right channel
+                int iRunGaitDouble = iRunGait*2;
+                if (gaitLineVal[iRunGaitDouble] == -1) continue;
+                if (gaitLineVal[iRunGaitDouble] <0 )
+                {
+                    break;
+                }
+                else
+                {
+                    final int channelNoMapped = gaitLineVal[iRunGaitDouble];
+                    final int progressActual = gaitLineVal[iRunGaitDouble+1];
+                    int channelNoSeekBar=iRunGaitDouble/2;
+                    progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);
+
+
+/*			    		new Timer().schedule(new TimerTask() {
+	    		    @Override
+	    		    public void run() {
+	    		        // this code will be executed after 2 seconds
+			    		progressChangeAction(channelNo, progressActual);
+	    		    }
+	    		}, 2000);
+*/
+/*
+		    	try {
+		    	    Thread.sleep(1000);
+		    	} catch(InterruptedException ex) {
+		    	    Thread.currentThread().interrupt();
+		    	}
+*/
+                }
+
+            }
+
+        }
+
+
+        private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
+        {
+            if (deviceConnected)
+                maestroSSC.setServoPosition(channelNoMapped, progressActual);
+
+            // modify the offset for the progress of the seek bar
+            int progressSeekBar = progressActual - progressOffset;
+            channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);
+            textViewChannelPositionArray[channelNoSeekBar].setText(String.valueOf(progressActual));
+        }
+
+        private int[] parseGait(String line) {
+            // TODO Auto-generated method stub
+
+            String[] byteValues = line.substring(0, line.length() -1).split(",");
+
+            //String[] byteValues = arr.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
+
+            int[] results = new int[byteValues.length];
+
+            for (int i = 0; i < byteValues.length; i++) {
+                try {
+                    results[i] = Integer.parseInt(byteValues[i]);
+                } catch (NumberFormatException nfe) {};
+            }
+
+//		byte[] bytes = new byte[byteValues.length];
+//
+            //	for (int i=0, len=bytes.length; i<len; i++) {
+//			   bytes[i] = Byte.valueOf(byteValues[i].trim());
+            //	   bytes[i] = Byte.valueOf(byteValues[i]);
+            //}
+
+            //String str = new String(bytes);
+            return results;
+        }
+
+
+        private void recordGaitButtonAction() {
+            // TODO Auto-generated method stub
+            generateGaitOnSD(gaitDefaultFileName, arrayGaitChannelProgress);
+
+        }
+
+        public void generateGaitOnSD(String sFileName, int[] arrayGaitChannelProgress){
+            try
+            {
+                File root = new File(Environment.getExternalStorageDirectory(), "Gait");
+                if (!root.exists()) {
+                    root.mkdirs();
+                }
+                File gpxfile = new File(root, sFileName);
+                //  FileWriter writer = new FileWriter(gpxfile);
+                //    writer.append(Integer.toString(gaitArray[1]));
+                //      writer.flush();
+                //        writer.close();
+                Toast.makeText(rootView.getContext(), "Saved", Toast.LENGTH_SHORT).show();
+                BufferedWriter outputWriter = null;
+                if (gpxfile.exists())
+                {
+                    outputWriter = new BufferedWriter(new FileWriter(gpxfile,true));
+
+                }
+                else
+                {
+                    outputWriter = new BufferedWriter(new FileWriter(gpxfile));
+                }
+
+                //outputWriter = new BufferedWriter(new FileWriter(gpxfile));
+                for (int i = 0; i < arrayGaitChannelProgress.length; i++) {
+                    // Maybe:
+//	        	if (i != arrayGaitChannelProgress.length-1)
+                    {outputWriter.append(arrayGaitChannelProgress[i]+",");}
+//	        	else
+//	        	{outputWriter.append(String.valueOf(arrayGaitChannelProgress[i]));}
+                    // Or:
+//	          outputWriter.write(Integer.toString(gaitArray[i]);
+                }
+                outputWriter.newLine();
+                outputWriter.flush();
+                outputWriter.close();
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+                //         importError = e.getMessage();
+                //       iError();
+            }
+        }
+
+
+        public void goHome() {
+            //dataArray[0] = (byte) 0xAA;
+            //dataArray[1] = (byte) deviceNumber;
+            //dataArray[2] = (byte) CMD_GO_HOME;
+
+            //sendCommand(dataArray, 3);
+            for (int channelNoSeekBar = 0; channelNoSeekBar < channelCount; channelNoSeekBar++)
+            {
+                // obtain the mapped channelNo
+                int channelNoMapped = channelNoMapArray[channelNoSeekBar];
+                progressChangeAction(channelNoMapped, progressResetActual, channelNoSeekBar);
+            }
+
+        }
     }
+
+
 
     /**
      * The fragment that contains functions for the End User interface

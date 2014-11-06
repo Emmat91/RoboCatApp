@@ -2,17 +2,47 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+
+    <TextView
+        android:id="@+id/servolabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="right"
+        android:layout_marginLeft="5dp"
+        android:text="@string/servo"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/positionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/position"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/channel1positionlabel"
+        android:layout_alignLeft="@+id/homeButtonid" />
+
+
     <SeekBar
         android:id="@+id/channel1PositionBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/channel1positionvalue"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/channel1arduino"
-        android:layout_toRightOf="@+id/buttonpololurecordid"
         android:gravity="left"
         android:max="1200"
-        android:progress="600" />
+        android:progress="600"
+        android:layout_alignTop="@+id/channel1positionvalue"
+        android:layout_toRightOf="@+id/channel1positionvalue" />
+
+    <TextView
+        android:id="@+id/channel1positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/channel2positionlabel"
+        android:layout_alignLeft="@+id/channel11positionvalue"
+        android:gravity="right"
+        android:text="@string/channelPositionResetValue"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <SeekBar
         android:id="@+id/channel2PositionBar"
@@ -46,60 +76,6 @@
         android:text="@string/channel2"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/servolabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="right"
-        android:layout_marginLeft="5dp"
-        android:text="@string/servo"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/positionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel1PositionBar"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:text="@string/position"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel1arduino"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/channel1positionlabel"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:text="@string/AduinoTorque"
-        android:layout_marginRight="5dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel1torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel1positionlabel"
-        android:layout_alignBottom="@+id/channel1positionlabel"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel2torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/channel2PositionBar"
-        android:gravity="right"
-        android:layout_marginRight="5dp"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/channel3positionlabel"
@@ -183,6 +159,16 @@
         android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <SeekBar
+        android:id="@+id/channel5PositionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/channel4PositionBar"
+        android:layout_alignTop="@+id/channel5positionvalue"
+        android:gravity="left"
+        android:max="1200"
+        android:progress="600" />
+
     <TextView
         android:id="@+id/channel6positionlabel"
         android:layout_width="wrap_content"
@@ -193,16 +179,6 @@
         android:text="@string/channel6"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <SeekBar
-        android:id="@+id/channel5PositionBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel4PositionBar"
-        android:layout_alignTop="@+id/channel5positionvalue"
-        android:layout_toLeftOf="@+id/channel1arduino"
-        android:gravity="left"
-        android:max="1200"
-        android:progress="600" />
 
     <TextView
         android:id="@+id/channel6positionvalue"
@@ -226,25 +202,6 @@
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel6torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel4torque"
-        android:layout_alignTop="@+id/channel6PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-<!--     <TextView -->
-<!--         android:id="@+id/errorsTextView" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_alignBaseline="@+id/homeButton" -->
-<!--         android:layout_alignBottom="@+id/homeButton" -->
-<!--         android:layout_alignRight="@+id/channel6PositionBar" -->
-<!-- 				/> -->
-
-    <TextView
         android:id="@+id/channel7positionlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -266,13 +223,13 @@
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel7torque"
+        android:id="@+id/channel7positionvalue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel5torque"
-        android:layout_alignTop="@+id/channel7PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
+        android:layout_alignBaseline="@+id/channel7positionlabel"
+        android:layout_alignBottom="@+id/channel7positionlabel"
+        android:layout_alignLeft="@+id/channel6positionvalue"
+        android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -297,13 +254,13 @@
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel8torque"
+        android:id="@+id/channel8positionvalue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel7torque"
-        android:layout_alignTop="@+id/channel8PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
+        android:layout_alignBaseline="@+id/channel8positionlabel"
+        android:layout_alignBottom="@+id/channel8positionlabel"
+        android:layout_alignLeft="@+id/channel7positionvalue"
+        android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <SeekBar
@@ -325,6 +282,16 @@
         android:layout_below="@+id/channel8PositionBar"
         android:layout_marginTop="8dp"
         android:text="@string/channel9"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/channel9positionvalue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/channel9positionlabel"
+        android:layout_alignBottom="@+id/channel9positionlabel"
+        android:layout_alignLeft="@+id/channel10positionvalue"
+        android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -353,31 +320,20 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/channel6PositionBar"
         android:layout_alignTop="@+id/channel10positionvalue"
-        android:layout_toLeftOf="@+id/channel1arduino"
         android:gravity="left"
         android:max="1200"
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel10torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel8torque"
-        android:layout_alignTop="@+id/channel10PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel1positionlabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel2positionlabel"
-        android:layout_below="@+id/servolabel"
-        android:layout_marginTop="15dp"
-        android:gravity="right"
-        android:text="@string/channel1"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    android:id="@+id/channel1positionlabel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/channel2positionlabel"
+    android:layout_below="@+id/servolabel"
+    android:layout_marginTop="15dp"
+    android:gravity="right"
+    android:text="@string/channel1"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/channel11positionlabel"
@@ -401,13 +357,13 @@
         android:progress="600" />
 
     <TextView
-        android:id="@+id/channel11torque"
+        android:id="@+id/channel11positionvalue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel10torque"
-        android:layout_alignTop="@+id/channel11PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
+        android:layout_alignBaseline="@+id/channel11positionlabel"
+        android:layout_alignBottom="@+id/channel11positionlabel"
+        android:layout_alignLeft="@+id/channel12positionvalue"
+        android:text="@string/channelPositionResetValue"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -436,133 +392,34 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/channel11PositionBar"
         android:layout_alignTop="@+id/channel12positionvalue"
-        android:layout_toLeftOf="@+id/channel1arduino"
         android:gravity="left"
         android:max="1200"
         android:progress="600" />
-
-    <TextView
-        android:id="@+id/channel12torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel10torque"
-        android:layout_alignTop="@+id/channel12PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/buttonpololurecordid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonpololurecordstring"
+        android:layout_marginTop="34dp"
         android:layout_below="@+id/channel12PositionBar"
         android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/channel11positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel11positionlabel"
-        android:layout_alignBottom="@+id/channel11positionlabel"
-        android:layout_alignLeft="@+id/channel12positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel9positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel9positionlabel"
-        android:layout_alignBottom="@+id/channel9positionlabel"
-        android:layout_alignLeft="@+id/channel10positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel8positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel8positionlabel"
-        android:layout_alignBottom="@+id/channel8positionlabel"
-        android:layout_alignLeft="@+id/channel7positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel7positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/channel7positionlabel"
-        android:layout_alignBottom="@+id/channel7positionlabel"
-        android:layout_alignLeft="@+id/channel6positionvalue"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel1positionvalue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/channel2positionlabel"
-        android:layout_alignLeft="@+id/channel11positionvalue"
-        android:gravity="right"
-        android:text="@string/channelPositionResetValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel3torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel2torque"
-        android:layout_alignTop="@+id/channel3PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel4torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel3torque"
-        android:layout_alignTop="@+id/channel4PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel5torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel4torque"
-        android:layout_below="@+id/channel4PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/channel9torque"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/channel8torque"
-        android:layout_alignTop="@+id/channel9PositionBar"
-        android:gravity="right"
-        android:text="@string/stringArduinoTorqueValue"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/runGaitButtonid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/runGaitButtonString"
-        android:layout_below="@+id/channel12PositionBar"
-        android:layout_alignParentRight="true" />
+        android:layout_alignTop="@+id/homeButtonid"
+        android:layout_toRightOf="@+id/homeButtonid" />
 
     <Button
         android:id="@+id/homeButtonid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/moveAllChannelsToHomePosition"
-        android:layout_below="@+id/channel12PositionBar"
+        android:layout_alignTop="@+id/clearGaitButtonid"
         android:layout_toRightOf="@+id/clearGaitButtonid" />
 
     <Button
@@ -570,7 +427,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/clearGaitButtonString"
-        android:layout_below="@+id/channel12PositionBar"
+        android:layout_alignTop="@+id/buttonpololurecordid"
         android:layout_toRightOf="@+id/buttonpololurecordid" />
 
 </RelativeLayout>
