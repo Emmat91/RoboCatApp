@@ -1,15 +1,15 @@
 package com.example.ding.touchforcattest;
 
-
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.example.ding.touchforcat.MainTouch;
+import com.example.ding.touchforcat.RecordTouch;
 
-public class ApplicationTest extends ActivityInstrumentationTestCase2<MainTouch> {
-    public ApplicationTest() {
-        super(MainTouch.class);
-    }
+/**
+ * Created by Ding on 11/13/2014.
+ */
+public class ApplicationTest3 extends ActivityInstrumentationTestCase2<RecordTouch> {
 
+    public ApplicationTest3() {super(RecordTouch.class);}
 
     @Override
     protected void setUp() throws Exception {
@@ -17,13 +17,13 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainTouch>
         super.setUp();
     }
 
-    public void testAdd() {
-        System.out.println("add");
+    public void testMinus() {
+        System.out.println("minus");
         int x = 0;
         int y = 0;
-        MainTouch instance = new MainTouch();
+        RecordTouch instance = new RecordTouch();
         int expResult = 0;
-        int result = instance.add(x, y);
+        int result = instance.minus(x, y);
         assertEquals(expResult, result);
     }
 

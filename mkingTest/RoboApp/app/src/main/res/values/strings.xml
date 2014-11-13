@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RoboApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">HW Dev</string>
+    <string name="title_section2">End User</string>
+    <string name="title_section3">Multi-Touch</string>
+    <string name="Commands">Commands Sent Are:</string>
+    <string name="title_activity_multi_touch">Multi-touch Surface</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">Multi-Touch\nActivity</string>
+    <string name="enter_command">Enter Parameters</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="Sent">Commands Sent:</string>
+    <string name="Camera">Here is the camera</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="hello">Hello World, FileExplore!</string>
+    <string name="title_activity_audio_chooser">Audio Chooser</string>
+    <string name="title_activity_file_chooser">File Chooser</string>
+    <string name="title_activity_load_file_chooser">Run File Chooser</string>
+    <string name="title_activity_save_file_chooser">Save File Chooser</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Select">Selected File</string>
+    <string name="Cat_Scream">Cat_Scream_SoundBible.com_871191563</string>
+    <string name="Cat_Meow">Cat_Meow_2-Cat_Stevens_2034822903</string>
+    <string name="Cat_Roar">Roaring_Lion_SoundBible.com_527774719</string>
+
+    <string name="about">About</string>
+    <string name="multi_touch_file_select">Select</string>
+    <string name="none_selected">None Selected</string>
+
+    <string name="MultiMainLabel">Commands - Up, Down, Left, Right\nDiagonal, Pinch, and Expand for audio</string>
+
+    <string name="AboutData">RoboApp \n\nPrevious Team RoboApp:\nJoey Phelps\nTim Grannen</string>
+    <string name="AboutDataNew">Current Team RoboApp:\nPinfang Ding\nChong Liu\nMatthew King\nMatt Hutton</string>
+    <string name="title_robo_cat_activity">RoboCat Servos</string>
+    <string name="servo">Servo</string>
+    <string name="home">Home</string>
+    <string name="pwm">Test</string>
+    <string name="pwmOnTime">PWM On Time</string>
+    <string name="pwmperiod">PWM Period</string>
+    <string name="ontime">Test</string>
+    <string name="period">Test</string>
+    <string name="errors"></string>
+    <string name="position">Position</string>
+    <string name="speed">Speed</string>
+    <string name="acceleration">Acceleration</string>
+    <string name="AduinoTorque">Torque</string>
+    <string name="channel1">LB-SD: </string>
+    <string name="channel2">LB-KN: </string>
+    <string name="channel3">LB-LR: </string>
+    <string name="channel4">RB-SD: </string>
+    <string name="channel5">RB-KN: </string>
+    <string name="channel6">RB-LR: </string>
+    <string name="channel7">LF-SD: </string>
+    <string name="channel8">LF-KN: </string>
+    <string name="channel9">LF-LR: </string>
+    <string name="channel10">RF-SD: </string>
+    <string name="channel11">RF-KN: </string>
+    <string name="channel12">RF-LR: </string>
+    <string name="moveAllChannelsToHomePosition">Reset servos</string>
+    <string name="buttonpololurecordstring">Record </string>
+    <string name="channelPositionResetValue">1500 </string>
+    <string name="stringArduinoTorqueValue">Ard</string>
+    <string name="runGaitButtonString">Run Gait</string>
+    <string name="clearGaitButtonString">Clear Gait</string>
+    <string name="ExitString">Exit</string>
+    <string name="PlayAudioFile">Play Audio File</string>
+    <string name="RecordAudio">Record Audio</string>
+
+</resources>

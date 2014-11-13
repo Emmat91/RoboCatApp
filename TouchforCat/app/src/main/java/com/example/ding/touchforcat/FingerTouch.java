@@ -11,6 +11,11 @@ public class FingerTouch extends Activity implements View.OnClickListener{
 
     private Button back_btn;
 
+    public int multiply(int x,int y){
+        return x*y;
+    }//Test Case2
+
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finger_touch);
