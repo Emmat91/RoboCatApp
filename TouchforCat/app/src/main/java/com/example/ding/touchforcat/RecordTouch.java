@@ -17,6 +17,10 @@ public class RecordTouch extends Activity implements View.OnClickListener {
     private Button back_btn, restore_btn;
 
 
+    public int minus(int x,int y){
+        return x-y;
+    }//TestCase 3
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

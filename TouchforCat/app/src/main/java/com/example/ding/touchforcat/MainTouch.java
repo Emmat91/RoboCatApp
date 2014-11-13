@@ -21,7 +21,7 @@ public class MainTouch extends Activity implements View.OnClickListener {
     //@param message to be printed
     public int add(int x,int y){
         return x+y;
-    }//for Junit Test
+    }//TestCase 1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
