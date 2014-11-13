@@ -19,16 +19,9 @@ public class MainTouch extends Activity implements View.OnClickListener {
 
     //Constructor
     //@param message to be printed
-    public MessageUtil(String message){
-        this.message = message;
-    }
-
-    // prints the message
-    public String printMessage(){
-        System.out.println(message);
-        return message;
-
-
+    public int add(int x,int y){
+        return x+y;
+    }//for Junit Test
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
