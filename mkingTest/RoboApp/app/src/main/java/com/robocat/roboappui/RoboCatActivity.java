@@ -78,7 +78,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	TextView[] textViewChannelPositionArray = new TextView[channelCount];
 	private SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
 	//the map between the seekbar no. and the pololu maestro channel 
-	int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,14,16,17,18};
+	int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
 	
 	public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
 	
