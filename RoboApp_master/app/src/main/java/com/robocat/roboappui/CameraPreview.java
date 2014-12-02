@@ -1,7 +1,13 @@
 package com.robocat.roboappui;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
+import android.hardware.Camera.Face;
+
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,8 +18,14 @@ import java.io.IOException;
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
+    private Rect[] mFaces = null;
+    private Canvas mCanvas;
+    private Paint mPaint;
+
+
 
     private String TAG = "Camera Preview";
+
     public CameraPreview(Context context, Camera camera) {
         super(context);
         mCamera = camera;
@@ -21,17 +33,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed.
         mHolder = getHolder();
-        try{
+        try {
             mHolder.addCallback(this);
-        }
-        catch (Exception e){
-            Log.e(TAG,"addCallBack");
+        } catch (Exception e) {
+            Log.e(TAG, "addCallBack");
         }
 
     }
 
     /**
      * Tells the camera where to draw the camera preview
+     *
      * @param holder
      */
     public void surfaceCreated(SurfaceHolder holder) {
@@ -39,11 +51,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         try {
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
-        }
-        catch (IOException e) {
+
+            mCamera.startFaceDetection();
+
+        } catch (IOException e) {
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
-        }
-        catch (NullPointerException N) {
+        } catch (NullPointerException N) {
             Log.e(TAG, "Error setting camera preview Null: " + N.getMessage());
         }
     }
@@ -56,15 +69,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // If your preview can change or rotate, take care of those events here.
         // Make sure to stop the preview before resizing or reformatting it.
 
-        if (mHolder.getSurface() == null){
+        if (mHolder.getSurface() == null) {
             // preview surface does not exist
             return;
         }
 
         // stop preview before making changes
         try {
+
+            mCamera.stopFaceDetection();
             mCamera.stopPreview();
-        } catch (Exception e){
+        } catch (Exception e) {
             // ignore: tried to stop a non-existent preview
         }
 
@@ -76,8 +91,41 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
 
-        } catch (Exception e){
+            mCamera.startFaceDetection();
+
+
+        } catch (Exception e) {
             Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
     }
+
+    public void onFaceDetection(Face[] faces, Camera myCamera) {
+        // For all faces in faces, draw a new rectangle, using their faces.rect values.
+        Rect tRect[] = new Rect[faces.length];  // declaring temporary rect array to build.
+
+        for (int i = 0; i < faces.length; i++) {
+            // for each element, copy that into tRect.
+            tRect[i] = faces[i].rect;
+        }
+
+        // Moving the temporary array into our main context.
+        mFaces = tRect;
+
+        // set up paintbrush for this instance.
+        mPaint.setColor(Color.RED);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(2);
+
+        // Draw each rect to the screen.
+        for (int i = 0; i < mFaces.length; i++) {
+            mCanvas.drawRect(mFaces[i], mPaint);
+        }
+
+
+        return;
+    }
 }
+
+
+
+
