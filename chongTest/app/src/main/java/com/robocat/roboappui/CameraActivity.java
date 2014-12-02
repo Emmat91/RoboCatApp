@@ -1,6 +1,10 @@
 package com.robocat.roboappui;
 
 import android.app.Activity;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
@@ -103,6 +107,5 @@ public class CameraActivity extends Activity {
             mCamera = null;
         }
     }
-
 
 }
