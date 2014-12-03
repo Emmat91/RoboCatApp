@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="C:\Users\Matt\Desktop\robocat\capstone.f14.roboapp\RoboApp_master\openCVLibrary2410\src\main\assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\Users\Matt\Desktop\robocat\capstone.f14.roboapp\RoboApp_master\openCVLibrary2410\src\debug\assets" />
+    </dataSet>
+
+</merger>
