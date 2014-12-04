@@ -40,7 +40,7 @@ public class LoadFileChooser extends Activity {
     /** Variable to be able to pass a string array to the ListView */
     private ArrayAdapter<String> listAdapter ;
     
-    private String SelectedText;
+    private String SelectedText="";
 
     /** Variable to hold the selected audio file name */
     private TextView SelectedTextView;
@@ -183,7 +183,7 @@ public class LoadFileChooser extends Activity {
         }
 
         String Sel = getResources().getString(R.string.Select);
-        if(value.equals(Sel)){
+        if(value.equals(Sel) || value.equals("")){
             makeToast("No file selected!");
             return false;
         }

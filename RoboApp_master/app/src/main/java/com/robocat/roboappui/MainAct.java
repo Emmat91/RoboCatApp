@@ -752,6 +752,4 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         }
     }
 
-
-
 }

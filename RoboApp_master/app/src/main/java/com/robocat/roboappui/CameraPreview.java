@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
-import android.hardware.Camera.Parameters;
 import android.hardware.Camera.FaceDetectionListener;
+import android.hardware.Camera.Parameters;
 
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -20,9 +20,9 @@ import java.io.IOException;
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
-    private Rect[] mFaces = null;
-    private Canvas mCanvas;
-    private Paint mPaint;
+    //private Rect[] mFaces = null;
+    //private Canvas mCanvas;
+    //private Paint mPaint;
 
 
 
@@ -54,6 +54,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
 
+            //mCamera.startFaceDetection();
+
         } catch (IOException e) {
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
         } catch (NullPointerException N) {
@@ -77,7 +79,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // stop preview before making changes
         try {
 
-            mCamera.stopFaceDetection();
+            //mCamera.stopFaceDetection();
             mCamera.stopPreview();
         } catch (Exception e) {
             // ignore: tried to stop a non-existent preview
@@ -90,7 +92,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         try {
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
-            mCamera.startFaceDetection();
+
+            //mCamera.startFaceDetection();
 
 
         } catch (Exception e) {
@@ -98,7 +101,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    /*public void onFaceDetection(Face[] faces, Camera camera) {
+    /*public void onFaceDetection(Face[] faces, Camera mCamera) {
         // For all faces in faces, draw a new rectangle, using their faces.rect values.
         Rect tRect[] = new Rect[faces.length];  // declaring temporary rect array to build.
 
@@ -122,10 +125,8 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
 
         return;
-    }
-    */
+    }*/
 }
-
 
 
 
