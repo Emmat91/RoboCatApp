@@ -26,13 +26,10 @@
     <string name="Cat_Scream">Cat_Scream_SoundBible.com_871191563</string>
     <string name="Cat_Meow">Cat_Meow_2-Cat_Stevens_2034822903</string>
     <string name="Cat_Roar">Roaring_Lion_SoundBible.com_527774719</string>
-
     <string name="about">About</string>
     <string name="multi_touch_file_select">Select</string>
     <string name="none_selected">None Selected</string>
-
     <string name="MultiMainLabel">Commands - Up, Down, Left, Right\nDiagonal, Pinch, and Expand for audio</string>
-
     <string name="AboutData">RoboApp \n\nPrevious Team RoboApp:\nJoey Phelps\nTim Grannen</string>
     <string name="AboutDataNew">Current Team RoboApp:\nPinfang Ding\nChong Liu\nMatthew King\nMatt Hutton</string>
     <string name="title_robo_cat_activity">RoboCat Servos</string>
@@ -69,5 +66,6 @@
     <string name="ExitString">Exit</string>
     <string name="PlayAudioFile">Play Audio</string>
     <string name="RecordAudio">Record Audio</string>
+    <string name="title_activity_face_detect">FaceDetectActivity</string>
 
 </resources>
