@@ -4,7 +4,7 @@
     <string name="app_name">RoboApp</string>
     <string name="action_settings">Settings</string>
     <string name="title_section1">HW Dev</string>
-    <string name="title_section2">End User</string>
+    <string name="title_section2">Media</string>
     <string name="title_section3">Multi-Touch</string>
     <string name="Commands">Commands Sent Are:</string>
     <string name="title_activity_multi_touch">Multi-touch Surface</string>
@@ -67,7 +67,7 @@
     <string name="runGaitButtonString">Run Gait</string>
     <string name="clearGaitButtonString">Clear Gait</string>
     <string name="ExitString">Exit</string>
-    <string name="PlayAudioFile">Play Audio File</string>
+    <string name="PlayAudioFile">Play Audio</string>
     <string name="RecordAudio">Record Audio</string>
 
 </resources>
