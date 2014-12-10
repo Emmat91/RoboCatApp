@@ -13,17 +13,13 @@ import android.hardware.Camera.Parameters;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
 import java.io.IOException;
+
 
 /** A basic Camera preview class */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
-    //private Rect[] mFaces = null;
-    //private Canvas mCanvas;
-    //private Paint mPaint;
-
 
 
     private String TAG = "Camera Preview";
@@ -78,8 +74,6 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
         // stop preview before making changes
         try {
-
-            //mCamera.stopFaceDetection();
             mCamera.stopPreview();
         } catch (Exception e) {
             // ignore: tried to stop a non-existent preview
@@ -93,39 +87,12 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
 
-            //mCamera.startFaceDetection();
-
 
         } catch (Exception e) {
             Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
     }
 
-    /*public void onFaceDetection(Face[] faces, Camera mCamera) {
-        // For all faces in faces, draw a new rectangle, using their faces.rect values.
-        Rect tRect[] = new Rect[faces.length];  // declaring temporary rect array to build.
-
-        for (int i = 0; i < faces.length; i++) {
-            // for each element, copy that into tRect.
-            tRect[i] = faces[i].rect;
-        }
-
-        // Moving the temporary array into our main context.
-        mFaces = tRect;
-
-        // set up paintbrush for this instance.
-        mPaint.setColor(Color.RED);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(2);
-
-        // Draw each rect to the screen.
-        for (int i = 0; i < mFaces.length; i++) {
-            mCanvas.drawRect(mFaces[i], mPaint);
-        }
-
-
-        return;
-    }*/
 }
 
 

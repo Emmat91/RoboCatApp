@@ -2,6 +2,7 @@ package com.robocat.roboappui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -408,7 +409,20 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         }
     }
 
-    private void MakeToast(String s) {
+
+    //Method for starting Face Detection activity. Called when Face Detection button is clicked.
+    public void startFaceDetection(View view){
+        if(checkCameraHardware(getApplicationContext())){
+              Intent myFaceDetectionIntent = new Intent(this, FaceDetectActivity.class);
+              startActivity(myFaceDetectionIntent);
+        } else {
+            MakeToast("No camera Available");
+        }
+    }
+
+
+
+    public void MakeToast(String s) {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, s, Toast.LENGTH_LONG);
         toast.show();
@@ -741,7 +755,6 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          * This function is used by the updateFileNames() function
          * @param t - the TextView to update
          * @param str - the String to set the text to
-         * @see updateFileNames()
          */
         private static void updateTextView(TextView t, String str) {
         	if (str == null) {
