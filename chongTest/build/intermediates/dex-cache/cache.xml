@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="C:\Users\栞ちゃん\Desktop\src\RoboApp_master\app\build\intermediates\pre-dexed\release\usb-serial-for-android-v010-a45913db0cac0fd12cc1513ff8c1f1e89ac4971e.jar"
+        jar="C:\Users\栞ちゃん\Desktop\src\RoboApp_master\app\libs\usb-serial-for-android-v010.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c49e65ea5d8d4c1311d0c1189adb07b2c01be29a"/>
+    <item
+        dex="C:\Users\栞ちゃん\Desktop\src\RoboApp_master\app\build\intermediates\pre-dexed\release\classes-71e40f229c123d3231c3582709bfec570bff0e44.jar"
+        jar="C:\Users\栞ちゃん\Desktop\src\RoboApp_master\app\build\intermediates\exploded-aar\RoboApp_master\openCVLibrary2410\unspecified\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5d17106101467770c8787e3c8af31c46dbd5be40"/>
+    <item
+        dex="C:\Users\栞ちゃん\Desktop\src\RoboApp_master\app\build\intermediates\pre-dexed\release\support-v4-19.1.0-e311e493b238b75da4095bd5ee7b69d76d73dc42.jar"
+        jar="C:\Program Files (x86)\Android\android-studio\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+
+</pre-dex-items>

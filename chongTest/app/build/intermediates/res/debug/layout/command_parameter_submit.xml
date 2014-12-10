@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/manual_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="14dp"
+        android:text="Data To Send" />
+
+
+    <EditText
+        android:id="@+id/manual_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/manual_text"
+        android:layout_alignParentRight="true"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+
+</RelativeLayout>
+<!-- From: file:/C:/Android/RoboApp_master/app/src/main/res/layout/command_parameter_submit.xml -->

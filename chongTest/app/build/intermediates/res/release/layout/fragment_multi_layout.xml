@@ -1,0 +1,344 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainAct$DummySectionFragment">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Header"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/section_header"
+            android:text="Multi-Touch\nOperation"
+            android:textSize="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/file_header"
+            android:text="Command to Perform"
+            android:textSize="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/section_header"
+            android:layout_marginBottom="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="true"
+        android:id="@+id/TouchEvents"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/Header">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Multi-Touch mode"
+            android:id="@+id/button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="Start_multi" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/OneUpView">
+
+            <TextView
+                android:id="@+id/one_up_label"
+                android:text="One Up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/one_up_file"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/one_up_file"
+                android:text="@string/none_selected"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/one_up_select"
+                android:layout_alignBottom="@+id/one_up_select" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/multi_touch_file_select"
+                android:id="@+id/one_up_select"
+                android:layout_alignParentRight="true"
+                android:textSize="20px"
+                android:onClick="selectFileToBeMapped"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/OneRightView"
+            android:layout_below="@+id/OneUpView">
+
+            <TextView
+                android:id="@+id/one_right_label"
+                android:text="One Right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/one_right_file"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/one_right_file"
+                android:text="@string/none_selected"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/one_right_select"
+                android:layout_alignBottom="@+id/one_right_select" />
+
+            <Button
+                android:id="@+id/one_right_select"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:onClick="selectFileToBeMapped"
+                android:text="@string/multi_touch_file_select"
+                android:textSize="20px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/OneLeftView"
+            android:layout_below="@+id/OneRightView">
+
+            <TextView
+                android:id="@+id/one_left_label"
+                android:text="One Left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/one_left_select"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/one_left_file"
+                android:text="@string/none_selected"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/one_left_label"
+                android:layout_toLeftOf="@+id/one_left_select" />
+
+            <Button
+                android:id="@+id/one_left_select"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:onClick="selectFileToBeMapped"
+                android:text="@string/multi_touch_file_select"
+                android:textSize="20px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/OneDownView"
+            android:layout_below="@+id/OneLeftView">
+
+            <TextView
+                android:id="@+id/one_down_label"
+                android:text="One Down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignBottom="@+id/one_down_select" />
+
+            <Button
+                android:id="@+id/one_down_select"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:onClick="selectFileToBeMapped"
+                android:text="@string/multi_touch_file_select"
+                android:textSize="20px"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/one_down_file"
+                android:text="@string/none_selected"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/one_down_select"
+                android:layout_toLeftOf="@+id/one_down_select" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/TwoUpView"
+            android:layout_below="@+id/OneDownView" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Two Up"
+                android:id="@+id/two_up_label"
+                android:layout_alignBottom="@+id/two_up_file"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/none_selected"
+                android:id="@+id/two_up_file"
+                android:layout_alignBottom="@+id/two_up_select"
+                android:layout_toLeftOf="@+id/two_up_select" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/multi_touch_file_select"
+                android:id="@+id/two_up_select"
+                android:layout_alignParentRight="true"
+                android:onClick="selectFileToBeMapped"
+                android:textSize="20px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TwoUpView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/TwoDownView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Two Down"
+                android:id="@+id/two_down_label"
+                android:layout_alignBottom="@+id/two_down_select"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/none_selected"
+                android:id="@+id/two_down_file"
+                android:layout_alignBottom="@+id/two_down_select"
+                android:layout_toLeftOf="@+id/two_down_select" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/multi_touch_file_select"
+                android:id="@+id/two_down_select"
+                android:layout_alignParentRight="true"
+                android:onClick="selectFileToBeMapped"
+                android:textSize="20px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/PinchView"
+            android:layout_below="@+id/TwoDownView"
+            android:layout_alignParentLeft="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pinch"
+                android:id="@+id/pinch_label"
+                android:layout_alignBottom="@+id/pinch_select"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/none_selected"
+                android:id="@+id/pinch_file"
+                android:layout_alignBottom="@+id/pinch_select"
+                android:layout_toLeftOf="@+id/pinch_select" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/multi_touch_file_select"
+                android:id="@+id/pinch_select"
+                android:layout_alignParentRight="true"
+                android:onClick="selectFileToBeMapped"
+                android:textSize="20px" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Expand"
+            android:layout_below="@+id/PinchView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expand"
+                android:id="@+id/expand_label"
+                android:layout_alignBottom="@+id/expand_select"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/none_selected"
+                android:id="@+id/expand_file"
+                android:layout_alignBottom="@+id/expand_select"
+                android:layout_toLeftOf="@+id/expand_select" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/multi_touch_file_select"
+                android:id="@+id/expand_select"
+                android:layout_alignParentRight="true"
+                android:onClick="selectFileToBeMapped"
+                android:textSize="20px" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
+<!-- From: file:/C:/android/RoboApp_master/app/src/main/res/layout/fragment_multi_layout.xml -->
