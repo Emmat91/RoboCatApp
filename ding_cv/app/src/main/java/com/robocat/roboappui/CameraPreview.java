@@ -56,10 +56,9 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
         } catch (IOException e) {
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
-        }
-        /*catch (NullPointerException N) {
+        }catch (NullPointerException N) {
             Log.e(TAG, "Error setting camera preview Null: " + N.getMessage());
-        }*/
+        }
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -99,8 +98,36 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
             Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
     }
-/*
-    public void onFaceDetection(Face[] faces, Camera Camera) {
+
+    private FaceDetectionListener faceDetectionListener = new FaceDetectionListener() {
+        @Override
+        public void onFaceDetection(Face[] faces, Camera camera) {
+            // For all faces in faces, draw a new rectangle, using their faces.rect values.
+            Rect tRect[] = new Rect[faces.length];  // declaring temporary rect array to build.
+
+            for (int i = 0; i < faces.length; i++) {
+                // for each element, copy that into tRect.
+                tRect[i] = faces[i].rect;
+            }
+
+            // Moving the temporary array into our main context.
+            mFaces = tRect;
+
+            // set up paintbrush for this instance.
+            mPaint.setColor(Color.RED);
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(2);
+
+            // Draw each rect to the screen.
+            for (int i = 0; i < mFaces.length; i++) {
+                mCanvas.drawRect(mFaces[i], mPaint);
+            }
+
+
+            return;
+        }
+    };
+ /*   public void onFaceDetection(Face[] faces, Camera Camera) {
         // For all faces in faces, draw a new rectangle, using their faces.rect values.
         Rect tRect[] = new Rect[faces.length];  // declaring temporary rect array to build.
 
@@ -126,10 +153,13 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         return;
     }
 */
+
 }
 
-
+/*
 public class MyFaceDetectionListener implements FaceDetectionListener{
+    private Camera mCamera;
+
     @Override
     public void onFaceDetection(Face[] faces, Camera Camera) {
         if (faces.length > 0){
@@ -138,5 +168,19 @@ public class MyFaceDetectionListener implements FaceDetectionListener{
                     "Y: " + faces[0].rect.centerY() );
         }
     }
+    mCamera.setFaceDetectionListener(new MyFaceDetectionListener());
+
+    public void startFaceDetection(){
+        // Try starting Face Detection
+        Camera.Parameters params = mCamera.getParameters();
+
+        // start face detection only *after* preview has started
+        if (params.getMaxNumDetectedFaces() > 0){
+            // camera supports face detection, so can start it:
+            mCamera.startFaceDetection();
+        }
+    }
+
 }
 
+*/
