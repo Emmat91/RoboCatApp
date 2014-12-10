@@ -52,7 +52,7 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
             mCamera.setPreviewDisplay(holder);
             mCamera.startPreview();
 
-            //mCamera.startFaceDetection();
+            mCamera.startFaceDetection();
 
         } catch (IOException e) {
             Log.e(TAG, "Error setting camera preview: " + e.getMessage());
@@ -90,8 +90,9 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
         try {
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
+            mCamera.setFaceDetectionListener(faceDetectionListener);
 
-            //mCamera.startFaceDetection();
+            mCamera.startFaceDetection();
 
 
         } catch (Exception e) {
@@ -114,10 +115,12 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
             mFaces = tRect;
 
             // set up paintbrush for this instance.
+            mPaint= new Paint();
             mPaint.setColor(Color.RED);
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(2);
 
+            mCanvas= new Canvas();
             // Draw each rect to the screen.
             for (int i = 0; i < mFaces.length; i++) {
                 mCanvas.drawRect(mFaces[i], mPaint);
@@ -155,32 +158,3 @@ class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 */
 
 }
-
-/*
-public class MyFaceDetectionListener implements FaceDetectionListener{
-    private Camera mCamera;
-
-    @Override
-    public void onFaceDetection(Face[] faces, Camera Camera) {
-        if (faces.length > 0){
-            Log.d("FaceDetection", "face detected: "+ faces.length +
-                    " Face 1 Location X: " + faces[0].rect.centerX() +
-                    "Y: " + faces[0].rect.centerY() );
-        }
-    }
-    mCamera.setFaceDetectionListener(new MyFaceDetectionListener());
-
-    public void startFaceDetection(){
-        // Try starting Face Detection
-        Camera.Parameters params = mCamera.getParameters();
-
-        // start face detection only *after* preview has started
-        if (params.getMaxNumDetectedFaces() > 0){
-            // camera supports face detection, so can start it:
-            mCamera.startFaceDetection();
-        }
-    }
-
-}
-
-*/
