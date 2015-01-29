@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:text="@string/back"
+        android:layout_toEndOf="@+id/back"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="70dp" />
+
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:text="@string/restore"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/back" />
+
+
+</RelativeLayout><!-- From: file:/C:/Users/MattKing/Documents/CS4560/capstone.f14.roboapp/TouchforCat/app/src/main/res/layout/activity_record_touch.xml -->

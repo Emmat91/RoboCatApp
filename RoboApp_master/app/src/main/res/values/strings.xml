@@ -67,5 +67,17 @@
     <string name="PlayAudioFile">Play Audio</string>
     <string name="RecordAudio">Record Audio</string>
     <string name="title_activity_face_detect">FaceDetectActivity</string>
+    <string name="servo1">2400</string>
+    <string name="servo2">2400</string>
+    <string name="servo3">2400</string>
+    <string name="servo4">2400</string>
+    <string name="servo5">2400</string>
+    <string name="servo6">2400</string>
+    <string name="servo7">2400</string>
+    <string name="servo8">2400</string>
+    <string name="servo9">2400</string>
+    <string name="servo10">2400</string>
+    <string name="servo11">2400</string>
+    <string name="servo12">2400</string>
 
 </resources>
