@@ -154,7 +154,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 		HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
 		initializeMaestro(manager);
 		
-		
+		// set up read setprogress here
 	}
 	
 	public static void initializeMaestro(UsbManager manager) {
@@ -466,8 +466,13 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
 	private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
 	{
-		if (deviceConnected)
-			maestroSSC.setServoPosition(channelNoMapped, progressActual);
+		if (deviceConnected) {
+            maestroSSC.setServoPosition(channelNoMapped, progressActual);
+            // if write file exists
+            // overwrite old value with new progressactual
+            // else
+            // create file and write progressactual
+        }
 		// modify the offset for the progress of the seek bar
 		int progressSeekBar = progressActual - progressOffset;
 		channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);
