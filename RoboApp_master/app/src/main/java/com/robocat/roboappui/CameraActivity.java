@@ -114,7 +114,7 @@ public class CameraActivity extends Activity {
 
     private void releaseCamera(){
         if (mCamera != null){
-            mCamera.release();        // release the camera for other applications
+            mCamera.release();
             mCamera = null;
         }
     }

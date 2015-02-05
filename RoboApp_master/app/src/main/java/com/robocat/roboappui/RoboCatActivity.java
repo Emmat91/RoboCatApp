@@ -10,6 +10,7 @@
 
 package com.robocat.roboappui;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap; 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.widget.Toast;
@@ -79,6 +84,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 	private SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
 	//the map between the seekbar no. and the pololu maestro channel 
 	int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
+    int[] storedServo = new int[channelCount];
 	
 	public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
 	
@@ -155,6 +161,45 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 		initializeMaestro(manager);
 		
 		// set up read setprogress here
+        Arrays.fill(storedServo,progressResetActual);
+
+        try {
+
+            File check = new File("storedServo.txt");
+            if(!check.exists())
+            {
+                PrintWriter newWrite = new PrintWriter(check);
+
+                for (int i = 0; i < channelCount; i++)
+                {
+                    newWrite.println(progressResetActual);
+                }
+                newWrite.close();
+            }
+
+
+            InputStream readIn = openFileInput("storedServo.txt");
+
+            if (readIn != null) {
+                InputStreamReader readStream = new InputStreamReader(readIn);
+                BufferedReader buff = new BufferedReader(readStream);
+                for (int i = 0; i < channelCount; i++)
+                {
+                    storedServo[i] = Integer.parseInt(buff.readLine() );
+                    progressChangeAction(channelNoMapArray[i],storedServo[i],i);
+                }
+
+                readIn.close();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            Log.e("FileNotFoundException", "File read failed: " + e.toString());
+        }
+        catch (IOException e)
+        {
+            Log.e("IOException", "IO Failed:" + e.toString());
+        }
 	}
 	
 	public static void initializeMaestro(UsbManager manager) {
@@ -466,12 +511,30 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
 	private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
 	{
+        try {
+            File writeFile = new File("storedServo.txt");
+            Scanner scanFile = new Scanner(writeFile);
+            String line;
+            PrintWriter print = new PrintWriter(writeFile);
+
+            for (int i = 0; i < channelNoSeekBar; i++) {
+                line = scanFile.nextLine();
+                print.println(line);
+            }
+
+            print.println(progressActual);
+            scanFile.close();
+            print.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            Log.e("FileNotFoundException", "File open Error:" + e.toString());
+        }
+
+        storedServo[channelNoSeekBar] = progressActual;
+
 		if (deviceConnected) {
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
-            // if write file exists
-            // overwrite old value with new progressactual
-            // else
-            // create file and write progressactual
         }
 		// modify the offset for the progress of the seek bar
 		int progressSeekBar = progressActual - progressOffset;
