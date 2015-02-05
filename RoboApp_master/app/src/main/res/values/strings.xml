@@ -21,15 +21,24 @@
     <string name="title_activity_file_chooser">File Chooser</string>
     <string name="title_activity_load_file_chooser">Run File Chooser</string>
     <string name="title_activity_save_file_chooser">Save File Chooser</string>
+    <string name="title_help_servo_activity">Help Servo</string>
+
     <string name="hello_world">Hello world!</string>
     <string name="Select">Selected File</string>
     <string name="Cat_Scream">Cat_Scream_SoundBible.com_871191563</string>
     <string name="Cat_Meow">Cat_Meow_2-Cat_Stevens_2034822903</string>
     <string name="Cat_Roar">Roaring_Lion_SoundBible.com_527774719</string>
+
     <string name="about">About</string>
+    <string name="help">Help</string>
+    <string name="help_text"><b>Servo Control</b>: help for servo control\n<b>Media</b>: help for media\n<b>Multi-Touch</b>: help for multi-touch\n\nDeveloper will add more information here, please wait for it.
+    </string>
+
     <string name="multi_touch_file_select">Select</string>
     <string name="none_selected">None Selected</string>
+
     <string name="MultiMainLabel">Commands - Up, Down, Left, Right\nDiagonal, Pinch, and Expand for audio</string>
+
     <string name="AboutData">RoboApp \n\nPrevious Team RoboApp:\nJoey Phelps\nTim Grannen</string>
     <string name="AboutDataNew">Current Team RoboApp:\nPinfang Ding\nChong Liu\nMatthew King\nMatt Hutton</string>
     <string name="title_robo_cat_activity">RoboCat Servos</string>
@@ -66,18 +75,5 @@
     <string name="ExitString">Exit</string>
     <string name="PlayAudioFile">Play Audio</string>
     <string name="RecordAudio">Record Audio</string>
-    <string name="title_activity_face_detect">FaceDetectActivity</string>
-    <string name="servo1">2400</string>
-    <string name="servo2">2400</string>
-    <string name="servo3">2400</string>
-    <string name="servo4">2400</string>
-    <string name="servo5">2400</string>
-    <string name="servo6">2400</string>
-    <string name="servo7">2400</string>
-    <string name="servo8">2400</string>
-    <string name="servo9">2400</string>
-    <string name="servo10">2400</string>
-    <string name="servo11">2400</string>
-    <string name="servo12">2400</string>
 
 </resources>

@@ -21,13 +21,14 @@ import com.robocat.roboappui.commands.FileIO;
 import com.robocat.roboappui.R;
 
 /**
- * Audio Chooser is an activity that displays a list of
- * audio files to choose from to play. This list lives in R.array.audio_files
- * @author Tim Grannen
+ * Audio Chooser is an activity that displays all audio files which can select to play.
+ * This list lives in R.array.audio_files
+ * @author Pinfang Ding
+ * @version  %I%, %G%
  */
 public class SaveFileChooser extends Activity {
 
-    /** Variable to represent the audio file list */
+    /** Variable to represent the list of all audio files */
     private ListView mainListView ;
 
     /** Variable to be able to pass a string array to the ListView */
@@ -35,7 +36,7 @@ public class SaveFileChooser extends Activity {
 
     /** Variable to hold the selected audio file name */
     //private TextView SelectedText;
-    
+
     private EditText filename;
 
     /**
@@ -108,6 +109,7 @@ public class SaveFileChooser extends Activity {
     /**
      * OnClickListener for the back button.
      * Returns to the previous activity
+     * @see android.view.View.OnClickListener
      */
     View.OnClickListener BackButton = new View.OnClickListener() {
         public void onClick(View v) {
@@ -118,6 +120,7 @@ public class SaveFileChooser extends Activity {
     /**
      * OnClickListener for the play button.
      * Makes a toast of the selected audio file
+     * @param sel String value of the filename
      */
     View.OnClickListener SaveButton = new View.OnClickListener() {
         public void onClick(View v) {

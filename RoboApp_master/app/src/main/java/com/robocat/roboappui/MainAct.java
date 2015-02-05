@@ -2,7 +2,6 @@ package com.robocat.roboappui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,6 +33,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.robocat.roboappui.MultiTouchActivity.TypeOfAction;
 import com.robocat.roboappui.commands.Control;
 import com.robocat.roboappui.commands.FileIO;
@@ -44,7 +44,6 @@ import java.util.Date;
 import java.util.Locale;
 
 
-
 //   https://code.google.com/p/android-file-dialog/
 //   https://github.com/mburman/Android-File-Explore
 
@@ -53,7 +52,6 @@ import java.util.Locale;
  */
 public class MainAct extends FragmentActivity implements ActionBar.TabListener, 
 RoboAppDialogFragment.RoboAppDialogListener  {
-	
 	private static final String TAG = "MaestroSSCActivity";
 
     /**
@@ -204,6 +202,10 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     	Intent intent = new Intent(this, StartActivity.class);
     	startActivity(intent);
     }
+    public void launchHelpActivity() {
+        Intent intent_help = new Intent(this, HelpActivity.class);
+        startActivity(intent_help);
+    }
 
     /**
      *  Creates a menu for Audio Chooser
@@ -221,6 +223,10 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()==R.id.about){
             launchAboutActivity();
+            return true;
+        }
+        else if(item.getItemId()==R.id.help){
+            launchHelpActivity();
             return true;
         }
         return false;
@@ -409,20 +415,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         }
     }
 
-
-    //Method for starting Face Detection activity. Called when Face Detection button is clicked.
-    public void startFaceDetection(View view){
-        if(checkCameraHardware(getApplicationContext())){
-              Intent myFaceDetectionIntent = new Intent(this, FaceDetectActivity.class);
-              startActivity(myFaceDetectionIntent);
-        } else {
-            MakeToast("No camera Available");
-        }
-    }
-
-
-
-    public void MakeToast(String s) {
+    private void MakeToast(String s) {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, s, Toast.LENGTH_LONG);
         toast.show();
@@ -719,6 +712,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         public void onResume() {
         	super.onResume();
         	updateFileNames();
+
         }
         
         /**
@@ -755,6 +749,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
          * This function is used by the updateFileNames() function
          * @param t - the TextView to update
          * @param str - the String to set the text to
+         * @see updateFileNames()
          */
         private static void updateTextView(TextView t, String str) {
         	if (str == null) {
