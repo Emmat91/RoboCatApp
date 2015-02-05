@@ -33,7 +33,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
+//import com.google.android.gms.analytics.GoogleAnalytics;
 import com.robocat.roboappui.MultiTouchActivity.TypeOfAction;
 import com.robocat.roboappui.commands.Control;
 import com.robocat.roboappui.commands.FileIO;
