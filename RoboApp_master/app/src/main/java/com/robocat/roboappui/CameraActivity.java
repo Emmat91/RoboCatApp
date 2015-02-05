@@ -21,33 +21,25 @@ public class CameraActivity extends Activity {
     private String TAG = "Camera Activity";
 
     /**
-     * sets fragment viewed to the camera activity
-     * Initializes mCamera and mPreview
-     * catch any creation errors and tell user
-     * create listener for exit button which also releases camera and mediarecorder access
+     * Initializes the Camera and CameraPreview
+     * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
-
         try{
+            // Create an instance of Camera
             mCamera = getCameraInstance();
 
+            // Create our Preview view and set it as the content of our activity.
             mPreview = new CameraPreview(this, mCamera);
             FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
             preview.addView(mPreview);
         }
-
-
         catch (Exception e){
             Log.e(TAG, "error in creation");
         }
-
-
         Button button1 = (Button) findViewById(R.id.button_capture);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,19 +52,14 @@ public class CameraActivity extends Activity {
 
     }
 
-    /**
-     * safely access the front camera
-     * if not accessible, catch error to prevent app crash
+    /** A safe way to get an instance of the Camera object.
+     *  @return c - Camera instance or null
      */
     public static Camera getCameraInstance(){
-
-
         Camera c = null;
         try {
-            c = Camera.open(CameraInfo.CAMERA_FACING_FRONT);
+            c = Camera.open(CameraInfo.CAMERA_FACING_FRONT); // attempt to get a Camera instance
         }
-
-
         catch (Exception e){
             // Camera is not available (in use or does not exist)
         }
@@ -80,23 +67,23 @@ public class CameraActivity extends Activity {
     }
 
     /**
-     * Releases the Camera and MediaRecorder if app is not active to prevent failure of other apps
+     * Releases the Camera and MediaRecorder
      */
     @Override
     protected void onPause() {
         super.onPause();
-        releaseMediaRecorder();
-        releaseCamera();
+        releaseMediaRecorder();       // if you are using MediaRecorder, release it first
+        releaseCamera();              // release the camera immediately on pause event
     }
 
     /**
-     * Releases the Camera and MediaRecorder if the app crashes or is terminated
+     * Releases the Camera and MediaRecorder
      */
     @Override
     protected void onStop() {
         super.onStop();
-        releaseMediaRecorder();
-        releaseCamera();
+        releaseMediaRecorder();       // if you are using MediaRecorder, release it first
+        releaseCamera();              // release the camera immediately on pause event
     }
 
     /**
@@ -112,6 +99,9 @@ public class CameraActivity extends Activity {
 //        }
     }
 
+    /**
+     * Releases the Camera
+     */
     private void releaseCamera(){
         if (mCamera != null){
             mCamera.release();        // release the camera for other applications
