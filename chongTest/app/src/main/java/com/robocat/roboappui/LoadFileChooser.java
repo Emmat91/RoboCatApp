@@ -183,7 +183,7 @@ public class LoadFileChooser extends Activity {
         }
 
         String Sel = getResources().getString(R.string.Select);
-        if( value.equals(Sel) || value.equals("")){
+        if(value.equals(Sel) || value.equals("")){
             makeToast("No file selected!");
             return false;
         }

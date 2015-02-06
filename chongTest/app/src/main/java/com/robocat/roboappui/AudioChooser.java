@@ -39,7 +39,7 @@ public class AudioChooser extends Activity {
     private ArrayAdapter<String> listAdapter ;
 
     /** String to hold the selected audio file name */
-    private String SelectedText;
+    private String SelectedText="";
 
     /** TextView to hold the selected audio file name */
     private TextView SelectedTextView;

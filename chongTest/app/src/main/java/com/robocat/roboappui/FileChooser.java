@@ -26,7 +26,7 @@ public class FileChooser extends Activity {
     /** Variable to be able to pass a string array to the ListView */
     private ArrayAdapter<String> listAdapter ;
 
-    private String SelectedText;
+    private String SelectedText="";
 
     /** Variable to hold the selected audio file name */
     private TextView SelectedTextView;

@@ -1,45 +1,57 @@
-import org.apache.tools.ant.taskdefs.condition.Os
 apply plugin: 'com.android.application'
-
 
 android {
     compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
+    //disable default ndk Android.mk
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir 'src/main/jniLibs'
+    }
+
+
     defaultConfig {
         applicationId "com.robocat.roboappui"
         minSdkVersion 14
-        targetSdkVersion 16
+        targetSdkVersion 19
 
-    }
-/*
-    sourceSets.main.jni.srcDirs = []
-
-    task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
-        ndkDir = project.plugins.findPlugin('com.android.application').getNdkFolder()
-        commandLine "$ndkDir/ndk-build",
-                'NDK_PROJECT_PATH=build/intermediates/ndk',
-                'NDK_LIBS_OUT=src/main/jniLibs',
-                'APP_BUILD_SCRIPT=src/main/jni/Android.mk',
-                'NDK_APPLICATION_MK=src/main/jni/Application.mk'
-    }
-
-    tasks.withType(JavaCompile) {
-        compileTask -> compileTask.dependsOn ndkBuild
-    }
-// add end
-*/
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        ndk{
+            moduleName "detection_based_tracker"
         }
     }
+
 }
 
 dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile files('libs/usb-serial-for-android-v010.jar')
-    compile project(':libraries:openCVLibrary2410')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':openCVLibrary2410')
+    //compile fileTree(dir: new File(buildDir, 'native-libs'), include: '*.jar')
 }
+
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn(ndkBuild)
+}
+
+//Including NDK produced .so file into .apk
+//@see http://blog.gaku.net/ndk/
+/*task ndkLibsToJar(type: Zip, dependsOn: 'ndkBuild', description: 'Create a JAR of the native libs') {
+    destinationDir file("$buildDir/native-libs")
+    baseName 'native-libs'
+    extension 'jar'
+    from fileTree(dir: 'src/main/jniLibs', include: '**//*.so')
+    into 'lib'
+}*/
+
+//Using custom Android.mk with Gradle/Android Studio
+//@see http://blog.gaku.net/ndk/
+task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
+    def ndkDir = project.plugins.findPlugin('com.android.application').getNdkFolder()
+    commandLine "$ndkDir/ndk-build.cmd",
+            'NDK_PROJECT_PATH=build',
+            'NDK_LIBS_OUT=src/main/jniLibs',
+            'APP_BUILD_SCRIPT=src/main/jni/Android.mk',
+            'NDK_APPLICATION_MK=src/main/jni/Application.mk'
+}
+

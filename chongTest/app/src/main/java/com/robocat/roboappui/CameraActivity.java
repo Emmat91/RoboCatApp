@@ -57,12 +57,13 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            switch (status) {
-                case LoaderCallbackInterface.SUCCESS:
-                {
+            //switch (status) {
+                //case LoaderCallbackInterface.SUCCESS:
+                //{
                     Log.i(TAG, "OpenCV loaded successfully");
 
                     // Load native library after(!) OpenCV initialization
+                    System.loadLibrary("opencv_java");
                     System.loadLibrary("detection_based_tracker");
 
                     try {
@@ -97,12 +98,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                     }
 
                     mOpenCvCameraView.enableView();
-                } break;
-                default:
-                {
-                    super.onManagerConnected(status);
-                } break;
-            }
+                //} break;
+                //default:
+                //{
+                    //super.onManagerConnected(status);
+                //} break;
+            //}
         }
     };
 
