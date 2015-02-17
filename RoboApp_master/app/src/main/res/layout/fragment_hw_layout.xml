@@ -44,7 +44,7 @@
     	    android:layout_height="wrap_content"
         	android:layout_alignParentLeft="true"
 	        android:layout_above="@+id/load"
-        	android:text="Save"
+        	android:text="@string/save"
 	        android:onClick="save" />
 
     	<Button
@@ -54,7 +54,7 @@
         	android:layout_alignParentBottom="true"
         	android:layout_alignParentLeft="true"
     	    android:layout_marginTop="20dp"
-        	android:text="Run"
+        	android:text="@string/run"
         	android:onClick="load" />
     	
     	<Button
@@ -64,7 +64,7 @@
         	android:layout_alignParentBottom="true"
         	android:layout_centerInParent="true"
     	    android:layout_marginTop="20dp"
-        	android:text="Servo Control"
+        	android:text="@string/servocontrol"
         	android:onClick="launchRoboCatActivity" />
     
     	<Button
@@ -73,7 +73,7 @@
         	android:layout_height="wrap_content"
         	android:layout_alignBottom="@+id/save"
         	android:layout_alignParentRight="true"
-	        android:text="Clear"
+	        android:text="@string/clear"
 	        android:onClick="resetDisplay" />
     
 	    <Button
@@ -83,7 +83,7 @@
 	        android:layout_alignParentBottom="true"
         	android:layout_alignParentRight="true"
 	        android:layout_marginTop="20dp"
-	        android:text="Exit"
+	        android:text="@string/ExitString"
 	        android:onClick="End_User_Exit" />
     </RelativeLayout>
 
