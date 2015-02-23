@@ -59,16 +59,13 @@ public class CommandDisplay extends CommandHistory {
 		
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			String line;
-			while ((line = br.readLine()) != null) 
-			{
-				int[] arr = RoboCatActivity.parseGait(line);
-				for (int i : arr) {
-					if (i >= 0)
-						text += i + ",";
-				}
-				text += "\n";
+		    int[] arr = RoboCatActivity.parseGait(br);
+			for (int i : arr) {
+				if (i >= 0)
+					text += i + ",";
 			}
+			text += "\n";
+
 			br.close();
 		} catch (IOException e) {
 			
