@@ -62,9 +62,8 @@ public class CommandDisplay extends CommandHistory {
 		    int[] arr = RoboCatActivity.parseGait(br);
 			for (int i : arr) {
 				if (i >= 0)
-					text += i + ",";
+					text += i + "\n";
 			}
-			text += "\n";
 
 			br.close();
 		} catch (IOException e) {

@@ -417,20 +417,20 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     //a different activity
     private static void oneGaitActionStatic(int[] gaitLineVal) {
         // TODO Auto-generated method stub
-        for (int iRunGait=0, lenRunGait = gaitLineVal.length/2; iRunGait <lenRunGait; iRunGait++)
+        for (int iRunGait=0, lenRunGait = gaitLineVal.length; iRunGait <lenRunGait; iRunGait++)
         {
             // double iRunGait to point to the right channel
-            int iRunGaitDouble = iRunGait*2;
-            if (gaitLineVal[iRunGaitDouble] == -1) continue;
-            if (gaitLineVal[iRunGaitDouble] <0 )
+            int iRunGaitDouble = iRunGait;
+            if (gaitLineVal[iRunGait] == -1) continue;
+            if (gaitLineVal[iRunGait] <0 )
             {
                 break;
             }
             else
             {
-                final int channelNoMapped = gaitLineVal[iRunGaitDouble];
-                final int progressActual = gaitLineVal[iRunGaitDouble+1];
-                int channelNoSeekBar=iRunGaitDouble/2;
+                final int channelNoMapped = iRunGait;
+                final int progressActual = gaitLineVal[iRunGait];
+                int channelNoSeekBar=iRunGait;
                 progressChangeActionStatic(channelNoMapped, progressActual, channelNoSeekBar);
 
 
@@ -586,25 +586,13 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             //      writer.flush();
             //        writer.close();
             //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-            BufferedWriter outputWriter = null;
-            if (gpxfile.exists())
-            {
-                outputWriter = new BufferedWriter(new FileWriter(gpxfile,true));
-
-            }
-            else
-            {
-                outputWriter = new BufferedWriter(new FileWriter(gpxfile));
-            }
+            PrintWriter outputWriter = new PrintWriter(new FileWriter(gpxfile));
 
             //outputWriter = new BufferedWriter(new FileWriter(gpxfile));
             for (int i = 0; i < arrayGaitChannelProgress.length; i++) {
                 // Maybe:
 //	        	if (i != arrayGaitChannelProgress.length-1)
-                {
-                    outputWriter.write(arrayGaitChannelProgress[i]);
-                    outputWriter.newLine();
-                }
+                outputWriter.println(arrayGaitChannelProgress[i]);
 //	        	else
 //	        	{outputWriter.append(String.valueOf(arrayGaitChannelProgress[i]));}
                 // Or:
