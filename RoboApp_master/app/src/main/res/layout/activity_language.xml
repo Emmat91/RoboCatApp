@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="false">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_language"
+        android:id="@+id/select_language"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/english"
+        android:id="@+id/en"
+        android:layout_below="@+id/select_language"
+        android:layout_alignRight="@+id/select_language"
+        android:layout_marginTop="39dp"
+        android:clickable="true"
+        android:checked="false"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/chinese"
+        android:id="@+id/zh"
+        android:layout_marginTop="47dp"
+        android:layout_below="@+id/en"
+        android:layout_alignLeft="@+id/en"
+        android:clickable="true"
+        android:checked="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ExitString"
+        android:onClick="start"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

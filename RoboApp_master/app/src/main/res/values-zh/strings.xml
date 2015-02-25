@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RoboApp</string>
-    <string name="AboutData">RoboApp \n\n: RoboApp:\nJoey Phelps\nTim Grannen</string>
+    <string name="AboutData">RoboApp \n\n原制作团队: RoboApp:\nJoey Phelps\nTim Grannen</string>
     <string name="AboutDataNew">现制作团队: RoboApp:\nPinfang Ding\nChong Liu\nMatthew King\nMatt Hutton</string>
     <string name="Commands">发送指令</string>
     <string name="ExitString">退出</string>
@@ -23,7 +23,7 @@
     <string name="pwm">测试</string>
     <string name="submit">提交</string>
     <string name="title_activity_audio_chooser">选择音频</string>
-    <string name="title_activity_camera"></string>
+    <string name="title_activity_camera">摄像头</string>
     <string name="title_section2">多媒体</string>
     <string name="title_section3">手势控制</string>
     <string name="title_section1">指令</string>
@@ -42,4 +42,7 @@
     <string name="save">保存</string>
     <string name="clear">清除</string>
     <string name="servocontrol">更多接点设置</string>
+    <string name="language">语言</string>
+    <string name="set_language">选择语言</string>
+    <string name="title_language_activity">语言设置</string>
 </resources>

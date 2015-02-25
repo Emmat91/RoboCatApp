@@ -75,7 +75,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     int progressResetActual =1500;
     int progressOffset =900;
     // int array to record the current gait values
-    int[] arrayGaitChannelProgress = new int[channelCount];
+    int[] arrayGaitChannelProgress = new int[2*(channelCount+1)];
     //ArrayList<Integer> arrayGaitChannelProgress = new ArrayList<Integer>(Collections.nCopies(2*channelCount, -1));
     TextView[] textViewChannelPositionArray = new TextView[channelCount];
     private SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
@@ -97,7 +97,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         View view = getLayoutInflater().inflate(R.layout.robocat_layout, null);
         setContentView(view);
         // initialize the gait array value to -1. declare in the beginning, but have to initialize here
-        Arrays.fill(arrayGaitChannelProgress,1500);
+        Arrays.fill(arrayGaitChannelProgress,-1);
 
         homeButton = (Button) view.findViewById(R.id.homeButtonid);
         homeButton.setOnClickListener(this);
@@ -163,7 +163,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
         try {
 
-            File check = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/storedServo.txt");
+            File check = new File("/storage/emulated/0/Documents/storedServo.txt");
             if(!check.exists())
             {
                 FileWriter writer = new FileWriter(check);
@@ -332,9 +332,13 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                     File gpxfile = new File(root, filename);
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
-                    int[] gaitLineVal=parseGait(br);
-                    oneGaitActionStatic(gaitLineVal);
-                    for (int iloop =0; iloop<100000000; iloop++){}
+                    String line;
+                    while ((line = br.readLine()) != null)
+                    {
+                        int[] gaitLineVal=parseGait(line);
+                        oneGaitActionStatic(gaitLineVal);
+                        for (int iloop =0; iloop<100000000; iloop++){}
+                    }
 
                     br.close();
 
@@ -381,10 +385,13 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                     File gpxfile = new File(root, GAIT_DEFAULT_FILE_NAME);
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
-                    int[] gaitLineVal=parseGait(br);
-                    oneGaitAction(gaitLineVal);
-                    for (int iloop =0; iloop<100000000; iloop++){}
-
+                    String line;
+                    while ((line = br.readLine()) != null)
+                    {
+                        int[] gaitLineVal=parseGait(line);
+                        oneGaitAction(gaitLineVal);
+                        for (int iloop =0; iloop<100000000; iloop++){}
+                    }
 
                     br.close();
 
@@ -417,20 +424,20 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     //a different activity
     private static void oneGaitActionStatic(int[] gaitLineVal) {
         // TODO Auto-generated method stub
-        for (int iRunGait=0, lenRunGait = gaitLineVal.length; iRunGait <lenRunGait; iRunGait++)
+        for (int iRunGait=0, lenRunGait = gaitLineVal.length/2; iRunGait <lenRunGait; iRunGait++)
         {
             // double iRunGait to point to the right channel
-            int iRunGaitDouble = iRunGait;
-            if (gaitLineVal[iRunGait] == -1) continue;
-            if (gaitLineVal[iRunGait] <0 )
+            int iRunGaitDouble = iRunGait*2;
+            if (gaitLineVal[iRunGaitDouble] == -1) continue;
+            if (gaitLineVal[iRunGaitDouble] <0 )
             {
                 break;
             }
             else
             {
-                final int channelNoMapped = iRunGait;
-                final int progressActual = gaitLineVal[iRunGait];
-                int channelNoSeekBar=iRunGait;
+                final int channelNoMapped = gaitLineVal[iRunGaitDouble];
+                final int progressActual = gaitLineVal[iRunGaitDouble+1];
+                int channelNoSeekBar=iRunGaitDouble/2;
                 progressChangeActionStatic(channelNoMapped, progressActual, channelNoSeekBar);
 
 
@@ -456,18 +463,20 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
     private void oneGaitAction(int[] gaitLineVal) {
         // TODO Auto-generated method stub
-        for (int iRunGait=0, lenRunGait = gaitLineVal.length; iRunGait <lenRunGait; iRunGait++)
+        for (int iRunGait=0, lenRunGait = gaitLineVal.length/2; iRunGait <lenRunGait; iRunGait++)
         {
-
-            if (gaitLineVal[iRunGait] <0 )
+            // double iRunGait to point to the right channel
+            int iRunGaitDouble = iRunGait*2;
+            if (gaitLineVal[iRunGaitDouble] == -1) continue;
+            if (gaitLineVal[iRunGaitDouble] <0 )
             {
                 break;
             }
             else
             {
-                final int channelNoMapped = iRunGait;
-                final int progressActual = gaitLineVal[iRunGait];
-                int channelNoSeekBar=iRunGait;
+                final int channelNoMapped = gaitLineVal[iRunGaitDouble];
+                final int progressActual = gaitLineVal[iRunGaitDouble+1];
+                int channelNoSeekBar=iRunGaitDouble/2;
                 progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);
 
 
@@ -506,7 +515,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         storedServo[channelNoSeekBar] = progressActual;
 
         try {
-            File writeFile = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/storedServo.txt");
+            File writeFile = new File("/storage/emulated/0/Documents/storedServo.txt");
             FileWriter writer = new FileWriter(writeFile);
             PrintWriter print = new PrintWriter(writer);
 
@@ -538,31 +547,30 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         textViewChannelPositionArray[channelNoSeekBar].setText(String.valueOf(progressActual));
     }
 
-    // TODO this should just be read from oncreate
-    public static int[] parseGait(BufferedReader buff) {
+    public static int[] parseGait(String line) {
         // TODO Auto-generated method stub
 
-        int[] gaitStored = new int[12];
-        int count = 0;
+        String[] byteValues = line.substring(0, line.length() -1).split(",");
 
-        try {
-            if (buff != null) {
-                for (int i = 0; i < gaitStored.length; i++) {
-                    gaitStored[i] = Integer.parseInt(buff.readLine());
-                }
-            }
-        }
-        catch (FileNotFoundException e)
-        {
-            Log.e("FileNotFoundException", "File read failed: " + e.toString());
-        }
-        catch (IOException e)
-        {
-            Log.e("IOException", "IO Failed:" + e.toString());
+        //String[] byteValues = arr.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
+
+        int[] results = new int[byteValues.length];
+
+        for (int i = 0; i < byteValues.length; i++) {
+            try {
+                results[i] = Integer.parseInt(byteValues[i]);
+            } catch (NumberFormatException nfe) {};
         }
 
+//		byte[] bytes = new byte[byteValues.length];
+//
+        //	for (int i=0, len=bytes.length; i<len; i++) {
+//			   bytes[i] = Byte.valueOf(byteValues[i].trim());     
+        //	   bytes[i] = Byte.valueOf(byteValues[i]);
+        //}
 
-        return gaitStored;
+        //String str = new String(bytes);
+        return results;
     }
 
 
@@ -571,7 +579,6 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         generateGaitOnSD(GAIT_DEFAULT_FILE_NAME, arrayGaitChannelProgress);
 
     }
-
 
     public void generateGaitOnSD(String sFileName, int[] arrayGaitChannelProgress){
         try
@@ -586,18 +593,28 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             //      writer.flush();
             //        writer.close();
             //Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
-            PrintWriter outputWriter = new PrintWriter(new FileWriter(gpxfile));
+            BufferedWriter outputWriter = null;
+            if (gpxfile.exists())
+            {
+                outputWriter = new BufferedWriter(new FileWriter(gpxfile,true));
+
+            }
+            else
+            {
+                outputWriter = new BufferedWriter(new FileWriter(gpxfile));
+            }
 
             //outputWriter = new BufferedWriter(new FileWriter(gpxfile));
             for (int i = 0; i < arrayGaitChannelProgress.length; i++) {
                 // Maybe:
 //	        	if (i != arrayGaitChannelProgress.length-1)
-                outputWriter.println(arrayGaitChannelProgress[i]);
+                {outputWriter.append(arrayGaitChannelProgress[i]+",");}
 //	        	else
 //	        	{outputWriter.append(String.valueOf(arrayGaitChannelProgress[i]));}
                 // Or:
 //	          outputWriter.write(Integer.toString(gaitArray[i]);
             }
+            outputWriter.newLine();
             outputWriter.flush();
             outputWriter.close();
         }
@@ -637,7 +654,8 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                 // save position
                 int channelNoMapped;
                 channelNoMapped = channelNoMapArray[channelNoSeekBar];
-                arrayGaitChannelProgress[channelNoSeekBar]=progressActual;
+                arrayGaitChannelProgress[channelNoSeekBar*2]=channelNoMapped;
+                arrayGaitChannelProgress[channelNoSeekBar*2+1]=progressActual;
                 // pololu operation
 
                 progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);

@@ -15,13 +15,14 @@
     <string name="submit">Submit</string>
     <string name="Sent">Commands Sent:</string>
     <string name="Camera" translatable="false">Here is the camera</string>
-    <string name="title_activity_camera" translatable="false">CameraActivity</string>
+    <string name="title_activity_camera">CameraActivity</string>
     <string name="hello" translatable="false">Hello World, FileExplore!</string>
     <string name="title_activity_audio_chooser">Audio Chooser</string>
     <string name="title_activity_file_chooser" translatable="false">File Chooser</string>
     <string name="title_activity_load_file_chooser" translatable="false">Run File Chooser</string>
     <string name="title_activity_save_file_chooser">Save File Chooser</string>
     <string name="title_help_servo_activity" translatable="false">Help Servo</string>
+    <string name="title_language_activity">Language Setting</string>
 
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="Select">Selected File</string>
@@ -79,4 +80,8 @@
     <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="servocontrol">Servo Control</string>
+    <string name="language">Language</string>
+    <string name="set_language">Select Language</string>
+    <string name="english" translatable="false">English,US</string>
+    <string name="chinese" translatable="false">简体中文,中国</string>
 </resources>

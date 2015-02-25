@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -51,8 +52,9 @@ import java.util.Locale;
  * Class MainAct is the root activity that handles switching between fragments
  */
 public class MainAct extends FragmentActivity implements ActionBar.TabListener, 
-RoboAppDialogFragment.RoboAppDialogListener  {
-	private static final String TAG = "MaestroSSCActivity";
+RoboAppDialogFragment.RoboAppDialogListener
+{
+    private static final String TAG = "MaestroSSCActivity";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -130,13 +132,13 @@ RoboAppDialogFragment.RoboAppDialogListener  {
         
 //        launchAboutActivity();
     }
-    
+
     @Override
     /**
      *  This function checks for which intent started the app and checks whether 
      *  a usb device is attached or not
      */
-	public void onResume() {
+    public void onResume() {
 		super.onResume();
 		Intent intent = getIntent();
 		Log.d(TAG, "onResume(" + intent + ")");
@@ -171,6 +173,7 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 			
 		}
 		RoboCatActivity.initializeMaestro((UsbManager) getSystemService(USB_SERVICE));
+
 	}
     
     private void deviceConnected(boolean connected) {
@@ -198,6 +201,10 @@ RoboAppDialogFragment.RoboAppDialogListener  {
     /**
      * Sends an intent to start StartActivity.
      */
+    public void launchLanguageActivity() {
+        Intent intent = new Intent(this, LanguageActivity.class);
+        startActivity(intent);
+    }
     public void launchAboutActivity() {
     	Intent intent = new Intent(this, StartActivity.class);
     	startActivity(intent);
@@ -221,7 +228,11 @@ RoboAppDialogFragment.RoboAppDialogListener  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId()==R.id.about){
+        if(item.getItemId()==R.id.language){
+            launchLanguageActivity();
+            return true;
+        }
+        else if(item.getItemId()==R.id.about){
             launchAboutActivity();
             return true;
         }
