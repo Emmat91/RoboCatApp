@@ -27,7 +27,7 @@ dependencies {
     compile 'com.android.support:support-v4:19.1.0'
     compile files('libs/usb-serial-for-android-v010.jar')
     compile project(':openCVLibrary2410')
-    //compile fileTree(dir: new File(buildDir, 'native-libs'), include: '*.jar')
+    //compile fileTree(dir: 'libs', include: './**//*.so')
 }
 
 tasks.withType(JavaCompile) {

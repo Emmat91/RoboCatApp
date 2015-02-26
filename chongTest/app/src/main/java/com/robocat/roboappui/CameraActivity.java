@@ -57,13 +57,15 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
-            //switch (status) {
-                //case LoaderCallbackInterface.SUCCESS:
-                //{
+            switch (status) {
+                case LoaderCallbackInterface.SUCCESS:
+                {
                     Log.i(TAG, "OpenCV loaded successfully");
 
-                    // Load native library after(!) OpenCV initialization
                     System.loadLibrary("opencv_java");
+                    // Load native library after(!) OpenCV initialization
+                    //String appPath = getApplication().getApplicationContext().getFilesDir().getAbsolutePath();
+                    //System.load(appPath+"/../libs/libopencv_java.so");
                     System.loadLibrary("detection_based_tracker");
 
                     try {
@@ -98,12 +100,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                     }
 
                     mOpenCvCameraView.enableView();
-                //} break;
-                //default:
-                //{
-                    //super.onManagerConnected(status);
-                //} break;
-            //}
+                } break;
+                default:
+                {
+                    super.onManagerConnected(status);
+                } break;
+            }
         }
     };
 
@@ -126,6 +128,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.activity_camera);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
     }
 
     @Override
@@ -140,7 +143,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     public void onResume()
     {
         super.onResume();
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+        //OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
     }
 
     public void onDestroy() {
