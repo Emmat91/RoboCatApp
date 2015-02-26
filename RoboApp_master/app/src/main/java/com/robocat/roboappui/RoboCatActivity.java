@@ -69,20 +69,20 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     private static boolean maestroInitialized = false;
     // private Handler mHandler = new Handler();
     //TextView textViewChannel1Position, textViewChannel2Position, textViewChannel3Position, textViewChannel4Position, textViewChannel5Position, textViewChannel6Position, textViewChannel7Position, textViewChannel8Position, textViewChannel9Position, textViewChannel10Position, textViewChannel11Position, textViewChannel12Position;
-    int channelCount = 12;
+    public static int channelCount = 12;
     // the seekBar range is [900, 1500], and there is no way to modify the beginning value of the seek bar. therefore, the actual progress value and the
     // seekbar progress value are recorded separately
     int progressResetActual =1500;
-    int progressOffset =900;
+    public static int progressOffset =900;
     // int array to record the current gait values
     int[] arrayGaitChannelProgress = new int[channelCount];
     //ArrayList<Integer> arrayGaitChannelProgress = new ArrayList<Integer>(Collections.nCopies(2*channelCount, -1));
-    TextView[] textViewChannelPositionArray = new TextView[channelCount];
-    private SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
+    public static TextView[] textViewChannelPositionArray = new TextView[channelCount];
+    public static SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
     //the map between the seekbar no. and the pololu maestro channel
     int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
 
-    int[] storedServo = new int[channelCount];
+    public static int[] storedServo = new int[channelCount];
 
     public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
 
@@ -332,7 +332,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                     File gpxfile = new File(root, filename);
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(gpxfile)));
-                    
+
                     int[] gaitLineVal=parseGait(br);
                     oneGaitActionStatic(gaitLineVal);
                     for (int iloop =0; iloop<100000000; iloop++){}
@@ -502,7 +502,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
     }
 
-    private void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
+    public static void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
     {
         //int difference = Math.abs(storedServo[channelNoSeekBar] - progressActual);
         storedServo[channelNoSeekBar] = progressActual;
@@ -578,7 +578,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
     }
 
-    public void generateGaitOnSD(String sFileName, int[] arrayGaitChannelProgress){
+    public static void generateGaitOnSD(String sFileName, int[] arrayGaitChannelProgress){
         try
         {
             File root = new File(Environment.getExternalStorageDirectory(), EXTERNAL_STORAGE_DIRECTORY);

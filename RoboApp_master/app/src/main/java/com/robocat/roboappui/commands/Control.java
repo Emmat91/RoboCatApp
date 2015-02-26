@@ -12,6 +12,9 @@ import android.os.Environment;
 import android.util.Pair;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.EnumMap;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -79,6 +82,25 @@ public class Control {
 				}
 				return "Playing: " + p.first;
 			}
+            else {  // is command
+                try {
+                    File root = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/commands/" + p.first);
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(root)));
+
+                    int[] gaitLineVal= RoboCatActivity.parseGait(br);
+                    RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
+                    for (int i = 0; i < RoboCatActivity.channelCount; i++) {
+                        RoboCatActivity.progressChangeAction(i, gaitLineVal[i], i);
+                    }
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
 			try {
 				execute(p.first);
 			} catch (IOException e) {
