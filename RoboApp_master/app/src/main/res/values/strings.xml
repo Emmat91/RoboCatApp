@@ -67,7 +67,7 @@
     <string name="channel10" translatable="false">RF-SD: </string>
     <string name="channel11" translatable="false">RF-KN: </string>
     <string name="channel12" translatable="false">RF-LR: </string>
-    <string name="moveAllChannelsToHomePosition">Reset servos</string>
+    <string name="moveAllChannelsToHomePosition">Reset </string>
     <string name="buttonpololurecordstring">Record </string>
     <string name="channelPositionResetValue" translatable="false">1500 </string>
     <string name="stringArduinoTorqueValue" translatable="false">Ard</string>

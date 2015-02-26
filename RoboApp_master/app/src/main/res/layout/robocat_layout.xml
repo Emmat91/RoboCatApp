@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="#a3054709">
 
 
     <!--     <TextView -->
@@ -12,72 +13,19 @@
 <!--         android:layout_alignRight="@+id/channel6PositionBar" -->
 <!-- 				/> -->
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Buttons"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ScrollServo">
-
-        <Button
-            android:id="@+id/runGaitButtonid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/runGaitButtonString"
-            android:textSize="15sp"
-            android:layout_marginRight="86dp"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/homeButtonid"/>
-
-        <Button
-            android:id="@+id/homeButtonid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/moveAllChannelsToHomePosition"
-            android:textSize="15sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
-
-        <Button
-            android:id="@+id/buttonpololurecordid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonpololurecordstring"
-            android:textSize="15sp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"/>
-
-        <Button
-            android:id="@+id/clearGaitButtonid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clearGaitButtonString"
-            android:textSize="15sp"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/buttonpololurecordid"
-            android:layout_marginLeft="71dp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Buttons">
-
-    </RelativeLayout>
-
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ScrollServo"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/Buttons">
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Data"
-            android:layout_alignParentStart="true">
+            >
 
             <SeekBar
                 android:id="@+id/channel1PositionBar"
@@ -88,7 +36,8 @@
                 android:gravity="left"
                 android:max="1200"
                 android:progress="600"
-                android:layout_toRightOf="@+id/channel1positionvalue" />
+                android:layout_toRightOf="@+id/channel1positionvalue"
+                />
 
             <SeekBar
                 android:id="@+id/channel2PositionBar"
@@ -473,5 +422,109 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Buttons"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@+id/GaitButtons">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:id="@+id/ResetServoFrame"
+            android:layout_below="@+id/RecordFrame"
+            android:background="#ff436246"
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp">
+
+            <Button
+                android:id="@+id/homeButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moveAllChannelsToHomePosition"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/RecordFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp">
+
+            <Button
+                android:id="@+id/buttonpololurecordid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonpololurecordstring"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/GaitButtons"
+        android:layout_below="@+id/ScrollServo"
+        >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ClearGaitFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp">
+
+            <Button
+                android:id="@+id/clearGaitButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clearGaitButtonString"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/runGaitFrame"
+            android:layout_below="@+id/ClearGaitFrame"
+            android:background="#ff436246"
+            android:paddingTop="1dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp">
+
+            <Button
+                android:id="@+id/runGaitButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/runGaitButtonString"
+                android:textSize="15sp"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/homeButtonid"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainAct$DummySectionFragment" >
+    tools:context=".MainAct$DummySectionFragment"
+    android:background="#a3054709">
     
     <TextView
 	        android:layout_width="fill_parent"
@@ -19,9 +20,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/deviceAttached"
-            android:layout_above="@+id/hw_buttons"
             android:layout_marginTop="20dp"
-            android:id="@+id/ScrollHW">
+            android:id="@+id/ScrollHW"
+            android:fillViewport="false">
 	    <TextView
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
@@ -33,58 +34,142 @@
     </ScrollView>
     
     <RelativeLayout
-        android:id="@+id/hw_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_alignParentBottom="true" >
-        
-    	<Button
-        	android:id="@+id/save"
-	        android:layout_width="100dp"
-    	    android:layout_height="wrap_content"
-        	android:layout_alignParentLeft="true"
-	        android:layout_above="@+id/load"
-        	android:text="@string/save"
-	        android:onClick="save" />
+        android:id="@+id/navigationButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ScrollHW"
+        android:layout_alignParentRight="true">
 
-    	<Button
-        	android:id="@+id/load"
-	        android:layout_width="100dp"
-    	    android:layout_height="wrap_content"
-        	android:layout_alignParentBottom="true"
-        	android:layout_alignParentLeft="true"
-    	    android:layout_marginTop="20dp"
-        	android:text="@string/run"
-        	android:onClick="load" />
-    	
-    	<Button
-        	android:id="@+id/launchRoboCatAct"
-	        android:layout_width="100dp"
-    	    android:layout_height="wrap_content"
-        	android:layout_alignParentBottom="true"
-        	android:layout_centerInParent="true"
-    	    android:layout_marginTop="20dp"
-        	android:text="@string/servocontrol"
-        	android:onClick="launchRoboCatActivity" />
-    
-    	<Button
-        	android:id="@+id/clear"
-        	android:layout_width="100dp"
-        	android:layout_height="wrap_content"
-        	android:layout_alignBottom="@+id/save"
-        	android:layout_alignParentRight="true"
-	        android:text="@string/clear"
-	        android:onClick="resetDisplay" />
-    
-	    <Button
-	        android:id="@+id/exit"
-	        android:layout_width="100dp"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-        	android:layout_alignParentRight="true"
-	        android:layout_marginTop="20dp"
-	        android:text="@string/ExitString"
-	        android:onClick="End_User_Exit" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ExitFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:id="@+id/exit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/ExitString"
+                android:onClick="End_User_Exit"
+                android:background="#ff5f8862"
+                />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ServoControlFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_above="@+id/ExitFrame"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:id="@+id/launchRoboCatAct"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:text="@string/servocontrol"
+                android:onClick="launchRoboCatActivity"
+                android:background="#ff5f8862"
+                />
+        </FrameLayout>
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/OnPageButtons"
+        android:layout_alignBottom="@+id/navigationButtons"
+        android:layout_alignParentLeft="true">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff436246"
+            android:id="@+id/SaveFrame"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_below="@+id/ClearFrame"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:onClick="save"
+    android:background="#ff5f8862"
+    android:layout_gravity="left|center_vertical"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff436246"
+            android:id="@+id/RunFrame"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_below="@+id/SaveFrame"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/load"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/run"
+                android:onClick="load"
+                android:background="#ff5f8862"
+                android:layout_alignBottom="@+id/ServoControlFrame"
+                android:layout_toRightOf="@+id/RunFrame"
+                android:layout_gravity="right|top"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ClearFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:layout_above="@+id/navigationButtons"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/clear"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/clear"
+                android:onClick="resetDisplay"
+                android:background="#ff5f8862"
+                android:layout_alignBottom="@+id/ServoControlFrame"
+                android:layout_alignParentLeft="true"/>
+        </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>
