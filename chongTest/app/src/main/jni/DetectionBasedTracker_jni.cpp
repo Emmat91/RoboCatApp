@@ -18,10 +18,10 @@ inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat)
     mat = Mat(v_rect, true);
 }
 
-extern "C" JNIEXPORT jlong JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeCreateObject
+extern "C" JNIEXPORT jlong JNICALL Java_com_robocat_roboappui_DetectionBasedTracker_nativeCreateObject
 (JNIEnv * jenv, jclass, jstring jFileName, jint faceSize)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeCreateObject enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeCreateObject enter");
     const char* jnamestr = jenv->GetStringUTFChars(jFileName, NULL);
     string stdFileName(jnamestr);
     jlong result = 0;
@@ -49,14 +49,14 @@ extern "C" JNIEXPORT jlong JNICALL Java_org_opencv_samples_facedetect_DetectionB
         return 0;
     }
 
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeCreateObject exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeCreateObject exit");
     return result;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDestroyObject
+extern "C" JNIEXPORT void JNICALL Java_com_robocat_roboappui_facedetect_DetectionBasedTracker_nativeDestroyObject
 (JNIEnv * jenv, jclass, jlong thiz)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDestroyObject enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeDestroyObject enter");
     try
     {
         if(thiz != 0)
@@ -79,13 +79,13 @@ extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBa
         jclass je = jenv->FindClass("java/lang/Exception");
         jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeDestroyObject()");
     }
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDestroyObject exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeDestroyObject exit");
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStart
+extern "C" JNIEXPORT void JNICALL Java_com_robocat_roboappui_DetectionBasedTracker_nativeStart
 (JNIEnv * jenv, jclass, jlong thiz)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStart enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeStart enter");
     try
     {
         ((DetectionBasedTracker*)thiz)->run();
@@ -104,13 +104,13 @@ extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBa
         jclass je = jenv->FindClass("java/lang/Exception");
         jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeStart()");
     }
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStart exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeStart exit");
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStop
+extern "C" JNIEXPORT void JNICALL Java_com_robocat_roboappui_DetectionBasedTracker_nativeStop
 (JNIEnv * jenv, jclass, jlong thiz)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStop enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeStop enter");
     try
     {
         ((DetectionBasedTracker*)thiz)->stop();
@@ -129,13 +129,13 @@ extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBa
         jclass je = jenv->FindClass("java/lang/Exception");
         jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeStop()");
     }
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeStop exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeStop exit");
 }
 
-extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeSetFaceSize
+extern "C" JNIEXPORT void JNICALL Java_com_robocat_roboappui_DetectionBasedTracker_nativeSetFaceSize
 (JNIEnv * jenv, jclass, jlong thiz, jint faceSize)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeSetFaceSize enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeSetFaceSize enter");
     try
     {
         if (faceSize > 0)
@@ -160,14 +160,14 @@ extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBa
         jclass je = jenv->FindClass("java/lang/Exception");
         jenv->ThrowNew(je, "Unknown exception in JNI code of DetectionBasedTracker.nativeSetFaceSize()");
     }
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeSetFaceSize exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeSetFaceSize exit");
 }
 
 
-extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDetect
+extern "C" JNIEXPORT void JNICALL Java_com_robocat_roboappui_DetectionBasedTracker_nativeDetect
 (JNIEnv * jenv, jclass, jlong thiz, jlong imageGray, jlong faces)
 {
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDetect enter");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeDetect enter");
     try
     {
         vector<Rect> RectFaces;
@@ -189,5 +189,5 @@ extern "C" JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBa
         jclass je = jenv->FindClass("java/lang/Exception");
         jenv->ThrowNew(je, "Unknown exception in JNI code DetectionBasedTracker.nativeDetect()");
     }
-    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeDetect exit");
+    LOGD("Java_com_robocat_roboappui_DetectionBasedTracker_nativeDetect exit");
 }

@@ -62,7 +62,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                 {
                     Log.i(TAG, "OpenCV loaded successfully");
 
-                    System.loadLibrary("opencv_java");
+                    //System.loadLibrary("opencv_java");
                     // Load native library after(!) OpenCV initialization
                     //String appPath = getApplication().getApplicationContext().getFilesDir().getAbsolutePath();
                     //System.load(appPath+"/../libs/libopencv_java.so");
@@ -128,7 +128,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.activity_camera);
         mOpenCvCameraView.setCvCameraViewListener(this);
-        mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+        //mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     public void onResume()
     {
         super.onResume();
-        //OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
     }
 
     public void onDestroy() {

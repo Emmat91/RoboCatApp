@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "21.1.1"
 
     //disable default ndk Android.mk
     sourceSets.main {
@@ -21,6 +21,12 @@ android {
         }
     }
 
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
 }
 
 dependencies {
@@ -47,7 +53,7 @@ tasks.withType(JavaCompile) {
 //Using custom Android.mk with Gradle/Android Studio
 //@see http://blog.gaku.net/ndk/
 task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
-    def ndkDir = project.plugins.findPlugin('com.android.application').getNdkFolder()
+    def ndkDir =  plugins.getPlugin('com.android.application').sdkHandler.getNdkFolder()
     commandLine "$ndkDir/ndk-build.cmd",
             'NDK_PROJECT_PATH=build',
             'NDK_LIBS_OUT=src/main/jniLibs',
