@@ -225,7 +225,7 @@ public class LoadFileChooser extends Activity {
                 int[] gaitLineVal= RoboCatActivity.parseGait(br);
                 RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
                 for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                    RoboCatActivity.progressChangeAction(i, gaitLineVal[i], i);
+                    RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[i], gaitLineVal[i], i,MainAct.staticview);
                 }
             } catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

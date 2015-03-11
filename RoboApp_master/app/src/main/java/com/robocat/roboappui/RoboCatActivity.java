@@ -59,11 +59,13 @@ import com.robocat.roboappui.R;
 import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 
 
+
+
 public class RoboCatActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "MaestroSSCActivity";
     private Button homeButton, recordButton, clearGaitButton, runGaitButton;
     //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
-    private static PololuMaestroUSBCommandProcess maestroSSC;
+    public static PololuMaestroUSBCommandProcess maestroSSC;
     public static UsbDevice device;
     public static boolean deviceConnected = false;
     private static boolean maestroInitialized = false;
@@ -80,7 +82,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     public static TextView[] textViewChannelPositionArray = new TextView[channelCount];
     public static SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
     //the map between the seekbar no. and the pololu maestro channel
-    int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
+    public static int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
 
     public static int[] storedServo = new int[channelCount];
 
@@ -115,44 +117,44 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             channelPositionBarArray[i] = new SeekBar(this);
         }
 
+        if (channelPositionBarArray[0] == null) {
+            channelPositionBarArray[0] = (SeekBar) view.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar = (SeekBar) view.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar.setOnSeekBarChangeListener(this);
+            channelPositionBarArray[1] = (SeekBar) view.findViewById(R.id.channel2PositionBar);
+            channelPositionBarArray[2] = (SeekBar) view.findViewById(R.id.channel3PositionBar);
+            channelPositionBarArray[3] = (SeekBar) view.findViewById(R.id.channel4PositionBar);
+            channelPositionBarArray[4] = (SeekBar) view.findViewById(R.id.channel5PositionBar);
+            channelPositionBarArray[5] = (SeekBar) view.findViewById(R.id.channel6PositionBar);
+            channelPositionBarArray[6] = (SeekBar) view.findViewById(R.id.channel7PositionBar);
+            channelPositionBarArray[7] = (SeekBar) view.findViewById(R.id.channel8PositionBar);
+            channelPositionBarArray[8] = (SeekBar) view.findViewById(R.id.channel9PositionBar);
+            channelPositionBarArray[9] = (SeekBar) view.findViewById(R.id.channel10PositionBar);
+            channelPositionBarArray[10] = (SeekBar) view.findViewById(R.id.channel11PositionBar);
+            channelPositionBarArray[11] = (SeekBar) view.findViewById(R.id.channel12PositionBar);
+            // set listeners for channelPositionBar
 
-        channelPositionBarArray[0] = (SeekBar) view.findViewById(R.id.channel1PositionBar);
-        //channel1PositionBar = (SeekBar) view.findViewById(R.id.channel1PositionBar);
-        //channel1PositionBar.setOnSeekBarChangeListener(this);
-        channelPositionBarArray[1] = (SeekBar) view.findViewById(R.id.channel2PositionBar);
-        channelPositionBarArray[2] = (SeekBar) view.findViewById(R.id.channel3PositionBar);
-        channelPositionBarArray[3] = (SeekBar) view.findViewById(R.id.channel4PositionBar);
-        channelPositionBarArray[4] = (SeekBar) view.findViewById(R.id.channel5PositionBar);
-        channelPositionBarArray[5] = (SeekBar) view.findViewById(R.id.channel6PositionBar);
-        channelPositionBarArray[6] = (SeekBar) view.findViewById(R.id.channel7PositionBar);
-        channelPositionBarArray[7] = (SeekBar) view.findViewById(R.id.channel8PositionBar);
-        channelPositionBarArray[8] = (SeekBar) view.findViewById(R.id.channel9PositionBar);
-        channelPositionBarArray[9] = (SeekBar) view.findViewById(R.id.channel10PositionBar);
-        channelPositionBarArray[10] = (SeekBar) view.findViewById(R.id.channel11PositionBar);
-        channelPositionBarArray[11] = (SeekBar) view.findViewById(R.id.channel12PositionBar);
-        // set listeners for channelPositionBar
-        for(int i = 0; i < channelCount; i++) {
-            channelPositionBarArray[i].setOnSeekBarChangeListener(this);
+
+            //errorsTextView = (TextView) view.findViewById(R.id.errorsTextView);
+
+
+            textViewChannelPositionArray[0] = (TextView) findViewById(R.id.channel1positionvalue);
+            textViewChannelPositionArray[1] = (TextView) findViewById(R.id.channel2positionvalue);
+            textViewChannelPositionArray[2] = (TextView) findViewById(R.id.channel3positionvalue);
+            textViewChannelPositionArray[3] = (TextView) findViewById(R.id.channel4positionvalue);
+            textViewChannelPositionArray[4] = (TextView) findViewById(R.id.channel5positionvalue);
+            textViewChannelPositionArray[5] = (TextView) findViewById(R.id.channel6positionvalue);
+            textViewChannelPositionArray[6] = (TextView) findViewById(R.id.channel7positionvalue);
+            textViewChannelPositionArray[7] = (TextView) findViewById(R.id.channel8positionvalue);
+            textViewChannelPositionArray[8] = (TextView) findViewById(R.id.channel9positionvalue);
+            textViewChannelPositionArray[9] = (TextView) findViewById(R.id.channel10positionvalue);
+            textViewChannelPositionArray[10] = (TextView) findViewById(R.id.channel11positionvalue);
+            textViewChannelPositionArray[11] = (TextView) findViewById(R.id.channel12positionvalue);
         }
 
-        //errorsTextView = (TextView) view.findViewById(R.id.errorsTextView);
-
-
-        textViewChannelPositionArray[0] = (TextView) findViewById (R.id.channel1positionvalue);
-        textViewChannelPositionArray[1] = (TextView) findViewById (R.id.channel2positionvalue);
-        textViewChannelPositionArray[2] = (TextView) findViewById (R.id.channel3positionvalue);
-        textViewChannelPositionArray[3] = (TextView) findViewById (R.id.channel4positionvalue);
-        textViewChannelPositionArray[4] = (TextView) findViewById (R.id.channel5positionvalue);
-        textViewChannelPositionArray[5] = (TextView) findViewById (R.id.channel6positionvalue);
-        textViewChannelPositionArray[6] = (TextView) findViewById (R.id.channel7positionvalue);
-        textViewChannelPositionArray[7] = (TextView) findViewById (R.id.channel8positionvalue);
-        textViewChannelPositionArray[8] = (TextView) findViewById (R.id.channel9positionvalue);
-        textViewChannelPositionArray[9] = (TextView) findViewById (R.id.channel10positionvalue);
-        textViewChannelPositionArray[10] = (TextView) findViewById (R.id.channel11positionvalue);
-        textViewChannelPositionArray[11] = (TextView) findViewById (R.id.channel12positionvalue);
-
-
-
+        for (int i = 0; i < channelCount; i++) {
+            channelPositionBarArray[i].setOnSeekBarChangeListener(this);
+        }
 
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
@@ -186,7 +188,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                 for (int i = 0; i < channelCount; i++)
                 {
                     storedServo[i] = Integer.parseInt(buff.readLine() );
-                    progressChangeAction(channelNoMapArray[i],storedServo[i],i);
+                    RoboCatActivity.progressChangeAction(channelNoMapArray[i],storedServo[i],i,MainAct.staticview);
                 }
 
                 readIn.close();
@@ -470,7 +472,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                 final int channelNoMapped = iRunGait;
                 final int progressActual = gaitLineVal[iRunGait];
                 int channelNoSeekBar=iRunGait;
-                progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);
+                progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar, MainAct.staticview);
 
 
 /*			    		new Timer().schedule(new TimerTask() {          
@@ -502,7 +504,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
     }
 
-    public static void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar)
+    public static void progressChangeAction(int channelNoMapped, int progressActual, int channelNoSeekBar, View view)
     {
         //int difference = Math.abs(storedServo[channelNoSeekBar] - progressActual);
         storedServo[channelNoSeekBar] = progressActual;
@@ -534,6 +536,41 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         if (deviceConnected) {
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
         }
+
+        if (channelPositionBarArray[0] == null) {
+            channelPositionBarArray[0] = (SeekBar) view.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar = (SeekBar) view.findViewById(R.id.channel1PositionBar);
+            //channel1PositionBar.setOnSeekBarChangeListener(this);
+            channelPositionBarArray[1] = (SeekBar) view.findViewById(R.id.channel2PositionBar);
+            channelPositionBarArray[2] = (SeekBar) view.findViewById(R.id.channel3PositionBar);
+            channelPositionBarArray[3] = (SeekBar) view.findViewById(R.id.channel4PositionBar);
+            channelPositionBarArray[4] = (SeekBar) view.findViewById(R.id.channel5PositionBar);
+            channelPositionBarArray[5] = (SeekBar) view.findViewById(R.id.channel6PositionBar);
+            channelPositionBarArray[6] = (SeekBar) view.findViewById(R.id.channel7PositionBar);
+            channelPositionBarArray[7] = (SeekBar) view.findViewById(R.id.channel8PositionBar);
+            channelPositionBarArray[8] = (SeekBar) view.findViewById(R.id.channel9PositionBar);
+            channelPositionBarArray[9] = (SeekBar) view.findViewById(R.id.channel10PositionBar);
+            channelPositionBarArray[10] = (SeekBar) view.findViewById(R.id.channel11PositionBar);
+            channelPositionBarArray[11] = (SeekBar) view.findViewById(R.id.channel12PositionBar);
+
+
+            //errorsTextView = (TextView) view.findViewById(R.id.errorsTextView);
+
+
+            textViewChannelPositionArray[0] = (TextView) view.findViewById(R.id.channel1positionvalue);
+            textViewChannelPositionArray[1] = (TextView) view.findViewById(R.id.channel2positionvalue);
+            textViewChannelPositionArray[2] = (TextView) view.findViewById(R.id.channel3positionvalue);
+            textViewChannelPositionArray[3] = (TextView) view.findViewById(R.id.channel4positionvalue);
+            textViewChannelPositionArray[4] = (TextView) view.findViewById(R.id.channel5positionvalue);
+            textViewChannelPositionArray[5] = (TextView) view.findViewById(R.id.channel6positionvalue);
+            textViewChannelPositionArray[6] = (TextView) view.findViewById(R.id.channel7positionvalue);
+            textViewChannelPositionArray[7] = (TextView) view.findViewById(R.id.channel8positionvalue);
+            textViewChannelPositionArray[8] = (TextView) view.findViewById(R.id.channel9positionvalue);
+            textViewChannelPositionArray[9] = (TextView) view.findViewById(R.id.channel10positionvalue);
+            textViewChannelPositionArray[10] = (TextView) view.findViewById(R.id.channel11positionvalue);
+            textViewChannelPositionArray[11] = (TextView) view.findViewById(R.id.channel12positionvalue);
+        }
+
         // modify the offset for the progress of the seek bar
         int progressSeekBar = progressActual - progressOffset;
         channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);
@@ -544,7 +581,6 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         // TODO Auto-generated method stub
 
         int[] gaitStored = new int[12];
-        int count = 0;
 
         try {
             if (buff != null) {
@@ -626,7 +662,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         {
             // obtain the mapped channelNo
             int channelNoMapped = channelNoMapArray[channelNoSeekBar];
-            progressChangeAction(channelNoMapped, progressResetActual, channelNoSeekBar);
+            progressChangeAction(channelNoMapped, progressResetActual, channelNoSeekBar,MainAct.staticview);
         }
 
     }
@@ -646,7 +682,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
                 arrayGaitChannelProgress[channelNoSeekBar]=progressActual;
                 // pololu operation
 
-                progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar);
+                progressChangeAction(channelNoMapped, progressActual, channelNoSeekBar, MainAct.staticview);
                 break;
             }
 
