@@ -159,9 +159,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
         initializeMaestro(manager);
-
-        // set up read setprogress here
-        Arrays.fill(storedServo,progressResetActual);
+        initializeMaestro(manager);
 
         try {
 
