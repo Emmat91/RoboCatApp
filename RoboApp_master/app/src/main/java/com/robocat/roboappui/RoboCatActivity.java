@@ -159,9 +159,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
         initializeMaestro(manager);
-
-        // set up read setprogress here
-        Arrays.fill(storedServo,progressResetActual);
+        initializeMaestro(manager);
 
         try {
 
@@ -537,44 +535,12 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
         }
 
-        if (channelPositionBarArray[0] == null) {
-            channelPositionBarArray[0] = (SeekBar) view.findViewById(R.id.channel1PositionBar);
-            //channel1PositionBar = (SeekBar) view.findViewById(R.id.channel1PositionBar);
-            //channel1PositionBar.setOnSeekBarChangeListener(this);
-            channelPositionBarArray[1] = (SeekBar) view.findViewById(R.id.channel2PositionBar);
-            channelPositionBarArray[2] = (SeekBar) view.findViewById(R.id.channel3PositionBar);
-            channelPositionBarArray[3] = (SeekBar) view.findViewById(R.id.channel4PositionBar);
-            channelPositionBarArray[4] = (SeekBar) view.findViewById(R.id.channel5PositionBar);
-            channelPositionBarArray[5] = (SeekBar) view.findViewById(R.id.channel6PositionBar);
-            channelPositionBarArray[6] = (SeekBar) view.findViewById(R.id.channel7PositionBar);
-            channelPositionBarArray[7] = (SeekBar) view.findViewById(R.id.channel8PositionBar);
-            channelPositionBarArray[8] = (SeekBar) view.findViewById(R.id.channel9PositionBar);
-            channelPositionBarArray[9] = (SeekBar) view.findViewById(R.id.channel10PositionBar);
-            channelPositionBarArray[10] = (SeekBar) view.findViewById(R.id.channel11PositionBar);
-            channelPositionBarArray[11] = (SeekBar) view.findViewById(R.id.channel12PositionBar);
-
-
-            //errorsTextView = (TextView) view.findViewById(R.id.errorsTextView);
-
-
-            textViewChannelPositionArray[0] = (TextView) view.findViewById(R.id.channel1positionvalue);
-            textViewChannelPositionArray[1] = (TextView) view.findViewById(R.id.channel2positionvalue);
-            textViewChannelPositionArray[2] = (TextView) view.findViewById(R.id.channel3positionvalue);
-            textViewChannelPositionArray[3] = (TextView) view.findViewById(R.id.channel4positionvalue);
-            textViewChannelPositionArray[4] = (TextView) view.findViewById(R.id.channel5positionvalue);
-            textViewChannelPositionArray[5] = (TextView) view.findViewById(R.id.channel6positionvalue);
-            textViewChannelPositionArray[6] = (TextView) view.findViewById(R.id.channel7positionvalue);
-            textViewChannelPositionArray[7] = (TextView) view.findViewById(R.id.channel8positionvalue);
-            textViewChannelPositionArray[8] = (TextView) view.findViewById(R.id.channel9positionvalue);
-            textViewChannelPositionArray[9] = (TextView) view.findViewById(R.id.channel10positionvalue);
-            textViewChannelPositionArray[10] = (TextView) view.findViewById(R.id.channel11positionvalue);
-            textViewChannelPositionArray[11] = (TextView) view.findViewById(R.id.channel12positionvalue);
+        if (channelPositionBarArray[0] != null) {
+            // modify the offset for the progress of the seek bar
+            int progressSeekBar = progressActual - progressOffset;
+            channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);
+            textViewChannelPositionArray[channelNoSeekBar].setText(String.valueOf(progressActual));
         }
-
-        // modify the offset for the progress of the seek bar
-        int progressSeekBar = progressActual - progressOffset;
-        channelPositionBarArray[channelNoSeekBar].setProgress(progressSeekBar);
-        textViewChannelPositionArray[channelNoSeekBar].setText(String.valueOf(progressActual));
     }
 
     public static int[] parseGait(BufferedReader buff) {
