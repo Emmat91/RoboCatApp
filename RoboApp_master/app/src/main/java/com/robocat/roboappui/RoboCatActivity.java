@@ -74,7 +74,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     public static int channelCount = 12;
     // the seekBar range is [900, 1500], and there is no way to modify the beginning value of the seek bar. therefore, the actual progress value and the
     // seekbar progress value are recorded separately
-    int progressResetActual =1500;
+    private static int progressResetActual =1500;
     public static int progressOffset =900;
     // int array to record the current gait values
     int[] arrayGaitChannelProgress = new int[channelCount];
@@ -108,6 +108,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         runGaitButton = (Button) view.findViewById(R.id.runGaitButtonid);
         runGaitButton.setOnClickListener(this);
 
+        Arrays.fill(arrayGaitChannelProgress,progressResetActual);
 
         // Initialize the textView and seekBar
         for(int i = 0; i < channelCount; i++) {
