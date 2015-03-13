@@ -56,7 +56,6 @@ RoboAppDialogFragment.RoboAppDialogListener
 {
     private static final String TAG = "MaestroSSCActivity";
 
-    public static View staticview;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -87,7 +86,6 @@ RoboAppDialogFragment.RoboAppDialogListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        staticview = getLayoutInflater().inflate(R.layout.robocat_layout, null);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
