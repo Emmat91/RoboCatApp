@@ -76,10 +76,10 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     public static int channelCount = 12;
     // the seekBar range is [900, 1500], and there is no way to modify the beginning value of the seek bar. therefore, the actual progress value and the
     // seekbar progress value are recorded separately
-    private static int progressResetActual =1500;
+    private static int progressResetActual[] = new int[]{1442,1667,1662,1182,1285,1216,1579,1600,1500,1500,1600,1500,1568,1544};
     public static int progressOffset =900;
     // int array to record the current gait values
-    int[] arrayGaitChannelProgress = new int[channelCount];
+    int[] arrayGaitChannelProgress = new int[]{1442,1667,1662,1182,1285,1216,1579,1600,1500,1500,1600,1500,1568,1544};
     //ArrayList<Integer> arrayGaitChannelProgress = new ArrayList<Integer>(Collections.nCopies(2*channelCount, -1));
     public static TextView[] textViewChannelPositionArray = new TextView[channelCount];
     public static SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
@@ -87,7 +87,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     public static int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
     private static boolean maestro = false;
 
-    public static int[] storedServo = new int[channelCount];
+    public static int[] storedServo = new int[]{1442,1667,1662,1182,1285,1216,1579,1600,1500,1500,1600,1500,1568,1544};
 
     public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
 
@@ -111,7 +111,6 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         runGaitButton = (Button) view.findViewById(R.id.runGaitButtonid);
         runGaitButton.setOnClickListener(this);
 
-        Arrays.fill(arrayGaitChannelProgress,progressResetActual);
 
         // Initialize the textView and seekBar
         for(int i = 0; i < channelCount; i++) {
@@ -173,7 +172,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
                 for (int i = 0; i < channelCount; i++)
                 {
-                    newWrite.println(progressResetActual);
+                    newWrite.println(progressResetActual[i]);
                 }
                 newWrite.close();
                 writer.close();
@@ -634,7 +633,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         {
             // obtain the mapped channelNo
             int channelNoMapped = channelNoMapArray[channelNoSeekBar];
-            progressChangeAction(channelNoMapped, progressResetActual, channelNoSeekBar);
+            progressChangeAction(channelNoMapped, progressResetActual[channelNoSeekBar], channelNoSeekBar);
         }
 
     }
