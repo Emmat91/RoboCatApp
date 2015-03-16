@@ -199,8 +199,18 @@ public class AudioChooser extends Activity {
         if(item.getItemId()==R.id.Delete){
             return DelSelect();
         }
+        if(item.getItemId()==R.id.language){
+            Intent intent = new Intent(this, LanguageActivity.class);
+            startActivity(intent);
+            return true;
+        }
         if(item.getItemId()==R.id.about){
             Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if(item.getItemId()==R.id.help){
+            Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
             return true;
         }

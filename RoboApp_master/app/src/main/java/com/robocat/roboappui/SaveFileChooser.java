@@ -125,6 +125,11 @@ public class SaveFileChooser extends Activity {
     View.OnClickListener SaveButton = new View.OnClickListener() {
         public void onClick(View v) {
             String sel = filename.getText().toString();
+            if(sel.equals(""))
+            {
+                makeToast("Enter a name");
+                return;
+            }
             try {
             	Control.saveGaitFile(FileIO.addExtension(sel, FileIO.ROBOCATMESSAGE_EXTENSION));
             } catch (Exception e) {

@@ -16,12 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -153,8 +150,18 @@ public class LoadFileChooser extends Activity {
         if(item.getItemId()==R.id.Delete){
             return DelSelect();
         }
+        if(item.getItemId()==R.id.language){
+            Intent intent = new Intent(this, LanguageActivity.class);
+            startActivity(intent);
+            return true;
+        }
         if(item.getItemId()==R.id.about){
             Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if(item.getItemId()==R.id.help){
+            Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
             return true;
         }
@@ -218,16 +225,8 @@ public class LoadFileChooser extends Activity {
             String sel = SelectedText;
             makeToast("Running: "+sel);
             try {
-                File root = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/commands/" + sel + ".rcm");
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(root)));
-
-                int[] gaitLineVal= RoboCatActivity.parseGait(br);
-                RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
-                for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                    RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[i], gaitLineVal[i], i);
-                }
-            } catch (FileNotFoundException e) {
+				Control.execute(FileIO.addExtension(sel, FileIO.ROBOCATMESSAGE_EXTENSION));
+			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {

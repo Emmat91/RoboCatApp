@@ -1,5 +1,6 @@
 package com.robocat.roboappui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,9 +9,12 @@ import com.robocat.roboappui.commands.FileIO;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -132,12 +136,67 @@ public class FileChooser extends Activity {
      * @return true if menu was created
      */
     @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.audio_chooser, menu);
+        getMenuInflater().inflate(R.menu.audio_chooser, menu);
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId()==R.id.Delete){
+            return DelSelect();
+        }
+        if(item.getItemId()==R.id.language){
+            Intent intent = new Intent(this, LanguageActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if(item.getItemId()==R.id.about){
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if(item.getItemId()==R.id.help){
+            Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return true;
+    }
+    public boolean DelSelect(){
+        String value = SelectedText;
+        return DeleteFile(value);
+    }
+
+    private boolean DeleteFile(String value) {
+        for(String s :getResources().getStringArray(R.array.audio_files)){
+            if(s.equals(value)){
+                makeToast("Can't Delete " + value);
+                return false;
+            }
+        }
+
+        String Sel = getResources().getString(R.string.Select);
+        if(value.equals(Sel) || value.equals("")){
+            makeToast("No file selected!");
+            return false;
+        }
+
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + AudioChooser.AUDIO_DIRECTORY + value);
+        if(file.delete()){
+            makeToast(value + " was deleted!");
+            listAdapter.remove(value);
+            SelectedText = getResources().getString(R.string.Select);
+            //SelectedTextView.setText(SelectedText);
+            return true;
+        }
+        else {
+            makeToast("delete failed with file: " + value);
+            return false;
+        }
+    }
 
     /**
      * OnClickListener for the back button.
