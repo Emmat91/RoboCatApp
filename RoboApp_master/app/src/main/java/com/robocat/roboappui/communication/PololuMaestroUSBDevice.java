@@ -64,8 +64,12 @@ public class PololuMaestroUSBDevice implements PololuMaestroDevice {
 	@Override
 	public void sendCommand(byte[] buffer, int length) {
 		try {
-			int outBytes = serialDevice.write(buffer, TIMEOUT);
-			Log.d(TAG, "sendCommand(" + HexDump.toHexString(buffer, 0, length) + ", " + length + ") wrote " + outBytes);
+            if (serialDevice != null) {
+                Log.d("NotNull", "serialdevice is not null");
+                Log.d("getDevice", "serialDevice.getDevice() = ");
+                int outBytes = serialDevice.write(buffer, TIMEOUT);
+                Log.d(TAG, "sendCommand(" + HexDump.toHexString(buffer, 0, length) + ", " + length + ") wrote " + outBytes);
+            }
 		} catch (IOException e) {
 			Log.wtf(TAG, e);
 		}
@@ -73,6 +77,7 @@ public class PololuMaestroUSBDevice implements PololuMaestroDevice {
 	
 	@Override
 	public void setDevice(UsbDevice device) {
+        Log.d("Setting Device in USB Device", "Setting Device in USB Device");
 		Log.d(TAG, "setDevice(" + device + ")");
 		
 		//serialDevice = UsbSerialProber.acquire(usbManager, device);

@@ -63,7 +63,8 @@ public class PololuMaestroUSBCommandProcess {
 	}
 	
 	public void setDevice(UsbDevice device) {
-		maestroDevice.setDevice(device);
+		Log.d("Setting Device in Command Process","Setting Device in Command Process");
+        maestroDevice.setDevice(device);
 	}
 	
 	/**
@@ -100,7 +101,8 @@ public class PololuMaestroUSBCommandProcess {
 		dataArray[3] = (byte) servoNumber;
 		dataArray[4] = (byte) (position & 0x7F);
 		dataArray[5] = (byte) ((position >> 7) & 0x7F);
-		
+
+        Log.d("dataArray info", "deviceNumber " + deviceNumber + " servoNumber " + servoNumber);
 		sendCommand(dataArray, 4);
 	}
 	

@@ -34,6 +34,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import android.os.Bundle;
@@ -63,6 +64,7 @@ import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 
 public class RoboCatActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "MaestroSSCActivity";
+
     private Button homeButton, recordButton, clearGaitButton, runGaitButton;
     //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
     public static PololuMaestroUSBCommandProcess maestroSSC;
@@ -83,6 +85,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     public static SeekBar[] channelPositionBarArray = new SeekBar[channelCount];
     //the map between the seekbar no. and the pololu maestro channel
     public static int[] channelNoMapArray=new int[]{1,2,3,5,6,7,12,13,15,16,17,18};
+    private static boolean maestro = false;
 
     public static int[] storedServo = new int[channelCount];
 
@@ -154,9 +157,11 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             channelPositionBarArray[i].setOnSeekBarChangeListener(this);
         }
 
-        UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
-        HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
-        initializeMaestro(manager);
+        if (!maestro) {
+            UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);
+            HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+            initializeMaestro(manager);
+        }
 
         try {
 
@@ -203,6 +208,10 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
         if (!maestroInitialized) {
             maestroSSC = new PololuMaestroUSBCommandProcess(manager);
             maestroInitialized = true;
+            if (deviceConnected) {
+                Log.d("Setting Device in RoboCatActivity", "Setting Device in RoboCatActivity");
+                maestroSSC.setDevice(device);
+            }
         }
     }
 
@@ -526,9 +535,9 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
             Log.e("IOException", "IO Error" + e.toString());
         }
 
-        storedServo[channelNoSeekBar] = progressActual;
 
-        if (deviceConnected) {
+        if (maestroInitialized && deviceConnected) {
+            Log.v("maestroSSC","maestroSSC.getDeviceNumber() = " + Integer.toString(maestroSSC.getDeviceNumber() ) );
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
         }
 

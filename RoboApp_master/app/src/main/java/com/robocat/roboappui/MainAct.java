@@ -42,6 +42,7 @@ import com.robocat.roboappui.dialog.RoboAppDialogFragment;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -86,7 +87,6 @@ RoboAppDialogFragment.RoboAppDialogListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -173,6 +173,7 @@ RoboAppDialogFragment.RoboAppDialogListener
                     //"Invalid USB device or USB device not found.", Toast.LENGTH_LONG).show();
 			
 		}
+        Log.d("About to initialize", "Initializing " + RoboCatActivity.deviceConnected);
 		RoboCatActivity.initializeMaestro((UsbManager) getSystemService(USB_SERVICE));
 
 	}
