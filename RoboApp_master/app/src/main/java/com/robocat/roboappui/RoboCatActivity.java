@@ -64,9 +64,9 @@ import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 
 public class RoboCatActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "MaestroSSCActivity";
-    public static int time = 20;
+    public static int time = 5;
     public static int acceleration = 3;
-    public static int iterations = 5;
+    public static int iterations = 1;
     private Button homeButton, recordButton, clearGaitButton, runGaitButton;
     //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
     public static PololuMaestroUSBCommandProcess maestroSSC;
