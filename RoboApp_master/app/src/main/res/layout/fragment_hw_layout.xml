@@ -135,6 +135,29 @@
             android:text="@string/timeText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/acceleration"
+            android:layout_below="@+id/timeText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="25dp"
+            android:max="5"
+            android:progress="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accelerationText"
+            android:layout_below="@+id/acceleration"
+            android:layout_alignRight="@+id/time"
+            android:layout_alignEnd="@+id/time"
+            android:layout_alignLeft="@+id/iterationText"
+            android:layout_alignStart="@+id/iterationText"
+            android:text="@string/accelerationText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
     </RelativeLayout>
 
     <LinearLayout

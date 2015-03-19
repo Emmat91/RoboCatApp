@@ -64,8 +64,9 @@ import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 
 public class RoboCatActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "MaestroSSCActivity";
-    public static int time = 19;
-    public static int iterations = 4;
+    public static int time = 20;
+    public static int acceleration = 3;
+    public static int iterations = 5;
     private Button homeButton, recordButton, clearGaitButton, runGaitButton;
     //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
     public static PololuMaestroUSBCommandProcess maestroSSC;
@@ -505,6 +506,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     private static void progressChangeActionStatic(int channelNoMapped, int progressActual, int channelNoSeekBar)
     {
         if (deviceConnected)
+            maestroSSC.setServoAcceleration(channelNoMapped,acceleration);
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
     }
 
@@ -512,6 +514,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     {
         //int difference = Math.abs(storedServo[channelNoSeekBar] - progressActual);
         storedServo[channelNoSeekBar] = progressActual;
+
 
 
         try {
@@ -539,6 +542,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
         if (maestroInitialized && deviceConnected) {
             Log.v("maestroSSC","maestroSSC.getDeviceNumber() = " + Integer.toString(maestroSSC.getDeviceNumber() ) );
+            maestroSSC.setServoAcceleration(channelNoMapped,acceleration);
             maestroSSC.setServoPosition(channelNoMapped, progressActual);
         }
 

@@ -72,6 +72,7 @@
     <string name="channelPositionResetValue" translatable="false">1500 </string>
     <string name="iterationText" translatable="false">Iterations: 5 </string>
     <string name="timeText" translatable="false">Seconds:    2.0 </string>
+    <string name="accelerationText" translatable="false">Acceleration: 3</string>
     <string name="stringArduinoTorqueValue" translatable="false">Ard</string>
     <string name="runGaitButtonString">Run Gait</string>
     <string name="clearGaitButtonString">Clear Gait</string>

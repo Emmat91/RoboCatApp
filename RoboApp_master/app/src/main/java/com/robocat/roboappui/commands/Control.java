@@ -94,7 +94,7 @@ public class Control {
                     RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
                     int variance[] = new int[RoboCatActivity.channelCount];
                     for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                        variance[i] = Math.abs(RoboCatActivity.storedServo[i] - gaitLineVal[i]) / RoboCatActivity.iterations;
+                        variance[i] = (gaitLineVal[i] - RoboCatActivity.storedServo[i]) / RoboCatActivity.iterations;
                     }
                     long startTime;
                     long endTime;

@@ -234,7 +234,7 @@ public class LoadFileChooser extends Activity {
                 RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal); int variance;
                 int variant[] = new int[RoboCatActivity.channelCount];
                 for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                    variant[i] = Math.abs(RoboCatActivity.storedServo[i] - gaitLineVal[i]) / RoboCatActivity.iterations;
+                    variant[i] = (gaitLineVal[i] - RoboCatActivity.storedServo[i]) / RoboCatActivity.iterations;
                 }long startTime;
                 long endTime;
                 for (int i = 0; i < RoboCatActivity.iterations; i++) {

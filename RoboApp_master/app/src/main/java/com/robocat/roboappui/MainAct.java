@@ -57,7 +57,7 @@ RoboAppDialogFragment.RoboAppDialogListener
 {
     private static final String TAG = "MaestroSSCActivity";
 
-    private static int numBars = 2;
+    private static int numBars = 3;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -571,10 +571,14 @@ RoboAppDialogFragment.RoboAppDialogListener
                 textView[0].setText("Iterations: " + Integer.toString(progress + 1));
                 RoboCatActivity.iterations = progress + 1;
             }
-            else {
+            else if (seekBar.getMax() == 39) {
                 double time = (progress+1) / 10.0;
                 textView[1].setText("Seconds: " + String.format("%.1f", time));
                 RoboCatActivity.time = progress + 1;
+            }
+            else {
+                RoboCatActivity.acceleration = progress;
+                textView[2].setText("Acceleration: " + Integer.toString(progress));
             }
 
         }
@@ -674,9 +678,11 @@ RoboAppDialogFragment.RoboAppDialogListener
 
             seekBar[0] = (SeekBar) rootView.findViewById(R.id.iterations);
             seekBar[1] = (SeekBar) rootView.findViewById(R.id.time);
+            seekBar[2] = (SeekBar) rootView.findViewById(R.id.acceleration);
 
             textView[0] = (TextView) rootView.findViewById(R.id.iterationText);
             textView[1] = (TextView) rootView.findViewById(R.id.timeText);
+            textView[2] = (TextView) rootView.findViewById(R.id.accelerationText);
 
             for (int i = 0; i < numBars; i++) {
                 seekBar[i].setOnSeekBarChangeListener(this);
