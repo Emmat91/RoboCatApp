@@ -231,9 +231,22 @@ public class LoadFileChooser extends Activity {
                 File root = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/commands/" + sel + ".rcm");
                 BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(root)));
                 int[] gaitLineVal= RoboCatActivity.parseGait(br);
-                RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
+                RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal); int variance;
+                int variant[] = new int[RoboCatActivity.channelCount];
                 for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                    RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[i], gaitLineVal[i], i);
+                    variant[i] = Math.abs(RoboCatActivity.storedServo[i] - gaitLineVal[i]) / RoboCatActivity.iterations;
+                }
+                for (int i = 0; i < RoboCatActivity.iterations; i++) {
+                    for (int j = 0; j < RoboCatActivity.channelCount; j++) {
+                        RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[j], RoboCatActivity.storedServo[j] + variant[j], j);
+                    }
+                    try {
+                        if ((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175 > 0) {
+                            Thread.sleep(Long.valueOf(RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175);
+                        }
+                    }
+                    catch (InterruptedException e){
+                    }
                 }
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

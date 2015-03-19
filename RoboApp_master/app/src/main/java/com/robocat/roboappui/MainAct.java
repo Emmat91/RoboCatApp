@@ -568,13 +568,13 @@ RoboAppDialogFragment.RoboAppDialogListener
          
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (seekBar.getMax() == 9) {
-                textView[0].setText("Iterations: " + Integer.toString(progress));
+                textView[0].setText("Iterations: " + Integer.toString(progress + 1));
                 RoboCatActivity.iterations = progress + 1;
             }
             else {
                 double time = (progress+1) / 10.0;
                 textView[1].setText("Seconds: " + String.format("%.1f", time));
-                RoboCatActivity.time = progress;
+                RoboCatActivity.time = progress + 1;
             }
 
         }

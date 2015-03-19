@@ -10,6 +10,7 @@ import com.robocat.roboappui.commands.CommandDisplay;
 import com.robocat.roboappui.commands.CommandHistory;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
@@ -91,9 +92,28 @@ public class Control {
 
                     int[] gaitLineVal= RoboCatActivity.parseGait(br);
                     RoboCatActivity.generateGaitOnSD("GaitShared.txt",gaitLineVal);
+                    int variance[] = new int[RoboCatActivity.channelCount];
                     for (int i = 0; i < RoboCatActivity.channelCount; i++) {
-                        RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[i], gaitLineVal[i], i);
+                        variance[i] = Math.abs(RoboCatActivity.storedServo[i] - gaitLineVal[i]) / RoboCatActivity.iterations;
                     }
+                    long startTime;
+                    long endTime;
+                    startTime = System.nanoTime(); // testing time between break points
+                    for (int i = 0; i < RoboCatActivity.iterations; i++) {
+                        for (int j = 0; j < RoboCatActivity.channelCount; j++) {
+                            RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[j], RoboCatActivity.storedServo[j] + variance[j], j);
+                        }
+                        try {
+                            if ( (RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175 > 0) {
+                                Thread.sleep(Long.valueOf((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175));
+                            }
+                        }
+                        catch (InterruptedException e){
+                        }
+                    }
+                    endTime = System.nanoTime(); // testing time between break points
+                    long timer = (endTime-startTime) / 1000000;
+                    Log.d("Timer",Long.toString(timer));
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
