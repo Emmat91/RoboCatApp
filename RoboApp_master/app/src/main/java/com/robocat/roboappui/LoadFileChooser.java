@@ -235,14 +235,18 @@ public class LoadFileChooser extends Activity {
                 int variant[] = new int[RoboCatActivity.channelCount];
                 for (int i = 0; i < RoboCatActivity.channelCount; i++) {
                     variant[i] = Math.abs(RoboCatActivity.storedServo[i] - gaitLineVal[i]) / RoboCatActivity.iterations;
-                }
+                }long startTime;
+                long endTime;
                 for (int i = 0; i < RoboCatActivity.iterations; i++) {
+                    startTime = System.nanoTime(); // testing time between break points
                     for (int j = 0; j < RoboCatActivity.channelCount; j++) {
                         RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[j], RoboCatActivity.storedServo[j] + variant[j], j);
                     }
+                    endTime = System.nanoTime(); // testing time between break points
+                    long timer = (endTime-startTime) / 1000000;
                     try {
-                        if ((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175 > 0) {
-                            Thread.sleep(Long.valueOf(RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175);
+                        if ((RoboCatActivity.time * 100 / RoboCatActivity.iterations) > timer) {
+                            Thread.sleep(Long.valueOf((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - timer));
                         }
                     }
                     catch (InterruptedException e){

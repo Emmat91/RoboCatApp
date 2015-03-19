@@ -98,22 +98,21 @@ public class Control {
                     }
                     long startTime;
                     long endTime;
-                    startTime = System.nanoTime(); // testing time between break points
                     for (int i = 0; i < RoboCatActivity.iterations; i++) {
+                        startTime = System.nanoTime(); // testing time between break points
                         for (int j = 0; j < RoboCatActivity.channelCount; j++) {
                             RoboCatActivity.progressChangeAction(RoboCatActivity.channelNoMapArray[j], RoboCatActivity.storedServo[j] + variance[j], j);
                         }
+                        endTime = System.nanoTime(); // testing time between break points
+                        long timer = (endTime-startTime) / 1000000;
                         try {
-                            if ( (RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175 > 0) {
-                                Thread.sleep(Long.valueOf((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - 175));
+                            if ((RoboCatActivity.time * 100 / RoboCatActivity.iterations) > timer) {
+                                Thread.sleep(Long.valueOf((RoboCatActivity.time * 100 / RoboCatActivity.iterations) - timer));
                             }
                         }
                         catch (InterruptedException e){
                         }
                     }
-                    endTime = System.nanoTime(); // testing time between break points
-                    long timer = (endTime-startTime) / 1000000;
-                    Log.d("Timer",Long.toString(timer));
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
