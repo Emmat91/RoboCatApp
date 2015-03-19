@@ -57,6 +57,7 @@ RoboAppDialogFragment.RoboAppDialogListener
 {
     private static final String TAG = "MaestroSSCActivity";
 
+    private static int numBars = 2;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -82,6 +83,8 @@ RoboAppDialogFragment.RoboAppDialogListener
     
     public static final String AUDIO_DIRECTORY = "/Android/data/com.robocat.roboapp/audio";
 
+    private static SeekBar seekBar[] = new SeekBar[numBars];
+    private static TextView textView[] = new TextView[numBars];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -552,7 +555,7 @@ RoboAppDialogFragment.RoboAppDialogListener
      * @author Joey Phelps
      *
      */
-    public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    public static class HWSectionFragment extends Fragment implements AdapterView.OnItemSelectedListener, SeekBar.OnSeekBarChangeListener {
         
         private static View rootView;
 
@@ -561,12 +564,20 @@ RoboAppDialogFragment.RoboAppDialogListener
         
         /**
          * This function is called when the command select slider is moved
-         *
+         */
          
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        	TextView t = (TextView) rootView.findViewById(R.id.slider_display);
-        	t.setText("0x" + Integer.toHexString(progress));
-        }*/
+            if (seekBar.getMax() == 9) {
+                textView[0].setText("Iterations: " + Integer.toString(progress));
+                RoboCatActivity.iterations = progress + 1;
+            }
+            else {
+                double time = (progress+1) / 10.0;
+                textView[1].setText("Seconds: " + String.format("%.1f", time));
+                RoboCatActivity.time = progress;
+            }
+
+        }
         
         public void onStartTrackingTouch(SeekBar seekBar) {
         	
@@ -639,6 +650,8 @@ RoboAppDialogFragment.RoboAppDialogListener
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             rootView = inflater.inflate(R.layout.fragment_hw_layout, container, false); //change
+
+
             //mainAct = (MainAct) this.getActivity();
             
             /*Spinner commandSelect = (Spinner) rootView.findViewById(R.id.command_select);
@@ -652,7 +665,24 @@ RoboAppDialogFragment.RoboAppDialogListener
             SeekBar commandSlider = (SeekBar) rootView.findViewById(R.id.command_slider);
             commandSlider.setMax(255);
             commandSlider.setOnSeekBarChangeListener(this);*/
-            
+
+
+            for (int i = 0; i < numBars; i++) {
+                seekBar[i] = new SeekBar(rootView.getContext());
+                textView[i] = new TextView(rootView.getContext());
+            }
+
+            seekBar[0] = (SeekBar) rootView.findViewById(R.id.iterations);
+            seekBar[1] = (SeekBar) rootView.findViewById(R.id.time);
+
+            textView[0] = (TextView) rootView.findViewById(R.id.iterationText);
+            textView[1] = (TextView) rootView.findViewById(R.id.timeText);
+
+            for (int i = 0; i < numBars; i++) {
+                seekBar[i].setOnSeekBarChangeListener(this);
+            }
+
+
             updateOutput();
             
             return rootView;

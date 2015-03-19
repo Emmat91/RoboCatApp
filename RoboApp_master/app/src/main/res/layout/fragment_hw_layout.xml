@@ -31,6 +31,7 @@
 	        android:text="Test"
 	        android:scrollHorizontally="true"
 	        android:scrollbars = "vertical" />
+
     </ScrollView>
     
     <RelativeLayout
@@ -62,6 +63,7 @@
                 android:onClick="End_User_Exit"
                 android:background="#ff5f8862"
                 />
+
         </FrameLayout>
 
         <FrameLayout
@@ -87,6 +89,51 @@
                 android:background="#ff5f8862"
                 />
         </FrameLayout>
+
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/iterations"
+            android:max="9"
+            android:progress="4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iterationText"
+            android:layout_below="@+id/iterations"
+            android:layout_alignRight="@+id/iterations"
+            android:layout_alignEnd="@+id/iterations"
+            android:text="@string/iterationText"
+            android:layout_alignLeft="@+id/iterations"
+            android:layout_alignStart="@+id/iterations"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:layout_below="@+id/iterationText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="25dp"
+            android:max="39"
+            android:progress="19" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeText"
+            android:layout_below="@+id/time"
+            android:layout_alignRight="@+id/time"
+            android:layout_alignEnd="@+id/time"
+            android:layout_alignLeft="@+id/iterationText"
+            android:layout_alignStart="@+id/iterationText"
+            android:text="@string/timeText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

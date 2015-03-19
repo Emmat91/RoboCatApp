@@ -102,11 +102,11 @@ public class Control {
                     e.printStackTrace();
                 }
             }
-			try {
+			/*try {
 				execute(p.first);
 			} catch (IOException e) {
 				return "";
-			}
+			}*/
 			return FileIO.removeExtension(p.first, FileIO.ROBOCATMESSAGE_EXTENSION);
 		}
 		return "";

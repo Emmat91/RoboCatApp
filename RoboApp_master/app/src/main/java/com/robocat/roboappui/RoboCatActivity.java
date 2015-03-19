@@ -64,7 +64,8 @@ import com.robocat.roboappui.communication.PololuMaestroUSBCommandProcess;
 
 public class RoboCatActivity extends Activity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     private static final String TAG = "MaestroSSCActivity";
-
+    public static int time = 19;
+    public static int iterations = 4;
     private Button homeButton, recordButton, clearGaitButton, runGaitButton;
     //private SeekBar channel1PositionBar, channel2PositionBar, channel3PositionBar, channel4PositionBar, channel5PositionBar, channel6PositionBar,  channel7PositionBar, channel8PositionBar, channel9PositionBar, channel10PositionBar, channel11PositionBar, channel12PositionBar;
     public static PololuMaestroUSBCommandProcess maestroSSC;
@@ -91,7 +92,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
 
     public static final String GAIT_DEFAULT_FILE_NAME = "GaitShared.txt";
 
-    public static final String EXTERNAL_STORAGE_DIRECTORY = "Gait";
+    public static final String EXTERNAL_STORAGE_DIRECTORY = "Android/data/com.robocat.roboapp/";
 
     //This was added to make sure two streams of data are not sent to the cat at the same time
     public static AtomicBoolean threadRunning = new AtomicBoolean(false);
@@ -511,6 +512,7 @@ public class RoboCatActivity extends Activity implements View.OnClickListener, S
     {
         //int difference = Math.abs(storedServo[channelNoSeekBar] - progressActual);
         storedServo[channelNoSeekBar] = progressActual;
+
 
         try {
             File writeFile = new File("/storage/emulated/0/Android/data/com.robocat.roboapp/storedServo.txt");
