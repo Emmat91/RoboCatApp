@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
@@ -17,12 +19,14 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -51,6 +55,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
     private float                  mRelativeFaceSize   = 0.2f;
     private int                    mAbsoluteFaceSize   = 0;
+
+    //private int                    previewSizeWidth;
+    //private int                    previewSizeHeight;
 
     private CameraBridgeViewBase   mOpenCvCameraView;
 
@@ -118,6 +125,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         Log.i(TAG, "Instantiated new " + ((Object) this).getClass());
     }
 
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.activity_camera);
         mOpenCvCameraView.setCvCameraViewListener(this);
         //mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+
+        //Display display = getWindowManager().getDefaultDisplay();
+        //previewSizeWidth = mOpenCvCameraView.getMeasuredHeight();
+        //previewSizeHeight = mOpenCvCameraView.getMeasuredWidth();
+        //Log.d(mTAG, "Screen size is " + previewSizeHeight + " x " + previewSizeWidth);
+
     }
 
     @Override
@@ -167,6 +181,18 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         mRgba = inputFrame.rgba();
         mGray = inputFrame.gray();
 
+        Mat mRgbaT = mRgba.t();
+        Core.transpose(mRgbaT, mRgbaT);
+        //Core.flip(mRgbaT, mRgbaT, 0);
+        //Core.flip(mRgbaT, mRgbaT, 1);
+        //Core.flip(mRgbaT, mRgbaT, -1);
+        //Imgproc.resize(mRgbaT, mRgbaT, new org.opencv.core.Size(mRgba.width(), mRgba.height()));
+        //Imgproc.resize(mRgbaT, mRgbaT,mRgba.size());
+        Core.flip(mRgbaT, mRgbaT, 1);
+        //Mat mGrayT = mGray.t();
+        //Core.flip(mGray.t(), mGrayT, -1);
+        //Imgproc.resize(mGrayT, mGrayT, mGray.size());
+
         if (mAbsoluteFaceSize == 0) {
             int height = mGray.rows();
             if (Math.round(height * mRelativeFaceSize) > 0) {
@@ -192,9 +218,9 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
         Rect[] facesArray = faces.toArray();
         for (int i = 0; i < facesArray.length; i++)
-            Core.rectangle(mRgba, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
+            Core.rectangle(mRgbaT, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
 
-        return mRgba;
+        return mRgbaT;
     }
 
     @Override
