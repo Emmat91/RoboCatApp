@@ -23,6 +23,7 @@
     <string name="title_activity_save_file_chooser">Save File Chooser</string>
     <string name="title_help_servo_activity" translatable="false">Help Servo</string>
     <string name="title_language_activity">Language Setting</string>
+    <string name="language_setting_message">Language Setting Success, Your Setting Will Apply When RoboApp Starts Next Time</string>
 
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="Select">Selected File</string>

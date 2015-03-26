@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.hardware.usb.UsbManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateFormat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -88,6 +91,18 @@ RoboAppDialogFragment.RoboAppDialogListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String Language = preferences.getString("Lang","no_find");
+        Locale mylocale = new Locale(Language);
+        if(Language == "no_find")
+            mylocale = Resources.getSystem().getConfiguration().locale;
+        Resources res1 = getResources();
+        Configuration conf = res1.getConfiguration();
+        conf.locale = mylocale;
+        DisplayMetrics dm = res1.getDisplayMetrics();
+        res1.updateConfiguration(conf,dm);
+        Locale.setDefault(mylocale);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Set up the action bar.
