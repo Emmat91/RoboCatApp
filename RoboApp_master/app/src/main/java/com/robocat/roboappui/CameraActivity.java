@@ -184,17 +184,17 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         Mat mRgbaT = mRgba.t();
         Core.transpose(mRgbaT, mRgbaT);
         //Core.flip(mRgbaT, mRgbaT, 0);
-        //Core.flip(mRgbaT, mRgbaT, 1);
         //Core.flip(mRgbaT, mRgbaT, -1);
-        //Imgproc.resize(mRgbaT, mRgbaT, new org.opencv.core.Size(mRgba.width(), mRgba.height()));
-        //Imgproc.resize(mRgbaT, mRgbaT,mRgba.size());
         Core.flip(mRgbaT, mRgbaT, 1);
-        //Mat mGrayT = mGray.t();
-        //Core.flip(mGray.t(), mGrayT, -1);
-        //Imgproc.resize(mGrayT, mGrayT, mGray.size());
+        Imgproc.resize(mRgbaT, mRgbaT,mRgba.size());
+
+        Mat mGrayT = mGray.t();
+        Core.transpose(mGrayT, mGrayT);
+        Core.flip(mGrayT, mGrayT, 1);
+        Imgproc.resize(mGrayT, mGrayT, mGray.size());
 
         if (mAbsoluteFaceSize == 0) {
-            int height = mGray.rows();
+            int height = mGrayT.rows();
             if (Math.round(height * mRelativeFaceSize) > 0) {
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
             }
@@ -205,12 +205,12 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
         if (mDetectorType == JAVA_DETECTOR) {
             if (mJavaDetector != null)
-                mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
+                mJavaDetector.detectMultiScale(mGrayT, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
                         new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         }
         else if (mDetectorType == NATIVE_DETECTOR) {
             if (mNativeDetector != null)
-                mNativeDetector.detect(mGray, faces);
+                mNativeDetector.detect(mGrayT, faces);
         }
         else {
             Log.e(TAG, "Detection method is not selected!");
