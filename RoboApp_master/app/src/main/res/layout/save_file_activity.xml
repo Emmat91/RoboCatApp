@@ -41,14 +41,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Back"
+                android:text="@string/back"
                 android:id="@+id/SaveFileExit"
                 android:layout_gravity="bottom" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Save"
+                android:text="@string/save"
                 android:id="@+id/SaveFileSelect"
                 android:layout_gravity="bottom" />
 

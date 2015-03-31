@@ -202,9 +202,9 @@ RoboAppDialogFragment.RoboAppDialogListener
     	if (v == null)
     		return;
     	if (connected)
-    		v.setText("USB device connected");
+    		v.setText(getApplicationContext().getString(R.string.connectedMessage));
     	else
-    		v.setText("USB device disconnected");
+    		v.setText(getApplicationContext().getString(R.string.errorMessage));
     		
     }
     
@@ -583,17 +583,17 @@ RoboAppDialogFragment.RoboAppDialogListener
          
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (seekBar.getMax() == 9) {
-                textView[0].setText("Iterations: " + Integer.toString(progress + 1));
+                textView[0].setText(rootView.getContext().getResources().getString(R.string.iterationText) + " " + Integer.toString(progress + 1));
                 RoboCatActivity.iterations = progress + 1;
             }
             else if (seekBar.getMax() == 39) {
                 double time = (progress+1) / 10.0;
-                textView[1].setText("Seconds: " + String.format("%.1f", time));
+                textView[1].setText(rootView.getContext().getResources().getString(R.string.timeText) + " " + String.format("%.1f", time));
                 RoboCatActivity.time = progress + 1;
             }
             else {
-                RoboCatActivity.acceleration = progress;
-                textView[2].setText("Acceleration: " + Integer.toString(progress));
+                RoboCatActivity.acceleration = progress + 1;
+                textView[2].setText(rootView.getContext().getResources().getString(R.string.accelerationText) + " " + Integer.toString(progress + 1));
             }
 
         }
@@ -646,7 +646,7 @@ RoboAppDialogFragment.RoboAppDialogListener
         public static void updateOutput() {
             try{
                 TextView t = (TextView) rootView.findViewById(R.id.Commands);
-                t.setText(Control.getDisplayableText());
+                t.setText(Control.getDisplayableText(rootView.getContext()));
             }
             catch (Exception e){
                 Log.e(TAG,"Exception caught in updateOutput");
@@ -699,6 +699,10 @@ RoboAppDialogFragment.RoboAppDialogListener
             textView[1] = (TextView) rootView.findViewById(R.id.timeText);
             textView[2] = (TextView) rootView.findViewById(R.id.accelerationText);
 
+            textView[0].setText(rootView.getContext().getResources().getString(R.string.iterationText) + " 1");
+            textView[1].setText(rootView.getContext().getResources().getString(R.string.timeText) + " 0.5");
+            textView[2].setText(rootView.getContext().getResources().getString(R.string.accelerationText) + " 3");
+
             for (int i = 0; i < numBars; i++) {
                 seekBar[i].setOnSeekBarChangeListener(this);
             }
@@ -716,9 +720,9 @@ RoboAppDialogFragment.RoboAppDialogListener
         	if (v == null)
         		return;
         	if (RoboCatActivity.deviceConnected)
-        		v.setText("USB device connected");
+        		v.setText(rootView.getContext().getString(R.string.errorMessage));
         	else
-        		v.setText("USB device disconnected");
+        		v.setText(rootView.getContext().getString(R.string.errorMessage));
         }
     }
 

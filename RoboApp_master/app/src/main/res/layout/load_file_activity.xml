@@ -36,14 +36,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Back"
+                android:text="@string/back"
                 android:id="@+id/LoadFileExit"
                 android:layout_gravity="bottom" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Run"
+                android:text="@string/run"
                 android:id="@+id/LoadFileSelect"
                 android:layout_gravity="bottom" />
 

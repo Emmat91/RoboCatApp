@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -12,7 +13,7 @@ import android.content.Context;
  * @author Joey Phelps
  *
  */
-public class CommandHistory {
+public class CommandHistory extends Activity {
 	protected ArrayList<Command> commands;
 	
 	protected FileIO fio;

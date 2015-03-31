@@ -33,7 +33,7 @@
 
             <Button
                 android:id="@+id/CatViewButton"
-                android:text="Cat view"
+                android:text="@string/catView"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:onClick="Start_camera"

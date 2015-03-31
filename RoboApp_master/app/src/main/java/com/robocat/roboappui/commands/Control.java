@@ -384,8 +384,8 @@ public class Control {
 	 * Returns the text to display in the commands sent text field
 	 * @return text to display in commands sent text field
 	 */
-	public static String getDisplayableText() {
-		return commandDisplay.getDisplayableText();
+	public static String getDisplayableText(Context context) {
+		return commandDisplay.getDisplayableText(context);
 	}
 	
 	/**

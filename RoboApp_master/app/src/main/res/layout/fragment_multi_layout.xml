@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/section_header"
-            android:text="Multi-Touch\nOperation"
+            android:text="@string/multiOperation"
             android:textSize="25px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/file_header"
-            android:text="Command to Perform"
+            android:text="@string/command"
             android:textSize="25px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
 
             <TextView
                 android:id="@+id/one_up_label"
-                android:text="One Up"
+                android:text="@string/oneUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -105,7 +105,7 @@
 
             <TextView
                 android:id="@+id/one_right_label"
-                android:text="One Right"
+                android:text="@string/oneRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -151,7 +151,7 @@
 
             <TextView
                 android:id="@+id/one_left_label"
-                android:text="One Left"
+                android:text="@string/oneLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -195,7 +195,7 @@
 
             <TextView
                 android:id="@+id/one_down_label"
-                android:text="One Down"
+                android:text="@string/oneRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -243,10 +243,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Two Up"
+                android:text="@string/twoUp"
                 android:id="@+id/two_up_label"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:singleLine="false" />
 
             <TextView
                 android:layout_width="150dp"
@@ -288,7 +289,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Two Down"
+                android:text="@string/twoDown"
                 android:id="@+id/two_down_label"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -333,7 +334,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pinch"
+                android:text="@string/pinch"
                 android:id="@+id/pinch_label"
                 android:layout_alignBottom="@+id/pinch_select"
                 android:layout_alignParentLeft="true"
@@ -380,17 +381,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Expand"
+                android:text="@string/expand"
                 android:id="@+id/expand_label"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/none_selected"
-                android:id="@+id/expand_file"
-                android:layout_toLeftOf="@+id/ExpandFrame" />
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -406,11 +400,23 @@
                     android:layout_height="35dp"
                     android:text="@string/multi_touch_file_select"
                     android:id="@+id/expand_select"
-                    android:layout_alignParentRight="true"
                     android:onClick="selectFileToBeMapped"
                     android:textSize="20px"
-                    android:background="#ff5f8862"/>
+                    android:background="#ff5f8862"
+                    android:layout_below="@+id/PinchView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
             </FrameLayout>
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/none_selected"
+                android:id="@+id/expand_file"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/ExpandFrame"
+                android:layout_toStartOf="@+id/ExpandFrame" />
+
         </RelativeLayout>
 
         <FrameLayout
@@ -425,7 +431,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter Multi-Touch mode"
+                android:text="@string/enterMulti"
                 android:id="@+id/button"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

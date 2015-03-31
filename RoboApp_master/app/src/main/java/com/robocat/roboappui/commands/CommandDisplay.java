@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.robocat.roboappui.MainAct;
+import com.robocat.roboappui.R;
 import com.robocat.roboappui.RoboCatActivity;
 
 import android.content.Context;
@@ -44,8 +46,8 @@ public class CommandDisplay extends CommandHistory {
 	 * Returns a String that can be used to display all of the commands in the command history.
 	 * @return the String of all the commands.
 	 */
-	public String getDisplayableText() {
-		text = "Servo Positions:\n";
+	public String getDisplayableText(Context context) {
+		text = context.getString(R.string.servoPositions);
 		File root = new File(Environment.getExternalStorageDirectory(), RoboCatActivity.EXTERNAL_STORAGE_DIRECTORY);
 		if (!root.exists()) 
 		{
