@@ -71,8 +71,8 @@
     <string name="moveAllChannelsToHomePosition">Reset </string>
     <string name="buttonpololurecordstring">Record </string>
     <string name="channelPositionResetValue" translatable="false">1500 </string>
-    <string name="iterationText" translatable="false">Iterations:</string>
-    <string name="timeText" translatable="false">Seconds:</string>
+    <string name="iterationText">Iterations:</string>
+    <string name="timeText">Seconds:</string>
     <string name="accelerationText">Acceleration:</string>
     <string name="stringArduinoTorqueValue" translatable="false">Ard</string>
     <string name="runGaitButtonString">Run Gait</string>

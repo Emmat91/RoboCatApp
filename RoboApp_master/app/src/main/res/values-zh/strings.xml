@@ -63,4 +63,6 @@
     <string name="twoLeft">二左</string>
     <string name="twoRight">二右</string>
     <string name="twoUp">二上</string>
+    <string name="timeText">时间(秒)</string>
+    <string name="iterationText">重复次数</string>
 </resources>
