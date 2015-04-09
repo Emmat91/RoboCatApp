@@ -18,8 +18,8 @@
     <string name="title_activity_camera">CameraActivity</string>
     <string name="hello" translatable="false">Hello World, FileExplore!</string>
     <string name="title_activity_audio_chooser">Audio Chooser</string>
-    <string name="title_activity_file_chooser" translatable="false">File Chooser</string>
-    <string name="title_activity_load_file_chooser" translatable="false">Run File Chooser</string>
+    <string name="title_activity_file_chooser">File Chooser</string>
+    <string name="title_activity_load_file_chooser">Run File Chooser</string>
     <string name="title_activity_save_file_chooser">Save File Chooser</string>
     <string name="title_help_servo_activity" translatable="false">Help Servo</string>
     <string name="title_language_activity">Language Setting</string>
@@ -54,7 +54,7 @@
     <string name="errors"></string>
     <string name="position">Position</string>
     <string name="speed">Speed</string>
-    <string name="acceleration" translatable="false">Acceleration</string>
+    <string name="acceleration">Acceleration</string>
     <string name="AduinoTorque" translatable="false">Torque</string>
     <string name="channel1" translatable="false">LB-SD: </string>
     <string name="channel2" translatable="false">LB-KN: </string>
@@ -73,7 +73,7 @@
     <string name="channelPositionResetValue" translatable="false">1500 </string>
     <string name="iterationText" translatable="false">Iterations:</string>
     <string name="timeText" translatable="false">Seconds:</string>
-    <string name="accelerationText" translatable="false">Acceleration:</string>
+    <string name="accelerationText">Acceleration:</string>
     <string name="stringArduinoTorqueValue" translatable="false">Ard</string>
     <string name="runGaitButtonString">Run Gait</string>
     <string name="clearGaitButtonString">Clear Gait</string>
@@ -88,22 +88,22 @@
     <string name="set_language">Select Language</string>
     <string name="english" translatable="false">English,US</string>
     <string name="chinese" translatable="false">简体中文,中国</string>
-    <string name="errorMessage" translatable="false">USB device disconnected</string>
+    <string name="errorMessage">USB device disconnected</string>
     <string name="connectedMessage" translatable="false">USB device connected</string>
-    <string name="servoPositions" translatable="false">Servo Positions:\n</string>
-    <string name="catView" translatable="false">Cat View</string>
+    <string name="servoPositions">Servo Positions:\n</string>
+    <string name="catView">Cat View</string>
     <string name="multiOperation" translatable="false">Multi-Touch\nOperation</string>
     <string name="command" translatable="false">Command to Perform</string>
-    <string name="enterMulti" translatable="false">Enter Multi-Touch</string>
-    <string name="oneUp" translatable="false">One Up</string>
-    <string name="oneDown" translatable="false">One Down</string>
-    <string name="oneLeft" translatable="false">One Left</string>
-    <string name="oneRight" translatable="false">One Right</string>
-    <string name="twoUp" translatable="false">Two Up</string>
-    <string name="twoDown" translatable="false">Two Down</string>
-    <string name="twoLeft" translatable="false">Two Left</string>
-    <string name="twoRight" translatable="false">Two Right</string>
+    <string name="enterMulti">Enter Multi-Touch</string>
+    <string name="oneUp">One Up</string>
+    <string name="oneDown">One Down</string>
+    <string name="oneLeft">One Left</string>
+    <string name="oneRight">One Right</string>
+    <string name="twoUp">Two Up</string>
+    <string name="twoDown">Two Down</string>
+    <string name="twoLeft">Two Left</string>
+    <string name="twoRight">Two Right</string>
     <string name="pinch" translatable="false">Pinch</string>
     <string name="expand" translatable="false">Expand</string>
-    <string name="back" translatable="false">Back</string>
+    <string name="back">Back</string>
 </resources>

@@ -13,20 +13,22 @@
 
 
     <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="@string/english"
         android:id="@+id/en"
         android:layout_below="@+id/select_language"
-        android:layout_alignRight="@+id/select_language"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="47dp"
         android:clickable="true"
         android:checked="false"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignLeft="@+id/select_language" />
 
     <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:text="@string/chinese"
         android:id="@+id/zh"
         android:layout_marginTop="47dp"
@@ -35,7 +37,8 @@
         android:clickable="true"
         android:checked="false"
         android:layout_alignParentStart="false"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:layout_alignParentEnd="false" />
 
     <Button
         android:id="@+id/exit"

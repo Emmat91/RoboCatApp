@@ -45,4 +45,22 @@
     <string name="language">语言</string>
     <string name="set_language">选择语言</string>
     <string name="title_language_activity">语言设置</string>
+    <string name="back">后退</string>
+    <string name="acceleration">加速度</string>
+    <string name="accelerationText">加速度</string>
+    <string name="catView">猫看见</string>
+    <string name="enterMulti">输入手势</string>
+    <string name="errorMessage">USB 设备未连接</string>
+    <string name="language_setting_message" translatable="false">语言设置成功，新设置应用在下次重启设备时</string>
+    <string name="oneDown">一下</string>
+    <string name="oneLeft">一左</string>
+    <string name="oneRight">一右</string>
+    <string name="oneUp">一上</string>
+    <string name="servoPositions">接点位置</string>
+    <string name="title_activity_file_chooser">选择文件</string>
+    <string name="title_activity_load_file_chooser">选择运行文件</string>
+    <string name="twoDown">二下</string>
+    <string name="twoLeft">二左</string>
+    <string name="twoRight">二右</string>
+    <string name="twoUp">二上</string>
 </resources>
