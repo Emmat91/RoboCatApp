@@ -1,0 +1,530 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#a3054709">
+
+
+    <!--     <TextView -->
+<!--         android:id="@+id/errorsTextView" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignBaseline="@+id/homeButton" -->
+<!--         android:layout_alignBottom="@+id/homeButton" -->
+<!--         android:layout_alignRight="@+id/channel6PositionBar" -->
+<!-- 				/> -->
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ScrollServo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/Buttons">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Data"
+            >
+
+            <SeekBar
+                android:id="@+id/channel1PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/channel1positionvalue"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600"
+                android:layout_toRightOf="@+id/channel1positionvalue"
+                />
+
+            <SeekBar
+                android:id="@+id/channel2PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel1PositionBar"
+                android:layout_alignRight="@+id/channel1PositionBar"
+                android:layout_alignTop="@+id/channel2positionlabel"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel2positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel2positionlabel"
+                android:layout_alignBottom="@+id/channel2positionlabel"
+                android:layout_alignLeft="@+id/channel1positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel2positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/channel1positionlabel"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="5dp"
+                android:text="@string/channel2"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/servolabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="right"
+                android:layout_marginLeft="5dp"
+                android:text="@string/servo"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/positionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/position"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_above="@+id/channel1positionlabel"
+                android:layout_alignRight="@+id/channel1PositionBar"
+                android:layout_marginRight="192dp"/>
+
+            <TextView
+                android:id="@+id/channel3positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel1positionlabel"
+                android:layout_below="@+id/channel1positionlabel"
+                android:layout_marginTop="52dp"
+                android:text="@string/channel3"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel3positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel3positionlabel"
+                android:layout_alignBottom="@+id/channel3positionlabel"
+                android:layout_alignLeft="@+id/channel1positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel3PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel2PositionBar"
+                android:layout_alignRight="@+id/channel2PositionBar"
+                android:layout_alignTop="@+id/channel3positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel4positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel2positionlabel"
+                android:layout_below="@+id/channel2PositionBar"
+                android:layout_marginTop="48dp"
+                android:text="@string/channel4"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel4positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel4positionlabel"
+                android:layout_alignBottom="@+id/channel4positionlabel"
+                android:layout_alignLeft="@+id/channel2positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel4PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel3PositionBar"
+                android:layout_alignRight="@+id/channel3PositionBar"
+                android:layout_alignTop="@+id/channel4positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel5positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel3positionlabel"
+                android:layout_below="@+id/channel3PositionBar"
+                android:layout_marginTop="47dp"
+                android:text="@string/channel5"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel5positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel5positionlabel"
+                android:layout_alignBottom="@+id/channel5positionlabel"
+                android:layout_alignLeft="@+id/channel3positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel6positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel5positionlabel"
+                android:layout_below="@+id/channel5PositionBar"
+                android:layout_marginTop="7dp"
+                android:text="@string/channel6"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel5PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel4PositionBar"
+                android:layout_alignTop="@+id/channel5positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel6positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel6positionlabel"
+                android:layout_alignBottom="@+id/channel6positionlabel"
+                android:layout_alignLeft="@+id/channel5positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel6PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel5PositionBar"
+                android:layout_alignRight="@+id/channel5PositionBar"
+                android:layout_alignTop="@+id/channel6positionlabel"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel7positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel5positionlabel"
+                android:layout_below="@+id/channel5PositionBar"
+                android:layout_marginTop="48dp"
+                android:text="@string/channel7"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel7PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel6PositionBar"
+                android:layout_alignRight="@+id/channel6PositionBar"
+                android:layout_alignTop="@+id/channel7positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel8positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel6positionlabel"
+                android:layout_below="@+id/channel6PositionBar"
+                android:layout_marginTop="49dp"
+                android:text="@string/channel8"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel8PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel7PositionBar"
+                android:layout_alignRight="@+id/channel7PositionBar"
+                android:layout_alignTop="@+id/channel8positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <SeekBar
+                android:id="@+id/channel9PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel8PositionBar"
+                android:layout_alignRight="@+id/channel8PositionBar"
+                android:layout_alignTop="@+id/channel9positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel9positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel8positionlabel"
+                android:layout_below="@+id/channel8PositionBar"
+                android:layout_marginTop="8dp"
+                android:text="@string/channel9"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel10positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel8positionlabel"
+                android:layout_below="@+id/channel8PositionBar"
+                android:layout_marginTop="48dp"
+                android:text="@string/channel10"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel10positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel10positionlabel"
+                android:layout_alignBottom="@+id/channel10positionlabel"
+                android:layout_alignLeft="@+id/channel8positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel10PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel6PositionBar"
+                android:layout_alignTop="@+id/channel10positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel1positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel2positionlabel"
+                android:layout_below="@+id/servolabel"
+                android:layout_marginTop="15dp"
+                android:gravity="right"
+                android:text="@string/channel1"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel11positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel9positionlabel"
+                android:layout_below="@+id/channel9PositionBar"
+                android:layout_marginTop="48dp"
+                android:text="@string/channel11"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel11PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel10PositionBar"
+                android:layout_alignRight="@+id/channel10PositionBar"
+                android:layout_alignTop="@+id/channel11positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel12positionlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/channel10PositionBar"
+                android:layout_marginTop="48dp"
+                android:layout_toLeftOf="@+id/channel11positionvalue"
+                android:text="@string/channel12"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel12positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel12positionlabel"
+                android:layout_alignBottom="@+id/channel12positionlabel"
+                android:layout_toRightOf="@+id/channel11positionlabel"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <SeekBar
+                android:id="@+id/channel12PositionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/channel11PositionBar"
+                android:layout_alignTop="@+id/channel12positionvalue"
+                android:gravity="left"
+                android:max="1200"
+                android:progress="600" />
+
+            <TextView
+                android:id="@+id/channel11positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel11positionlabel"
+                android:layout_alignBottom="@+id/channel11positionlabel"
+                android:layout_alignLeft="@+id/channel12positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel9positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel9positionlabel"
+                android:layout_alignBottom="@+id/channel9positionlabel"
+                android:layout_alignLeft="@+id/channel10positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel8positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel8positionlabel"
+                android:layout_alignBottom="@+id/channel8positionlabel"
+                android:layout_alignLeft="@+id/channel7positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel7positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/channel7positionlabel"
+                android:layout_alignBottom="@+id/channel7positionlabel"
+                android:layout_alignLeft="@+id/channel6positionvalue"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/channel1positionvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/channel2positionlabel"
+                android:layout_alignLeft="@+id/channel11positionvalue"
+                android:gravity="right"
+                android:text="@string/channelPositionResetValue"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Buttons"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@+id/GaitButtons">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:id="@+id/ResetServoFrame"
+            android:layout_below="@+id/RecordFrame"
+            android:background="#ff436246"
+            android:paddingBottom="1dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp">
+
+            <Button
+                android:id="@+id/homeButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moveAllChannelsToHomePosition"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/RecordFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp">
+
+            <Button
+                android:id="@+id/buttonpololurecordid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonpololurecordstring"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/GaitButtons"
+        android:layout_below="@+id/ScrollServo"
+        >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/ClearGaitFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp">
+
+            <Button
+                android:id="@+id/clearGaitButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/clearGaitButtonString"
+                android:textSize="15sp"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/runGaitFrame"
+            android:layout_below="@+id/ClearGaitFrame"
+            android:background="#ff436246"
+            android:paddingTop="1dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp">
+
+            <Button
+                android:id="@+id/runGaitButtonid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/runGaitButtonString"
+                android:textSize="15sp"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/homeButtonid"
+                android:background="#ff5f8862"/>
+        </FrameLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

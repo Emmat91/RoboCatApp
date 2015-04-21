@@ -1,0 +1,245 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainAct$DummySectionFragment"
+    android:background="#a3054709">
+    
+    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:id="@+id/deviceAttached"
+	        android:text="@string/errorMessage" />
+    
+	<ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/deviceAttached"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ScrollHW"
+            android:fillViewport="false">
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:id="@+id/Commands"
+	        android:text="Test"
+	        android:scrollHorizontally="true"
+	        android:scrollbars = "vertical" />
+
+    </ScrollView>
+    
+    <RelativeLayout
+        android:id="@+id/navigationButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ScrollHW"
+        android:layout_alignParentRight="true">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ExitFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:id="@+id/exit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/ExitString"
+                android:onClick="End_User_Exit"
+                android:background="#ff5f8862"
+                />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ServoControlFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_above="@+id/ExitFrame"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:id="@+id/launchRoboCatAct"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:text="@string/servocontrol"
+                android:onClick="launchRoboCatActivity"
+                android:background="#ff5f8862"
+                />
+        </FrameLayout>
+
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/iterations"
+            android:max="9"
+            android:progress="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iterationText"
+            android:layout_below="@+id/iterations"
+            android:layout_alignRight="@+id/iterations"
+            android:layout_alignEnd="@+id/iterations"
+            android:text="@string/iterationText"
+            android:layout_alignLeft="@+id/iterations"
+            android:layout_alignStart="@+id/iterations"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:layout_below="@+id/iterationText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="25dp"
+            android:max="39"
+            android:progress="4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeText"
+            android:layout_below="@+id/time"
+            android:layout_alignRight="@+id/time"
+            android:layout_alignEnd="@+id/time"
+            android:layout_alignLeft="@+id/iterationText"
+            android:layout_alignStart="@+id/iterationText"
+            android:text="@string/timeText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <SeekBar
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/acceleration"
+            android:layout_below="@+id/timeText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="25dp"
+            android:max="4"
+            android:progress="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accelerationText"
+            android:layout_below="@+id/acceleration"
+            android:layout_alignRight="@+id/time"
+            android:layout_alignEnd="@+id/time"
+            android:layout_alignLeft="@+id/iterationText"
+            android:layout_alignStart="@+id/iterationText"
+            android:text="@string/accelerationText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/OnPageButtons"
+        android:layout_alignBottom="@+id/navigationButtons"
+        android:layout_alignParentLeft="true">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff436246"
+            android:id="@+id/SaveFrame"
+            android:paddingLeft="2dp"
+            android:paddingTop="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_below="@+id/ClearFrame"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:onClick="save"
+    android:background="#ff5f8862"
+    android:layout_gravity="left|center_vertical"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ff436246"
+            android:id="@+id/RunFrame"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_below="@+id/SaveFrame"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/load"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/run"
+                android:onClick="load"
+                android:background="#ff5f8862"
+                android:layout_alignBottom="@+id/ServoControlFrame"
+                android:layout_toRightOf="@+id/RunFrame"
+                android:layout_gravity="right|top"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ClearFrame"
+            android:background="#ff436246"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="2dp"
+            android:layout_above="@+id/navigationButtons"
+            android:layout_alignParentLeft="true">
+
+            <Button
+                android:id="@+id/clear"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/clear"
+                android:onClick="resetDisplay"
+                android:background="#ff5f8862"
+                android:layout_alignBottom="@+id/ServoControlFrame"
+                android:layout_alignParentLeft="true"/>
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

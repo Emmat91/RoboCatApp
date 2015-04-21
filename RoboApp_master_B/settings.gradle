@@ -1,0 +1,2 @@
+include ':app', ':openCVLibrary2410'
+project(':openCVLibrary2410').projectDir = new File('libraries/openCVLibrary2410')
