@@ -2,11 +2,10 @@ package com.robocat.roboappui;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Handler;
+import java.io.PrintWriter;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
@@ -26,12 +25,9 @@ import org.opencv.objdetect.CascadeClassifier;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
-import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 
 public class CameraActivity extends Activity implements CvCameraViewListener2 {
@@ -39,30 +35,23 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
     private static final String    TAG                 = "OCVSample::Activity";
     private static final Scalar    FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
     public static final int        JAVA_DETECTOR       = 0;
-    public static final int        NATIVE_DETECTOR     = 1;
-
-    private MenuItem mItemFace50;
-    private MenuItem               mItemFace40;
-    private MenuItem               mItemFace30;
-    private MenuItem               mItemFace20;
-    private MenuItem               mItemType;
 
     private Mat                    mRgba;
     private Mat                    mGray;
     private File mCascadeFile;
     private CascadeClassifier      mJavaDetector;
-    //private DetectionBasedTracker  mNativeDetector;
+
 
     private int                    mDetectorType       = JAVA_DETECTOR;
-    //private String[]               mDetectorName;
 
     private float                  mRelativeFaceSize   = 0.2f;
     private int                    mAbsoluteFaceSize   = 0;
 
-    //private int                    previewSizeWidth;
-    //private int                    previewSizeHeight;
-
     private CameraBridgeViewBase   mOpenCvCameraView;
+
+    private static final String FACE_DEFAULT_FILE_NAME = "FacePosition.txt";
+    private static final String EXTERNAL_STORAGE_DIRECTORY = "Android/data/com.robocat.roboapp/";
+    private String str_buff;
 
     private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -97,8 +86,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                         } else
                             Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
 
-                        //mNativeDetector = new DetectionBasedTracker(mCascadeFile.getAbsolutePath(), 0);
-
                         cascadeDir.delete();
 
                     } catch (IOException e) {
@@ -117,15 +104,6 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         }
     };
 
-//    public CameraActivity() {
-//        mDetectorName = new String[2];
-//        mDetectorName[JAVA_DETECTOR] = "Java";
-//        mDetectorName[NATIVE_DETECTOR] = "Native (tracking)";
-//
-//        Log.i(TAG, "Instantiated new " + ((Object) this).getClass());
-//    }
-
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,14 +115,15 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.activity_camera);
         mOpenCvCameraView.setCvCameraViewListener(this);
-        //mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 
+        str_buff = new String("");
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
+        saveFACEStoSD(str_buff);
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
     }
@@ -158,6 +137,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
 
     public void onDestroy() {
         super.onDestroy();
+        saveFACEStoSD(str_buff);
         mOpenCvCameraView.disableView();
     }
 
@@ -191,7 +171,7 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
             if (Math.round(height * mRelativeFaceSize) > 0) {
                 mAbsoluteFaceSize = Math.round(height * mRelativeFaceSize);
             }
-            //mNativeDetector.setMinFaceSize(mAbsoluteFaceSize);
+
         }
 
         MatOfRect faces = new MatOfRect();
@@ -201,16 +181,15 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
                 mJavaDetector.detectMultiScale(mGrayT, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
                         new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         }
-//        else if (mDetectorType == NATIVE_DETECTOR) {
-//            if (mNativeDetector != null)
-//                mNativeDetector.detect(mGrayT, faces);
-//        }
         else {
             Log.e(TAG, "Detection method is not selected!");
         }
 
         Rect[] facesArray = faces.toArray();
-
+        for (int i = 0; i < facesArray.length; i++) {
+            str_buff += facesArray[i].tl().toString() + facesArray[i].br().toString();
+            str_buff += '\n';
+        }
         for (int i = 0; i < facesArray.length; i++) {
             Core.rectangle(mRgbaT, facesArray[i].tl(), facesArray[i].br(), FACE_RECT_COLOR, 3);
 
@@ -219,59 +198,38 @@ public class CameraActivity extends Activity implements CvCameraViewListener2 {
         return mRgbaT;
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        Log.i(TAG, "called onCreateOptionsMenu");
-//        mItemFace50 = menu.add("Face size 50%");
-//        mItemFace40 = menu.add("Face size 40%");
-//        mItemFace30 = menu.add("Face size 30%");
-//        mItemFace20 = menu.add("Face size 20%");
-//        mItemType   = menu.add(mDetectorName[mDetectorType]);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        Log.i(TAG, "called onOptionsItemSelected; selected item: " + item);
-//        if (item == mItemFace50)
-//            setMinFaceSize(0.5f);
-//        else if (item == mItemFace40)
-//            setMinFaceSize(0.4f);
-//        else if (item == mItemFace30)
-//            setMinFaceSize(0.3f);
-//        else if (item == mItemFace20)
-//            setMinFaceSize(0.2f);
-//        else if (item == mItemType) {
-//            int tmpDetectorType = (mDetectorType + 1) % mDetectorName.length;
-//            item.setTitle(mDetectorName[tmpDetectorType]);
-//            setDetectorType(tmpDetectorType);
-//        }
-//        return true;
-//    }
+    //save the file to the Android/data/com.robocat.roboapp/FacePostion.txt which contain the
+    //all face positions for this time
+    public void saveFACEStoSD(String FacesStr) {
 
-//    private void setMinFaceSize(float faceSize) {
-//        mRelativeFaceSize = faceSize;
-//        mAbsoluteFaceSize = 0;
-//    }
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), EXTERNAL_STORAGE_DIRECTORY);
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File faceFile = new File(root, FACE_DEFAULT_FILE_NAME);
+            PrintWriter outputWriter = new PrintWriter(new FileWriter(faceFile));
 
-//    private void setDetectorType(int type) {
-//        if (mDetectorType != type) {
-//            mDetectorType = type;
-//
-//            if (type == NATIVE_DETECTOR) {
-//                Log.i(TAG, "Detection Based Tracker enabled");
-//                mNativeDetector.start();
-//            } else {
-//                Log.i(TAG, "Cascade detector enabled");
-//                mNativeDetector.stop();
-//            }
-//        }
-//    }
+            outputWriter.println(FacesStr);
 
-    public void makeToast(String s){
-        Context context = getApplicationContext();
+            outputWriter.flush();
+            outputWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        Toast toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
-        toast.show();
     }
+
+    //delete the file that contain the face position
+    public void deleteFACEfile()
+    {
+        File root = new File(Environment.getExternalStorageDirectory(), EXTERNAL_STORAGE_DIRECTORY);
+        if (!root.exists()) {
+            return;
+        }
+        File faceFile = new File(root, FACE_DEFAULT_FILE_NAME);
+
+        boolean deleted = faceFile.delete();
+    }
+
 }
